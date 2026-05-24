@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import pages from '../../data/spa_pages.json';
+
+const base = import.meta.env.BASE_URL;
+
+const mannschaften = pages.filter((p: any) =>
+  p.id.startsWith('kaderuebersicht/') && p.id !== 'kaderuebersicht'
+);
+
+const quickLinks = [
+  { icon: '⚽', title: 'Mannschaften', desc: 'Unsere Teams von Bambini bis Alte Herren', href: `${base}kaderuebersicht/` },
+  { icon: '🏟️', title: 'Unsere Anlage', desc: 'Sportplatz und Vereinsheim in Worringen', href: `${base}unser-verein/unsere-anlage/` },
+  { icon: '📋', title: 'Mitglied werden', desc: 'Jetzt anmelden und Teil der SG werden', href: `${base}mitmachen/mitglied-werden/` },
+  { icon: '📰', title: 'Neuigkeiten', desc: 'Aktuelle News rund um den Verein', href: `${base}unser-verein/neuigkeiten/` },
+];
+---
+<BaseLayout title="SG Köln-Worringen – Fußball seit 1971">
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" style={`background-image: url('${base}images/hero.jpg');`}></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Sportgemeinschaft Köln-Worringen e.V.</span>
+        <h1>Fußball mit<br /><span class="accent">Herz</span> seit 1971</h1>
+        <p>Von den Bambini bis zu den Alten Herren – bei uns steht der Spaß am Fußball an erster Stelle. Werde Teil unserer Vereinsfamilie in Köln-Worringen.</p>
+        <div class="hero-actions">
+          <a href={`${base}mitmachen/mitglied-werden/`} class="btn btn-accent">Mitglied werden</a>
+          <a href={`${base}unser-verein/`} class="btn btn-secondary">Mehr erfahren</a>
+        </div>
+      </div>
+      <div class="hero-logo">
+        <img src={`${base}images/logo.png`} alt="SG Köln-Worringen Wappen" />
+      </div>
+    </div>
+    <svg class="hero-clip" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 L1440,60 L0,60 Z" fill="var(--bg, #f4f5f9)" />
+    </svg>
+  </section>
+
+  <!-- Stats -->
+  <div class="container stats-wrapper">
+    <div class="stats reveal reveal-scale" id="stats-bar">
+      <div class="stat">
+        <span class="stat-value" data-count="1971">0</span>
+        <span class="stat-label">Gegründet</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" data-count={mannschaften.length.toString()}>0</span>
+        <span class="stat-label">Mannschaften</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value" data-count="50">0</span>
+        <span class="stat-label">Jahre Fußball</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">Worringen</span>
+        <span class="stat-label">Köln</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick-Links -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Auf einen Blick</span>
+        <h2>Willkommen bei der SG Köln-Worringen</h2>
+      </div>
+      <div class="card-grid cols-4 stagger-children">
+        {quickLinks.map((link) => (
+          <a href={link.href} class="card is-link reveal">
+            <span class="card-icon">{link.icon}</span>
+            <h3>{link.title}</h3>
+            <p>{link.desc}</p>
+            <span class="card-link">Mehr erfahren</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Mannschaften-Übersicht -->
+  <section class="section section-blue">
+    <div class="container" style="position: relative; z-index: 1;">
+      <div class="section-header reveal">
+        <span class="eyebrow">Unsere Teams</span>
+        <h2>Mannschaften der SG</h2>
+      </div>
+      <div class="card-grid cols-3 stagger-children">
+        {mannschaften.slice(0, 6).map((team: any) => {
+          const name = team.title.replace('SPORTGEMEINSCHAFT KÖLN-WORRINGEN - ', '').replace(/SPORTGEMEINSCHAFT K.*? - /, '');
+          return (
+            <a href={`${base}${team.id}/`} class="card is-link reveal">
+              <h3>{name}</h3>
+              <span class="card-link">Zum Kader</span>
+            </a>
+          );
+        })}
+      </div>
+      <div class="reveal" style="text-align: center; margin-top: 2.5rem;">
+        <a href={`${base}kaderuebersicht/`} class="btn btn-accent">Alle Mannschaften ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-strip reveal reveal-scale">
+        <div>
+          <h2>Lust auf Fußball?</h2>
+          <p>Egal ob jung oder alt – bei uns ist jeder willkommen. Melde dich zum Probetraining an oder werde direkt Mitglied!</p>
+        </div>
+        <div class="cta-actions">
+          <a href={`${base}mitmachen/mitglied-werden/probetraining/`} class="btn btn-accent">Probetraining anfragen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

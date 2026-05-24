@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import pages from '../../data/spa_pages.json';
+
+export function getStaticPaths() {
+  return (pages as any[])
+    .filter((p) => p.id !== 'home')
+    .map((p) => {
+      const slug = p.id;
+      const rawTitle = p.title
+        .replace(/SPORTGEMEINSCHAFT K.*? - /, '')
+        .trim();
+      return {
+        params: { slug },
+        props: { page: { ...p, cleanTitle: rawTitle || p.title } },
+      };
+    });
+}
+
+interface PageData {
+  id: string;
+  path: string;
+  title: string;
+  html: string;
+  cleanTitle: string;
+}
+
+const { page } = Astro.props as { page: PageData };
+const base = import.meta.env.BASE_URL;
+
+// Find child pages for index/hub pages
+const childPages = (pages as any[])
+  .filter((p) => {
+    if (p.id === page.id) return false;
+    // Direct children: starts with this id + '/' but no further nesting
+    if (!p.id.startsWith(page.id + '/')) return false;
+    const remainder = p.id.slice(page.id.length + 1);
+    return !remainder.includes('/');
+  })
+  .map((p) => ({
+    id: p.id,
+    title: p.title.replace(/SPORTGEMEINSCHAFT K.*? - /, '').trim(),
+  }));
+
+// Check if HTML has real readable content (not just CMS widget placeholders)
+const textOnly = page.html
+  ? page.html
+      .replace(/<[^>]*>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  : '';
+// Check for actual words (3+ letter sequences) vs just UUIDs/hex
+const realWords = textOnly.match(/[a-zA-ZäöüÄÖÜß]{4,}/g) || [];
+const uuidCount = (textOnly.match(/[0-9a-f]{8}-[0-9a-f]{4}/gi) || []).length;
+const hasContent = realWords.length > 3 && realWords.length > uuidCount;
+
+const segments = page.id.split('/');
+const breadcrumbs = segments.map((seg: string, i: number) => {
+  const href = base + segments.slice(0, i + 1).join('/') + '/';
+  const label = seg
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (c: string) => c.toUpperCase());
+  return { href, label };
+});
+---
+<BaseLayout title={`${page.cleanTitle} – SG Köln-Worringen`}>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        {breadcrumbs.map((bc) => (
+          <Fragment>
+            <span class="sep">/</span>
+            <a href={bc.href}>{bc.label}</a>
+          </Fragment>
+        ))}
+      </nav>
+      <h1>{page.cleanTitle}</h1>
+    </div>
+  </div>
+
+  <div class="page-body">
+    {hasContent && (
+      <div class="page-content reveal" set:html={page.html} />
+    )}
+
+    {childPages.length > 0 && (
+      <div class="container" style="padding-top: 1rem; padding-bottom: 2rem;">
+        {hasContent && (
+          <div class="section-header reveal" style="margin-top: 2.5rem;">
+            <span class="eyebrow">Unterseiten</span>
+            <h2>Weiterlesen</h2>
+          </div>
+        )}
+        <div class={`card-grid ${childPages.length >= 3 ? 'cols-3' : 'cols-2'} ${hasContent ? 'stagger-children' : ''}`}>
+          {childPages.map((child) => (
+            <a href={`${base}${child.id}/`} class={`card is-link ${hasContent ? 'reveal' : ''}`}>
+              <h3>{child.title}</h3>
+              <span class="card-link">Mehr erfahren</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {!hasContent && childPages.length === 0 && (
+      <div class="container" style="padding: 3rem 0; text-align: center;">
+        <p style="color: var(--text-muted);">Für diese Seite sind derzeit keine Inhalte verfügbar.</p>
+        <a href={base} class="btn btn-outline" style="margin-top: 1rem;">Zur Startseite</a>
+      </div>
+    )}
+  </div>
+</BaseLayout>

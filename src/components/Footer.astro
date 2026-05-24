@@ -1,0 +1,32 @@
+---
+const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
+---
+<footer class="site-footer">
+  <div class="footer-stripe"></div>
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <strong>SG Köln-Worringen</strong>
+      <p>Sportgemeinschaft Köln-Worringen e.V.<br />Fußball seit 1971</p>
+    </div>
+    <div class="footer-col">
+      <h4>Verein</h4>
+      <a href={`${base}unser-verein/`}>Unser Verein</a>
+      <a href={`${base}unser-verein/der-verein/`}>Der Verein</a>
+      <a href={`${base}unser-verein/vereinsgeschichte/`}>Geschichte</a>
+      <a href={`${base}unser-verein/unsere-anlage/`}>Unsere Anlage</a>
+      <a href={`${base}unser-verein/anfahrt/`}>Anfahrt</a>
+    </div>
+    <div class="footer-col">
+      <h4>Mitmachen</h4>
+      <a href={`${base}mitmachen/mitglied-werden/`}>Mitglied werden</a>
+      <a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining</a>
+      <a href={`${base}mitmachen/wir-suchen-dich/`}>Wir suchen Dich</a>
+      <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>&copy; {year} SG Köln-Worringen e.V.</span>
+    <span><a href={`${base}impressum/`}>Impressum</a></span>
+  </div>
+</footer>
