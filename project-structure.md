@@ -1,0 +1,107 @@
+# Projektstruktur
+
+## Website-Struktur
+
+- /
+- Fundgrube/
+  - Gefunden-verloren/
+  - Weitergeben-statt-wegwerfen/
+  - index.php/
+- Gaestebuch/
+- Impressum/
+- Kaderuebersicht/
+  - Alte-Herren/
+    - index.php/
+  - B-Junioren-2009/
+    - index.php/
+  - Bambini-2018/
+    - index.php/
+  - Bambini-2019/
+    - index.php/
+  - Bambini-20202021/
+  - Bambini-20212022/
+  - C-Junioren-2010/
+    - index.php/
+  - C-Junioren-2011/
+    - index.php/
+  - D-Junioren-2013/
+  - E-Junioren-2015/
+    - index.php/
+  - F-Junioren-2016/
+  - F-Junioren-2017/
+    - index.php/
+- Mitmachen/
+  - Downloads-Formulare/
+  - Fragen-Antworten-FAQ/
+  - Mitglied-werden/
+    - Probetraining/
+      - index.php/
+  - Wir-Suchen-Dich/
+  - index.php/
+- Onlineshop/
+- Startseite/
+  - index.php/
+- Unser-Verein/
+  - Anfahrt/
+    - index.php/
+  - Der-Verein/
+  - Neuigkeiten/
+  - Schiedrichter/
+  - Unser-Abteilungsleitung/
+  - Unser-Platzwart/
+  - Unsere-Anlage/
+  - Unsere-BABA/
+  - Vereinsgeschichte/
+
+## Seitenliste
+
+- / — https://www.sg-fussball.online/
+- /Fundgrube/ — https://www.sg-fussball.online/Fundgrube/
+- /Fundgrube/Gefunden-verloren/ — https://www.sg-fussball.online/Fundgrube/Gefunden-verloren/
+- /Fundgrube/Weitergeben-statt-wegwerfen/ — https://www.sg-fussball.online/Fundgrube/Weitergeben-statt-wegwerfen/
+- /Fundgrube/index.php/ — https://www.sg-fussball.online/Fundgrube/index.php/
+- /Gaestebuch/ — https://www.sg-fussball.online/Gaestebuch/
+- /Impressum/ — https://www.sg-fussball.online/Impressum/
+- /Kaderuebersicht/ — https://www.sg-fussball.online/Kaderuebersicht/
+- /Kaderuebersicht/Alte-Herren/ — https://www.sg-fussball.online/Kaderuebersicht/Alte-Herren/
+- /Kaderuebersicht/Alte-Herren/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/Alte-Herren/index.php/
+- /Kaderuebersicht/B-Junioren-2009/ — https://www.sg-fussball.online/Kaderuebersicht/B-Junioren-2009/
+- /Kaderuebersicht/B-Junioren-2009/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/B-Junioren-2009/index.php/
+- /Kaderuebersicht/Bambini-2018/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-2018/
+- /Kaderuebersicht/Bambini-2018/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-2018/index.php/
+- /Kaderuebersicht/Bambini-2019/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-2019/
+- /Kaderuebersicht/Bambini-2019/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-2019/index.php/
+- /Kaderuebersicht/Bambini-20202021/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-20202021/
+- /Kaderuebersicht/Bambini-20212022/ — https://www.sg-fussball.online/Kaderuebersicht/Bambini-20212022/
+- /Kaderuebersicht/C-Junioren-2010/ — https://www.sg-fussball.online/Kaderuebersicht/C-Junioren-2010/
+- /Kaderuebersicht/C-Junioren-2010/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/C-Junioren-2010/index.php/
+- /Kaderuebersicht/C-Junioren-2011/ — https://www.sg-fussball.online/Kaderuebersicht/C-Junioren-2011/
+- /Kaderuebersicht/C-Junioren-2011/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/C-Junioren-2011/index.php/
+- /Kaderuebersicht/D-Junioren-2013/ — https://www.sg-fussball.online/Kaderuebersicht/D-Junioren-2013/
+- /Kaderuebersicht/E-Junioren-2015/ — https://www.sg-fussball.online/Kaderuebersicht/E-Junioren-2015/
+- /Kaderuebersicht/E-Junioren-2015/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/E-Junioren-2015/index.php/
+- /Kaderuebersicht/F-Junioren-2016/ — https://www.sg-fussball.online/Kaderuebersicht/F-Junioren-2016/
+- /Kaderuebersicht/F-Junioren-2017/ — https://www.sg-fussball.online/Kaderuebersicht/F-Junioren-2017/
+- /Kaderuebersicht/F-Junioren-2017/index.php/ — https://www.sg-fussball.online/Kaderuebersicht/F-Junioren-2017/index.php/
+- /Mitmachen/ — https://www.sg-fussball.online/Mitmachen/
+- /Mitmachen/Downloads-Formulare/ — https://www.sg-fussball.online/Mitmachen/Downloads-Formulare/
+- /Mitmachen/Fragen-Antworten-FAQ/ — https://www.sg-fussball.online/Mitmachen/Fragen-Antworten-FAQ/
+- /Mitmachen/Mitglied-werden/ — https://www.sg-fussball.online/Mitmachen/Mitglied-werden/
+- /Mitmachen/Mitglied-werden/Probetraining/ — https://www.sg-fussball.online/Mitmachen/Mitglied-werden/Probetraining/
+- /Mitmachen/Mitglied-werden/Probetraining/index.php/ — https://www.sg-fussball.online/Mitmachen/Mitglied-werden/Probetraining/index.php/
+- /Mitmachen/Wir-Suchen-Dich/ — https://www.sg-fussball.online/Mitmachen/Wir-Suchen-Dich/
+- /Mitmachen/index.php/ — https://www.sg-fussball.online/Mitmachen/index.php/
+- /Onlineshop/ — https://www.sg-fussball.online/Onlineshop/
+- /Startseite/ — https://www.sg-fussball.online/Startseite/
+- /Startseite/index.php/ — https://www.sg-fussball.online/Startseite/index.php/
+- /Unser-Verein/ — https://www.sg-fussball.online/Unser-Verein/
+- /Unser-Verein/Anfahrt/ — https://www.sg-fussball.online/Unser-Verein/Anfahrt/
+- /Unser-Verein/Anfahrt/index.php/ — https://www.sg-fussball.online/Unser-Verein/Anfahrt/index.php/
+- /Unser-Verein/Der-Verein/ — https://www.sg-fussball.online/Unser-Verein/Der-Verein/
+- /Unser-Verein/Neuigkeiten/ — https://www.sg-fussball.online/Unser-Verein/Neuigkeiten/
+- /Unser-Verein/Schiedrichter/ — https://www.sg-fussball.online/Unser-Verein/Schiedrichter/
+- /Unser-Verein/Unser-Abteilungsleitung/ — https://www.sg-fussball.online/Unser-Verein/Unser-Abteilungsleitung/
+- /Unser-Verein/Unser-Platzwart/ — https://www.sg-fussball.online/Unser-Verein/Unser-Platzwart/
+- /Unser-Verein/Unsere-Anlage/ — https://www.sg-fussball.online/Unser-Verein/Unsere-Anlage/
+- /Unser-Verein/Unsere-BABA/ — https://www.sg-fussball.online/Unser-Verein/Unsere-BABA/
+- /Unser-Verein/Vereinsgeschichte/ — https://www.sg-fussball.online/Unser-Verein/Vereinsgeschichte/
