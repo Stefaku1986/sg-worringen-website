@@ -6,7 +6,7 @@ Zwei CMS-Systeme zum Vergleich. Beide bearbeiten dieselben JSON-Dateien und comm
 
 ## Option A: Sveltia CMS (Decap-basiert)
 **URL nach Setup:** `https://www.sg-fussball.online/admin/`  
-**Lokal:** `http://localhost:4321/sg-worringen-website/admin/`
+**Lokal:** `http://localhost:4321/admin/`
 
 ### Einmalige Einrichtung (einmalig, ~10 Minuten)
 
@@ -15,7 +15,7 @@ Zwei CMS-Systeme zum Vergleich. Beide bearbeiten dieselben JSON-Dateien und comm
 2. Klick auf **"New OAuth App"**
 3. Fülle aus:
    - **Application name:** `SG Worringen CMS`
-   - **Homepage URL:** `https://stefaku1986.github.io/sg-worringen-website`
+   - **Homepage URL:** `https://www.sg-fussball.online`
    - **Authorization callback URL:** `https://sveltia-cms-auth.stefaku1986.workers.dev`
 4. Klick **"Register application"**
 5. Kopiere die **Client ID** (du siehst sie sofort)

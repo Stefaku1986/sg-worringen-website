@@ -16,7 +16,7 @@ const mannschaften = pages.filter((p: any) =>
   p.id.startsWith('kaderuebersicht/') && p.id !== 'kaderuebersicht'
 );
 
-const latestNews = allNews
+const latestNews = (allNews as any).items
   .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, 3);
 

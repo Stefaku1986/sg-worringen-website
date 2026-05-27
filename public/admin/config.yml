@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────
 # Sveltia / Decap CMS – SG Köln-Worringen
-# Admin-URL: /sg-worringen-website/admin/
+# Admin-URL: /admin/
 # ─────────────────────────────────────────────
 
 backend:
@@ -11,10 +11,10 @@ backend:
 
 # Medien-Uploads in den public/images Ordner
 media_folder: public/images/news
-public_folder: /sg-worringen-website/images/news
+public_folder: /images/news
 
 # Basis-URL (wichtig für GitHub Pages Subdirectory)
-site_url: https://stefaku1986.github.io/sg-worringen-website
+site_url: https://www.sg-fussball.online
 
 collections:
 

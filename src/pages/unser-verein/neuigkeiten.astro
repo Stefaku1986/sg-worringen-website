@@ -20,7 +20,7 @@ const base = import.meta.env.BASE_URL;
   </div>
 
   <section class="container news-page">
-    {newsData.map((entry: any, entryIndex: number) => (
+    {(newsData as any).items.map((entry: any, entryIndex: number) => (
       <>
         <article class="news-entry" id={entry.id}>
           <span class="news-date">{entry.dateDisplay}</span>
@@ -42,7 +42,7 @@ const base = import.meta.env.BASE_URL;
             </div>
           )}
         </article>
-        {entryIndex < newsData.length - 1 && (
+        {entryIndex < (newsData as any).items.length - 1 && (
           <div class="news-separator" />
         )}
       </>
