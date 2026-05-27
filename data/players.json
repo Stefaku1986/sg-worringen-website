@@ -160,7 +160,7 @@
         {
           "name": "Matti Buhlmann",
           "number": 2,
-          "position": "RAV",
+          "position": "RV",
           "image": null
         },
         {
@@ -172,7 +172,7 @@
         {
           "name": "Fnot Tewelde",
           "number": 4,
-          "position": "LAV",
+          "position": "LV",
           "image": null
         },
         {
@@ -184,13 +184,13 @@
         {
           "name": "Max Krüger",
           "number": 6,
-          "position": "ZDM",
+          "position": "ZM",
           "image": null
         },
         {
           "name": "Roman Gering",
           "number": 7,
-          "position": "ZDM",
+          "position": "ZM",
           "image": null
         },
         {
@@ -208,13 +208,13 @@
         {
           "name": "Louis Höschler",
           "number": 10,
-          "position": "LZOM",
+          "position": "OM",
           "image": null
         },
         {
           "name": "Mark Knauer",
           "number": 11,
-          "position": "LM",
+          "position": "OM",
           "image": null
         },
         {
@@ -226,7 +226,25 @@
         {
           "name": "Paul Kühl",
           "number": 13,
-          "position": "RZOM",
+          "position": "OM",
+          "image": ""
+        },
+        {
+          "name": "Spieler 14",
+          "number": 14,
+          "position": "IV",
+          "image": ""
+        },
+        {
+          "name": "Spieler 15",
+          "number": 15,
+          "position": "ZM",
+          "image": ""
+        },
+        {
+          "name": "Maximilian Genzmer",
+          "number": 16,
+          "position": "IV",
           "image": ""
         }
       ],
