@@ -1,0 +1,123 @@
+# ─────────────────────────────────────────────
+# Sveltia / Decap CMS – SG Köln-Worringen
+# Admin-URL: /sg-worringen-website/admin/
+# ─────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: Stefaku1986/sg-worringen-website
+  branch: main
+  # GitHub OAuth App Client ID (nach Anleitung SETUP.md ausfüllen)
+  app_id: DEIN_GITHUB_OAUTH_CLIENT_ID
+
+# Medien-Uploads in den public/images Ordner
+media_folder: public/images/news
+public_folder: /sg-worringen-website/images/news
+
+# Basis-URL (wichtig für GitHub Pages Subdirectory)
+site_url: https://stefaku1986.github.io/sg-worringen-website
+
+collections:
+
+  # ── Neuigkeiten ──────────────────────────────
+  - name: news
+    label: Neuigkeiten
+    label_singular: Neuigkeit
+    description: "Aktuelle News und Spielberichte des Vereins"
+    files:
+      - name: all_news
+        label: Alle Neuigkeiten
+        file: data/news.json
+        description: "Neuigkeiten bearbeiten"
+        fields:
+          - name: items
+            label: Neuigkeiten
+            widget: list
+            summary: "{{fields.title}} ({{fields.dateDisplay}})"
+            fields:
+              - { name: id,          label: ID (eindeutig),  widget: string }
+              - { name: title,       label: Überschrift,     widget: string }
+              - { name: dateDisplay, label: Datum (Anzeige), widget: string, hint: "z.B. 15. Mai 2025" }
+              - { name: date,        label: Datum (intern),  widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+              - { name: text,        label: Text,            widget: text }
+              - name: images
+                label: Bilder (optional)
+                widget: list
+                required: false
+                fields:
+                  - { name: src, label: Bilddatei, widget: image }
+                  - { name: alt, label: Alt-Text,  widget: string }
+
+  # ── Trainingszeiten ──────────────────────────
+  - name: training
+    label: Trainingszeiten
+    label_singular: Mannschaft
+    description: "Trainingszeiten der Jugendmannschaften"
+    files:
+      - name: training_times
+        label: Trainingszeiten Jugend
+        file: data/players.json
+        fields:
+          - name: teams
+            label: Mannschaften
+            widget: object
+            fields:
+              - name: bambini-20212022
+                label: "Bambini 2021/2022 (U5)"
+                widget: object
+                fields: &training_fields
+                  - name: trainingTimes
+                    label: Trainingseinheiten
+                    widget: list
+                    fields:
+                      - { name: days, label: Tag(e), widget: string, hint: "z.B. Dienstag und Donnerstag" }
+                      - { name: from, label: Von,    widget: string, hint: "z.B. 16:30" }
+                      - { name: to,   label: Bis,    widget: string, hint: "z.B. 18:00" }
+
+              - name: bambini-20202021
+                label: "Bambini 2020/2021 (U6)"
+                widget: object
+                fields: *training_fields
+
+              - name: bambini-2019
+                label: "Bambini 2019 (U7)"
+                widget: object
+                fields: *training_fields
+
+              - name: bambini-2018
+                label: "Bambini 2018 (U8)"
+                widget: object
+                fields: *training_fields
+
+              - name: f-junioren-2017
+                label: "F-Junioren 2017 (U9)"
+                widget: object
+                fields: *training_fields
+
+              - name: e-junioren-2015
+                label: "E-Junioren 2015 (U12)"
+                widget: object
+                fields: *training_fields
+
+              - name: d-junioren-2013
+                label: "D-Junioren 2013 (U13)"
+                widget: object
+                fields: *training_fields
+
+              - name: c-junioren-2011
+                label: "C-Junioren 2011 (U15)"
+                widget: object
+                fields: *training_fields
+
+  # ── fussball.de Widget-IDs ───────────────────
+  - name: fussball
+    label: Fussball.de Widgets
+    description: "Widget-IDs von fussball.de verwalten"
+    files:
+      - name: fussball_config
+        label: Widget-Konfiguration
+        file: data/fussball.json
+        fields:
+          - { name: seasonEnd,        label: Saisonende (Datum),    widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+          - { name: seasonEndMessage, label: Saisonende-Nachricht,  widget: string }
+          - { name: clubMatchesWidget,label: Vereins-Widget ID,     widget: string }

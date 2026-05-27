@@ -1,0 +1,297 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import playersData from '../../../data/players.json';
+
+const base = import.meta.env.BASE_URL;
+
+// All teams with their data
+const allTeams = Object.entries(playersData.teams as Record<string, any>).map(
+  ([slug, team]) => ({ slug, ...team })
+);
+
+// Teams with training times (youth + active teams shown on this page)
+const teamsWithTraining = allTeams.filter((t) => t.trainingTimes && t.trainingTimes.length > 0);
+
+// All teams for the card grid (sorted: Senioren first, then by shortName desc for youth)
+const orderedTeams = [
+  ...allTeams.filter((t) => ['1-senioren', 'alte-herren'].includes(t.slug)),
+  ...allTeams
+    .filter((t) => !['1-senioren', 'alte-herren'].includes(t.slug))
+    .sort((a, b) => {
+      // Sort youth by shortName (U15 > U13 > ... > U5)
+      const numA = parseInt(a.shortName?.replace(/\D/g, '') || '0');
+      const numB = parseInt(b.shortName?.replace(/\D/g, '') || '0');
+      return numB - numA;
+    }),
+];
+
+// Day icon helper
+const dayIcons: Record<string, string> = {
+  Montag: 'Mo',
+  Dienstag: 'Di',
+  Mittwoch: 'Mi',
+  Donnerstag: 'Do',
+  Freitag: 'Fr',
+};
+---
+
+<BaseLayout
+  title="Kaderübersicht & Trainingszeiten – SG Köln-Worringen"
+  description="Alle Mannschaften der SG Köln-Worringen im Überblick – von den Bambini bis zu den Senioren. Aktuelle Trainingszeiten Saison 2025/2026."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>
+      </nav>
+      <h1>Kaderübersicht</h1>
+    </div>
+  </div>
+
+  <!-- Trainingszeiten -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Saison 2025/2026</span>
+        <h2>Trainingszeiten Jugend</h2>
+      </div>
+      <p class="training-subtitle reveal">Alle Trainings finden auf unserer Anlage am <strong>Erdweg 1a, 50769 Köln-Worringen</strong> statt.</p>
+
+      <div class="training-grid stagger-children">
+        {teamsWithTraining.map((team) => (
+          <a href={`${base}kaderuebersicht/${team.slug}/`} class="training-card reveal">
+            <div class="training-card-header">
+              <span class="age-badge">{team.shortName}</span>
+              <span class="team-label">{team.name}</span>
+            </div>
+            <div class="training-times">
+              {(team.trainingTimes as any[]).map((session) => (
+                <div class="training-session">
+                  <div class="session-days">
+                    {session.days.split(' und ').map((day: string) => (
+                      <span class="day-chip">{dayIcons[day.trim()] ?? day.trim()}</span>
+                    ))}
+                  </div>
+                  <span class="session-time">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    {session.from} – {session.to} Uhr
+                  </span>
+                </div>
+              ))}
+            </div>
+            <span class="card-link">Zum Kader →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Alle Mannschaften -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Unsere Teams</span>
+        <h2>Alle Mannschaften</h2>
+      </div>
+      <div class="card-grid cols-3 stagger-children">
+        {orderedTeams.map((team) => (
+          <a href={`${base}kaderuebersicht/${team.slug}/`} class="card is-link reveal">
+            <div class="team-card-inner">
+              <span class="team-badge-pill">{team.shortName}</span>
+              <h3>{team.name}</h3>
+              {(team.trainingTimes as any[] | undefined) && (
+                <p class="card-training-preview">
+                  {(team.trainingTimes as any[])[0].days}, {(team.trainingTimes as any[])[0].from} Uhr
+                </p>
+              )}
+            </div>
+            <span class="card-link">Zum Kader</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .training-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+  }
+
+  /* ── Training Grid ── */
+  .training-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 1.25rem;
+  }
+
+  .training-card {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s var(--ease-out), transform 0.3s var(--ease-out), border-color 0.3s ease;
+  }
+
+  .training-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: var(--blue);
+    text-decoration: none;
+  }
+
+  .training-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .age-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue-deep);
+    color: var(--yellow);
+    font-family: var(--font-display);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .team-label {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    line-height: 1.2;
+  }
+
+  /* ── Training sessions ── */
+  .training-times {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .training-session {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .session-days {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .day-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 28px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-sm);
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .training-card:hover .day-chip {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .session-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .session-time svg {
+    color: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .training-card .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ── Team cards in overview ── */
+  .team-card-inner {
+    flex: 1;
+  }
+
+  .team-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.65rem;
+    background: var(--blue-deep);
+    color: var(--yellow);
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-training-preview {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0.3rem 0 0;
+  }
+
+  @media (max-width: 720px) {
+    .training-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .training-session {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+  }
+</style>
