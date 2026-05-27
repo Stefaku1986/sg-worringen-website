@@ -152,27 +152,27 @@
       ],
       "players": [
         {
-          "name": "Spieler 1",
+          "name": "Mourice Schug",
           "number": 1,
           "position": "TW",
           "image": null
         },
         {
-          "name": "Spieler 2",
+          "name": "Matti Buhlmann",
           "number": 2,
-          "position": "IV",
+          "position": "RAV",
           "image": null
         },
         {
-          "name": "Spieler 3",
+          "name": "Karl Wiener",
           "number": 3,
           "position": "IV",
           "image": null
         },
         {
-          "name": "Spieler 4",
+          "name": "Fnot Tewelde",
           "number": 4,
-          "position": "LV",
+          "position": "LAV",
           "image": null
         },
         {
@@ -182,15 +182,15 @@
           "image": null
         },
         {
-          "name": "Spieler 6",
+          "name": "Max Krüger",
           "number": 6,
-          "position": "ZM",
+          "position": "ZDM",
           "image": null
         },
         {
-          "name": "Spieler 7",
+          "name": "Roman Gering",
           "number": 7,
-          "position": "ZM",
+          "position": "ZDM",
           "image": null
         },
         {
@@ -200,22 +200,34 @@
           "image": null
         },
         {
-          "name": "Spieler 9",
+          "name": "Deniz Strobl",
           "number": 9,
           "position": "ST",
           "image": null
         },
         {
-          "name": "Spieler 10",
+          "name": "Louis Höschler",
           "number": 10,
-          "position": "OM",
+          "position": "LZOM",
           "image": null
         },
         {
-          "name": "Spieler 11",
+          "name": "Mark Knauer",
           "number": 11,
           "position": "LM",
           "image": null
+        },
+        {
+          "name": "Spieler 12",
+          "number": 12,
+          "position": "IV",
+          "image": ""
+        },
+        {
+          "name": "Paul Kühl",
+          "number": 13,
+          "position": "RZOM",
+          "image": ""
         }
       ],
       "trainingTimes": [
