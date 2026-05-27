@@ -30,19 +30,7 @@ const base = import.meta.env.BASE_URL;
           um einen Termin für ein unverbindliches Probetraining zu vereinbaren.
         </p>
 
-        <div id="form-success" class="success-message" style="display:none;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          <div>
-            <strong>Vielen Dank für deine Anfrage!</strong>
-            <p>Wir haben deine Nachricht erhalten und melden uns in Kürze bei dir.</p>
-          </div>
-        </div>
-
-        <form
-          action="https://formspree.io/f/xpzvqrjd"
-          method="POST"
-          id="probetraining-form"
-        >
+        <form id="probetraining-form" onsubmit="return false;">
           <div class="form-group">
             <label for="name">Vor- und Nachname <span class="required">*</span></label>
             <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
@@ -79,7 +67,11 @@ const base = import.meta.env.BASE_URL;
             <textarea id="nachricht" name="nachricht" rows="4" placeholder="Gibt es etwas, das wir wissen sollten?"></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary">Probetraining anfragen</button>
+          <button type="button" id="mailto-btn" class="btn btn-primary">Probetraining anfragen</button>
+
+          <p class="mailto-hint">
+            <small>Es öffnet sich dein E-Mail-Programm mit den vorausgefüllten Daten. Du kannst die Nachricht dort noch bearbeiten und abschicken.</small>
+          </p>
         </form>
 
         <div class="info-box">
@@ -99,15 +91,34 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <script>
-    // Show success message if redirected back from Formspree
-    if (window.location.search.includes('success=true')) {
-      const form = document.getElementById('probetraining-form');
-      const success = document.getElementById('form-success');
-      if (form && success) {
-        form.style.display = 'none';
-        success.style.display = 'flex';
+    document.getElementById('mailto-btn')?.addEventListener('click', () => {
+      const form = document.getElementById('probetraining-form') as HTMLFormElement | null;
+      if (!form || !form.checkValidity()) {
+        form?.reportValidity();
+        return;
       }
-    }
+
+      const name = (document.getElementById('name') as HTMLInputElement).value.trim();
+      const email = (document.getElementById('email') as HTMLInputElement).value.trim();
+      const telefon = (document.getElementById('telefon') as HTMLInputElement).value.trim();
+      const alter = (document.getElementById('alter') as HTMLInputElement).value.trim();
+      const position = (document.getElementById('position') as HTMLSelectElement).value;
+      const nachricht = (document.getElementById('nachricht') as HTMLTextAreaElement).value.trim();
+
+      const subject = `Probetraining-Anfrage von ${name}`;
+
+      let body = `Hallo,\n\nich möchte gerne ein Probetraining bei der SG Köln-Worringen anfragen.\n\n`;
+      body += `Name: ${name}\n`;
+      body += `E-Mail: ${email}\n`;
+      if (telefon) body += `Telefon: ${telefon}\n`;
+      body += `Alter/Jahrgang: ${alter}\n`;
+      if (position) body += `Bevorzugte Position: ${position}\n`;
+      if (nachricht) body += `\nNachricht:\n${nachricht}\n`;
+      body += `\nViele Grüße\n${name}`;
+
+      const mailto = `mailto:Info@sg-fussball.online?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+    });
   </script>
 </BaseLayout>
 
@@ -195,6 +206,13 @@ const base = import.meta.env.BASE_URL;
   .success-message p {
     margin: 0.25rem 0 0;
     font-size: 0.95rem;
+  }
+
+  .mailto-hint {
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .info-box {
