@@ -267,28 +267,28 @@
       "season": "2025/2026",
       "staff": [
         {
-          "name": "Joachim Haupt",
+          "name": "Benedikt Ditscheid",
           "role": "Trainer",
           "number": null,
           "position": "TR",
           "image": null,
-          "since": null
+          "since": ""
         },
         {
-          "name": "Patrick Meudt",
+          "name": "Linis",
           "role": "Co-Trainer",
           "number": null,
           "position": "CO",
           "image": null,
-          "since": null
+          "since": ""
         }
       ],
       "players": [],
       "trainingTimes": [
         {
           "days": "Montag und Mittwoch",
-          "from": "17:45",
-          "to": "19:15"
+          "from": "17:30",
+          "to": "19:00"
         }
       ]
     },
@@ -311,7 +311,7 @@
           "number": null,
           "position": "CO",
           "image": null,
-          "since": null
+          "since": ""
         }
       ],
       "players": [],
