@@ -237,7 +237,12 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
           {/* Quelle & Link */}
           <div class="fussball-source fussball-widgets-content">
             <p>
-              Daten live von <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer">fussball.de</a>
+              Daten live von{' '}
+              {fbTeam.fussballDeUrl ? (
+                <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer">fussball.de</a>
+              ) : (
+                <a href="https://www.fussball.de" target="_blank" rel="noopener noreferrer">fussball.de</a>
+              )}
             </p>
           </div>
         </div>

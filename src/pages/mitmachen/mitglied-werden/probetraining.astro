@@ -10,9 +10,9 @@ const base = import.meta.env.BASE_URL;
       <nav class="breadcrumbs">
         <a href={base}>Startseite</a>
         <span class="sep">/</span>
-        <span>Mitmachen</span>
+        <a href={`${base}mitmachen/`}>Mitmachen</a>
         <span class="sep">/</span>
-        <span>Mitglied werden</span>
+        <a href={`${base}mitmachen/mitglied-werden/`}>Mitglied werden</a>
         <span class="sep">/</span>
         <a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining</a>
       </nav>
@@ -79,7 +79,7 @@ const base = import.meta.env.BASE_URL;
             <textarea id="nachricht" name="nachricht" rows="4" placeholder="Gibt es etwas, das wir wissen sollten?"></textarea>
           </div>
 
-          <button type="submit" class="btn">Probetraining anfragen</button>
+          <button type="submit" class="btn btn-primary">Probetraining anfragen</button>
         </form>
 
         <div class="info-box">
@@ -172,28 +172,6 @@ const base = import.meta.env.BASE_URL;
     background-repeat: no-repeat;
     background-position: right 1rem center;
     padding-right: 2.5rem;
-  }
-
-  .btn {
-    display: inline-block;
-    background: var(--blue);
-    color: #fff;
-    padding: 0.9rem 2rem;
-    border-radius: var(--r-pill);
-    font-weight: 700;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-body);
-    transition: opacity 0.2s ease, transform 0.1s ease;
-  }
-
-  .btn:hover {
-    opacity: 0.9;
-  }
-
-  .btn:active {
-    transform: scale(0.98);
   }
 
   .success-message {
