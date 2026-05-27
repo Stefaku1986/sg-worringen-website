@@ -47,66 +47,120 @@ collections:
                   - { name: src, label: Bilddatei, widget: image }
                   - { name: alt, label: Alt-Text,  widget: string }
 
-  # ── Trainingszeiten ──────────────────────────
-  - name: training
-    label: Trainingszeiten
+  # ── Mannschaften (Kader & Trainingszeiten) ───
+  - name: teams
+    label: Mannschaften
     label_singular: Mannschaft
-    description: "Trainingszeiten der Jugendmannschaften"
+    description: "Kader, Staff und Trainingszeiten aller Mannschaften"
     files:
-      - name: training_times
-        label: Trainingszeiten Jugend
+      - name: all_teams
+        label: Alle Mannschaften
         file: data/players.json
         fields:
           - name: teams
             label: Mannschaften
             widget: object
             fields:
-              - name: bambini-20212022
-                label: "Bambini 2021/2022 (U5)"
+
+              # ── Senioren ──
+              - name: 1-senioren
+                label: "1. Seniorenmannschaft"
                 widget: object
-                fields: &training_fields
-                  - name: trainingTimes
-                    label: Trainingseinheiten
+                fields: &team_fields
+                  - { name: name,      label: Name,      widget: string }
+                  - { name: shortName, label: Kurzname,   widget: string }
+                  - { name: season,    label: Saison,     widget: string, hint: "z.B. 2025/2026" }
+                  - name: staff
+                    label: Staff (Trainer etc.)
                     widget: list
+                    required: false
+                    summary: "{{fields.name}} – {{fields.role}}"
+                    fields:
+                      - { name: name,     label: Name,     widget: string }
+                      - { name: role,     label: Rolle,    widget: string, hint: "z.B. Trainer, Co-Trainer" }
+                      - { name: number,   label: Nummer,   widget: number, required: false, value_type: int }
+                      - { name: position, label: Position, widget: string, hint: "TR, CO, BT" }
+                      - { name: image,    label: Bild,     widget: image, required: false }
+                      - { name: since,    label: Seit,     widget: string, required: false, hint: "z.B. 2023" }
+                  - name: players
+                    label: Spieler
+                    widget: list
+                    required: false
+                    summary: "{{fields.number}} – {{fields.name}} ({{fields.position}})"
+                    fields:
+                      - { name: name,     label: Name,     widget: string }
+                      - { name: number,   label: Nummer,   widget: number, value_type: int }
+                      - { name: position, label: Position, widget: string, hint: "TW, IV, LV, RV, ZM, OM, ST, LA, RA" }
+                      - { name: image,    label: Bild,     widget: image, required: false }
+                  - name: trainingTimes
+                    label: Trainingszeiten
+                    widget: list
+                    required: false
                     fields:
                       - { name: days, label: Tag(e), widget: string, hint: "z.B. Dienstag und Donnerstag" }
                       - { name: from, label: Von,    widget: string, hint: "z.B. 16:30" }
                       - { name: to,   label: Bis,    widget: string, hint: "z.B. 18:00" }
 
-              - name: bambini-20202021
-                label: "Bambini 2020/2021 (U6)"
+              - name: alte-herren
+                label: "Alte Herren"
                 widget: object
-                fields: *training_fields
+                fields: *team_fields
 
-              - name: bambini-2019
-                label: "Bambini 2019 (U7)"
+              # ── Jugend ──
+              - name: b-junioren-2009
+                label: "B-Junioren 2009 (U17)"
                 widget: object
-                fields: *training_fields
+                fields: *team_fields
 
-              - name: bambini-2018
-                label: "Bambini 2018 (U8)"
+              - name: c-junioren-2010
+                label: "C-Junioren 2010 (U16)"
                 widget: object
-                fields: *training_fields
-
-              - name: f-junioren-2017
-                label: "F-Junioren 2017 (U9)"
-                widget: object
-                fields: *training_fields
-
-              - name: e-junioren-2015
-                label: "E-Junioren 2015 (U12)"
-                widget: object
-                fields: *training_fields
-
-              - name: d-junioren-2013
-                label: "D-Junioren 2013 (U13)"
-                widget: object
-                fields: *training_fields
+                fields: *team_fields
 
               - name: c-junioren-2011
                 label: "C-Junioren 2011 (U15)"
                 widget: object
-                fields: *training_fields
+                fields: *team_fields
+
+              - name: d-junioren-2013
+                label: "D-Junioren 2013 (U13)"
+                widget: object
+                fields: *team_fields
+
+              - name: e-junioren-2015
+                label: "E-Junioren 2015 (U11)"
+                widget: object
+                fields: *team_fields
+
+              - name: f-junioren-2016
+                label: "F-Junioren 2016 (U10)"
+                widget: object
+                fields: *team_fields
+
+              - name: f-junioren-2017
+                label: "F-Junioren 2017 (U9)"
+                widget: object
+                fields: *team_fields
+
+              - name: bambini-2018
+                label: "Bambini 2018 (U8)"
+                widget: object
+                fields: *team_fields
+
+              - name: bambini-2019
+                label: "Bambini 2019 (U7)"
+                widget: object
+                fields: *team_fields
+
+              - name: bambini-20202021
+                label: "Bambini 2020/2021 (U6)"
+                widget: object
+                fields: *team_fields
+
+              - name: bambini-20212022
+                label: "Bambini 2021/2022 (U5)"
+                widget: object
+                fields: *team_fields
 
   # ── fussball.de Widget-IDs ───────────────────
   - name: fussball
