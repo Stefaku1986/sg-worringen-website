@@ -1,12 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import pages from '../../data/spa_pages.json';
+import allNews from '../../data/news.json';
+import fussballData from '../../data/fussball.json';
 
 const base = import.meta.env.BASE_URL;
+
+// Vereins-Widget: zeigt alle Spiele aller Mannschaften
+const clubMatchesWidget = (fussballData as any).clubMatchesWidget || '';
+const hasClubMatches = !!clubMatchesWidget;
+const seasonEnd = fussballData.seasonEnd || '';
+const seasonEndMessage = fussballData.seasonEndMessage || '';
 
 const mannschaften = pages.filter((p: any) =>
   p.id.startsWith('kaderuebersicht/') && p.id !== 'kaderuebersicht'
 );
+
+const latestNews = allNews
+  .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 3);
 
 const quickLinks = [
   { icon: '⚽', title: 'Mannschaften', desc: 'Unsere Teams von Bambini bis Alte Herren', href: `${base}kaderuebersicht/` },
@@ -15,7 +27,7 @@ const quickLinks = [
   { icon: '📰', title: 'Neuigkeiten', desc: 'Aktuelle News rund um den Verein', href: `${base}unser-verein/neuigkeiten/` },
 ];
 ---
-<BaseLayout title="SG Köln-Worringen – Fußball seit 1971">
+<BaseLayout title="SG Köln-Worringen – Fußball seit 1971" description="SG Köln-Worringen – Fußballabteilung seit 1971. Aktuelle News, 10 Jugendmannschaften, Probetraining und mehr.">
   <!-- Hero -->
   <section class="hero" id="hero">
     <div class="hero-bg" style={`background-image: url('${base}images/hero.jpg');`}></div>
@@ -80,6 +92,103 @@ const quickLinks = [
     </div>
   </section>
 
+  <!-- News -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Neuigkeiten</span>
+        <h2>Aktuelles aus dem Verein</h2>
+      </div>
+      <div class="card-grid cols-3 stagger-children">
+        {latestNews.map((item: any) => {
+          const thumb = item.images && item.images.length > 0 ? item.images[0] : null;
+          const teaser = item.text.length > 150 ? item.text.substring(0, 150) + '...' : item.text;
+          return (
+            <a href={`${base}unser-verein/neuigkeiten/`} class="card is-link news-card reveal">
+              <div class="news-card-image">
+                {thumb ? (
+                  <img src={`${base}${thumb.src}`} alt={thumb.alt} loading="lazy" />
+                ) : (
+                  <div class="news-card-placeholder"></div>
+                )}
+              </div>
+              <div class="news-card-body">
+                <span class="news-date">{item.dateDisplay}</span>
+                <h3>{item.title}</h3>
+                <p>{teaser}</p>
+                <span class="card-link">Weiterlesen</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      <div class="reveal" style="text-align: center; margin-top: 2.5rem;">
+        <a href={`${base}unser-verein/neuigkeiten/`} class="btn btn-outline">Alle News lesen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nächste Spiele des Vereins -->
+  {hasClubMatches && (
+    <section class="section" data-season-end={seasonEnd} data-season-msg={seasonEndMessage} id="naechste-spiele">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="eyebrow">Spielplan</span>
+          <h2>Nächste Spiele</h2>
+        </div>
+
+        {/* Saisonende-Overlay */}
+        <div class="season-end-overlay-home" style="display: none;">
+          <div class="season-end-icon-home">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <p class="season-end-text-home"></p>
+        </div>
+
+        <div class="club-matches-card reveal fussball-widgets-home">
+          <div class="widget-wrap">
+            <div
+              class="fussballde_widget"
+              data-id={clubMatchesWidget}
+              data-type="club-matches"
+              style="width: 100%"
+            ></div>
+          </div>
+          <div class="club-matches-footer">
+            <p>Daten live von <a href="https://www.fussball.de" target="_blank" rel="noopener noreferrer">fussball.de</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Trainingsfotos -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow">Eindrücke</span>
+        <h2>Aus dem Training</h2>
+      </div>
+      <div class="photo-grid stagger-children">
+        <div class="photo-item reveal">
+          <img src={`${base}images/news/training1.jpg`} alt="Training der SG Köln-Worringen" loading="lazy" />
+        </div>
+        <div class="photo-item reveal">
+          <img src={`${base}images/news/training2.jpg`} alt="Mannschaftstraining auf dem Platz" loading="lazy" />
+        </div>
+        <div class="photo-item reveal">
+          <img src={`${base}images/news/training3.jpg`} alt="Abendstimmung am Sportplatz" loading="lazy" />
+        </div>
+        <div class="photo-item reveal">
+          <img src={`${base}images/news/training4.jpg`} alt="Trainingseinheit der SG" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Mannschaften-Übersicht -->
   <section class="section section-blue">
     <div class="container" style="position: relative; z-index: 1;">
@@ -118,4 +227,73 @@ const quickLinks = [
       </div>
     </div>
   </section>
+
+  <!-- Vereinsshop -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="shop-banner reveal reveal-scale">
+        <div class="shop-banner-image">
+          <img
+            src={`${base}images/content/shop/SG_Worringen_Shop.png`}
+            alt="SG Worringen Vereinsshop"
+            loading="lazy"
+          />
+        </div>
+        <div class="shop-banner-content">
+          <span class="eyebrow">JAKO Vereinsshop</span>
+          <h2>Unser offizieller Vereinsshop</h2>
+          <p>In Kooperation mit Fair Sport und JAKO bieten wir exklusive Team- und Freizeitkleidung in unseren Vereinsfarben. Alle Artikel sind bereits vereinsrabattiert und inklusive Druck.</p>
+          <a href="https://team.jako.com" target="_blank" rel="noopener" class="btn btn-accent">Zum Shop</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram -->
+  <section class="section">
+    <div class="container">
+      <div class="social-strip reveal reveal-scale">
+        <div class="social-strip-inner">
+          <svg class="instagram-icon" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <circle cx="12" cy="12" r="5"></circle>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle>
+          </svg>
+          <div>
+            <h3>Folge uns auf Instagram</h3>
+            <p>Aktuelle Bilder, Spielberichte und Einblicke hinter die Kulissen.</p>
+          </div>
+          <a href="https://www.instagram.com/sgworringenfussball" target="_blank" rel="noopener" class="btn btn-outline">@sgworringenfussball</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* fussball.de Widget Script + Saisonende-Logik */}
+  {hasClubMatches && (
+    <script is:inline src="https://www.fussball.de/widgets.js"></script>
+  )}
+  {hasClubMatches && (
+    <script is:inline>
+      (function() {
+        var section = document.getElementById('naechste-spiele');
+        if (!section) return;
+        var endDate = section.getAttribute('data-season-end');
+        var msg = section.getAttribute('data-season-msg');
+        if (!endDate) return;
+        var now = new Date();
+        var end = new Date(endDate + 'T23:59:59');
+        if (now > end) {
+          var overlay = section.querySelector('.season-end-overlay-home');
+          var textEl = section.querySelector('.season-end-text-home');
+          if (overlay && textEl) {
+            textEl.textContent = msg || 'Die Daten werden in Kürze aktualisiert.';
+            overlay.style.display = '';
+          }
+          var widgets = section.querySelector('.fussball-widgets-home');
+          if (widgets) widgets.style.display = 'none';
+        }
+      })();
+    </script>
+  )}
 </BaseLayout>

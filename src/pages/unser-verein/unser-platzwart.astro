@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const images = [
+  {
+    src: `${base}images/content/Platzwart/2025/889b94e0-f652-43aa-864d-0b00a964439e.jpeg`,
+    alt: 'Platzwart bei der Arbeit',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.16.46_3d8879e0.jpg`,
+    alt: 'Rasenpflege',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.18.10_52c7f9a6.jpg`,
+    alt: 'Platzpflege',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.16.46_c6361d4e.jpg`,
+    alt: 'Sportanlage',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/d.png`,
+    alt: 'Platzarbeiten',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/ddd.png`,
+    alt: 'Platzpflege Arbeiten',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/rasen_schneiden_.jpg`,
+    alt: 'Rasen schneiden',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.16.46_3d8879e0.jpg`,
+    alt: 'Rasenpflege am Erdweg',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.16.45_9e9a9556.jpg`,
+    alt: 'Sportplatz Pflege',
+  },
+  {
+    src: `${base}images/content/Platzwart/2025/WhatsApp_Bild_2025-08-12_um_09.16.46_f9f630e5.jpg`,
+    alt: 'Platzwart Arbeit am Sportplatz',
+  },
+];
+---
+
+<BaseLayout title="Unser Platzwart – SG Köln-Worringen" description="Einblicke in die Platzpflege der Sportanlage am Erdweg. Unser Platzwart hält die Spielfelder in Top-Zustand.">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/`}>Unser Verein</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/unser-platzwart/`}>Unser Platzwart</a>
+      </nav>
+      <h1>Unser Platzwart</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Sportanlage</span>
+        <h2>Platzpflege am Erdweg</h2>
+      </div>
+
+      <p class="intro-text">
+        Unser Platzwart sorgt daf&uuml;r, dass unsere Sportanlage am Erdweg stets in bestem Zustand ist.
+        Vom Rasenm&auml;hen &uuml;ber die Linienpflege bis hin zur Instandhaltung der gesamten Anlage &ndash;
+        seine Arbeit bildet die Grundlage f&uuml;r einen reibungslosen Trainings- und Spielbetrieb.
+        Hier zeigen wir einen kleinen Einblick in die t&auml;gliche Platzpflege.
+      </p>
+
+      <div class="date-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>12. August 2025</span>
+      </div>
+
+      <div class="gallery-grid">
+        {images.map((img) => (
+          <div class="gallery-item">
+            <img src={img.src} alt={img.alt} loading="lazy" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .intro-text {
+    max-width: 720px;
+    margin: 0 auto 2rem;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+  }
+
+  .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-pill);
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .date-badge svg {
+    flex-shrink: 0;
+    opacity: 0.8;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    background: var(--blue-soft);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-text {
+      font-size: 0.95rem;
+    }
+  }
+</style>

@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const leaders = [
+  {
+    name: 'Stefan Kühl',
+    role: 'Abteilungsleiter',
+    description: 'Er ist Ansprechpartner für Trainer, Spieler und Eltern. Zu seinen Aufgaben gehören die Mannschaftsplanung, Platzorganisation, Spielbetrieb, Kommunikation mit dem Verband sowie die strategische Weiterentwicklung der Abteilung. Er sorgt dafür, dass der Trainings- und Spielbetrieb reibungslos läuft – sportlich, organisatorisch und menschlich.',
+    phone: '015783452873',
+    email: 'Info@sg-fussball.online',
+    memberSince: '2023',
+  },
+  {
+    name: 'Eugenio Siddi',
+    role: 'Stellvertretender Abteilungsleiter',
+    description: 'Unterstützung des Abteilungsleiters in organisatorischen und sportlichen Fragen. Vertretung bei Abwesenheit des Abteilungsleiters. Mitarbeit bei Planung, Koordination und Durchführung von Vereinsaktivitäten.',
+    phone: null,
+    email: null,
+    memberSince: null,
+  },
+  {
+    name: 'Michael Paffendorf',
+    role: 'Jugendleiter',
+    description: 'Der Jugendleiter koordiniert den gesamten Jugendbereich – von den Bambinis bis zur A-Jugend. Er ist Ansprechpartner für Trainer, Eltern und Spieler und sorgt dafür, dass der Trainings- und Spielbetrieb gut organisiert läuft. Er kümmert sich um die Mannschaftsmeldungen, Platzzeiten, Turniere, Veranstaltungen und die Unterstützung der Jugendtrainer. Dabei stehen die sportliche Entwicklung und das Wohl der Kinder und Jugendlichen immer im Mittelpunkt.',
+    phone: '015143250312',
+    email: 'Jugendleitung@sg-fussball.online',
+    memberSince: '2016',
+  },
+  {
+    name: 'Stefanie Paffendorf',
+    role: 'Passwesen und Spieltagsmanagement',
+    description: 'Verwaltung und Beantragung von Spielerpässen. Organisation der Spieltage (Ansetzungen, Spielberichte, Absprachen mit Verband und Schiedsrichtern). Unterstützung der Mannschaften bei allen Formalitäten rund um den Spielbetrieb.',
+    phone: '05126639606',
+    email: 'passwesen_spieltagsmanagement@sg-fussball.online',
+    memberSince: '2016',
+  },
+  {
+    name: 'Markus Trentz',
+    role: 'Kinderfussball Koordinator',
+    description: 'Verwaltung und Beantragung von Spielerpässen. Organisation der Spieltage (Ansetzungen, Spielberichte, Absprachen mit Verband und Schiedsrichtern). Unterstützung der Mannschaften bei allen Formalitäten rund um den Spielbetrieb.',
+    phone: '01701221179',
+    email: 'info@sg-fussball.online',
+    memberSince: null,
+  },
+  {
+    name: 'Miriam Kühl',
+    role: 'Social-Media-Manager',
+    description: 'Der Social-Media-Beauftragte ist für die Pflege und Weiterentwicklung der digitalen Vereinspräsenz verantwortlich. Dazu gehört die Betreuung unserer Social-Media-Kanäle, die Veröffentlichung aktueller Informationen zu Spielen, Veranstaltungen und Vereinsaktivitäten sowie die Darstellung unseres Vereins nach außen. Ziel ist es, Mitglieder, Interessierte und Partner stets zeitnah und zuverlässig zu informieren.',
+    phone: null,
+    email: 'Info@sg-fussball.online',
+    memberSince: '2023',
+  },
+];
+---
+
+<BaseLayout title="Unsere Abteilungsleitung – SG Köln-Worringen" description="Die Abteilungsleitung der SG Köln-Worringen Fußball unter Stefan Kühl. Ansprechpartner und Kontaktdaten.">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/`}>Unser Verein</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/unser-abteilungsleitung/`}>Unser Abteilungsleitung</a>
+      </nav>
+      <h1>Unsere Abteilungsleitung</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Unsere Leitung</span>
+        <h2>Abteilung Fussball</h2>
+      </div>
+
+      <div class="card-grid cols-2 profile-grid">
+        {leaders.map((person) => (
+          <div class="card profile-card">
+            <span class="profile-role">{person.role}</span>
+            <h3>{person.name}</h3>
+            <p class="profile-desc">{person.description}</p>
+            <div class="profile-contact">
+              {person.phone && (
+                <a href={`tel:+49${person.phone.replace(/^0/, '')}`} class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>{person.phone}</span>
+                </a>
+              )}
+              {person.email && (
+                <a href={`mailto:${person.email}`} class="contact-item">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>{person.email}</span>
+                </a>
+              )}
+              {person.memberSince && (
+                <span class="contact-item member-since">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Mitglied seit {person.memberSince}</span>
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .profile-grid {
+    gap: 1.5rem;
+  }
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+  }
+
+  .profile-role {
+    display: inline-block;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-pill);
+    padding: 0.25rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    align-self: flex-start;
+  }
+
+  .profile-card h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .profile-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a.contact-item:hover {
+    color: var(--blue);
+  }
+
+  .contact-item svg {
+    flex-shrink: 0;
+    color: var(--blue);
+    opacity: 0.7;
+  }
+
+  .member-since {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  @media (max-width: 600px) {
+    .profile-card {
+      padding: 1.5rem;
+    }
+  }
+</style>

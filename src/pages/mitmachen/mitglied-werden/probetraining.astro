@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Probetraining anfragen – SG Köln-Worringen">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <span>Mitmachen</span>
+        <span class="sep">/</span>
+        <span>Mitglied werden</span>
+        <span class="sep">/</span>
+        <a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining</a>
+      </nav>
+      <h1>Probetraining anfragen</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="form-wrapper">
+        <p class="intro">
+          Du hast Lust auf Fußball bei der SG Köln-Worringen? Dann bist du bei uns genau richtig!
+          Wir freuen uns über neue Spielerinnen und Spieler jeden Alters – von den Bambinis bis zu den Senioren.
+          Trainiert wird auf unserer Sportanlage am Erdweg. Fülle einfach das Formular aus und wir melden uns bei dir,
+          um einen Termin für ein unverbindliches Probetraining zu vereinbaren.
+        </p>
+
+        <div id="form-success" class="success-message" style="display:none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div>
+            <strong>Vielen Dank für deine Anfrage!</strong>
+            <p>Wir haben deine Nachricht erhalten und melden uns in Kürze bei dir.</p>
+          </div>
+        </div>
+
+        <form
+          action="https://formspree.io/f/xpzvqrjd"
+          method="POST"
+          id="probetraining-form"
+        >
+          <div class="form-group">
+            <label for="name">Vor- und Nachname <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Max Mustermann" />
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-Mail-Adresse <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="max@beispiel.de" />
+          </div>
+
+          <div class="form-group">
+            <label for="telefon">Telefonnummer (optional)</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="0123 456789" />
+          </div>
+
+          <div class="form-group">
+            <label for="alter">Alter oder Jahrgang des Spielers/der Spielerin <span class="required">*</span></label>
+            <input type="text" id="alter" name="alter" required placeholder="z. B. 8 Jahre oder Jahrgang 2017" />
+          </div>
+
+          <div class="form-group">
+            <label for="position">Bevorzugte Position</label>
+            <select id="position" name="position">
+              <option value="">Keine Angabe</option>
+              <option value="Tor">Tor</option>
+              <option value="Abwehr">Abwehr</option>
+              <option value="Mittelfeld">Mittelfeld</option>
+              <option value="Sturm">Sturm</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="nachricht">Nachricht oder Anmerkungen</label>
+            <textarea id="nachricht" name="nachricht" rows="4" placeholder="Gibt es etwas, das wir wissen sollten?"></textarea>
+          </div>
+
+          <button type="submit" class="btn">Probetraining anfragen</button>
+        </form>
+
+        <div class="info-box">
+          <h3>Weitere Informationen</h3>
+          <p>
+            <strong>Trainingszeiten:</strong> Die aktuellen Trainingszeiten findest du auf unserer
+            <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>.
+          </p>
+          <p>
+            <strong>Kontakt:</strong> Stefan Kühl<br />
+            E-Mail: <a href="mailto:Info@sg-fussball.online">Info@sg-fussball.online</a><br />
+            Tel: <a href="tel:+4915783452873">015783452873</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Show success message if redirected back from Formspree
+    if (window.location.search.includes('success=true')) {
+      const form = document.getElementById('probetraining-form');
+      const success = document.getElementById('form-success');
+      if (form && success) {
+        form.style.display = 'none';
+        success.style.display = 'flex';
+      }
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .form-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .intro {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    color: var(--text-muted);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .required {
+    color: #e53e3e;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--r-md);
+    border: 1px solid var(--border);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-soft);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--blue);
+    color: #fff;
+    padding: 0.9rem 2rem;
+    border-radius: var(--r-pill);
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: opacity 0.2s ease, transform 0.1s ease;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .success-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: #f0fff4;
+    border: 1px solid #c6f6d5;
+    border-radius: var(--r-md);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    color: #276749;
+  }
+
+  .success-message svg {
+    flex-shrink: 0;
+    color: #38a169;
+    margin-top: 0.15rem;
+  }
+
+  .success-message p {
+    margin: 0.25rem 0 0;
+    font-size: 0.95rem;
+  }
+
+  .info-box {
+    margin-top: 3rem;
+    padding: 1.5rem 2rem;
+    background: var(--blue-soft);
+    border-radius: var(--r-md);
+    border-left: 4px solid var(--blue);
+  }
+
+  .info-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .info-box p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+
+  .info-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  .info-box a {
+    color: var(--blue);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .form-wrapper {
+      padding: 0 0.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,14 +1,71 @@
 ---
 const base = import.meta.env.BASE_URL;
-const navItems = [
+
+interface NavChild {
+  label: string;
+  href: string;
+}
+
+interface NavItem {
+  label: string;
+  href: string;
+  children?: NavChild[];
+}
+
+const navItems: NavItem[] = [
   { label: 'Startseite', href: base },
-  { label: 'Unser Verein', href: `${base}unser-verein/` },
-  { label: 'Kaderübersicht', href: `${base}kaderuebersicht/` },
-  { label: 'Mitmachen', href: `${base}mitmachen/` },
+  {
+    label: 'Unser Verein',
+    href: `${base}unser-verein/`,
+    children: [
+      { label: 'Der Verein', href: `${base}unser-verein/` },
+      { label: 'Abteilungsleitung', href: `${base}unser-verein/unser-abteilungsleitung/` },
+      { label: 'Platzwart', href: `${base}unser-verein/unser-platzwart/` },
+      { label: 'Schiedsrichter', href: `${base}unser-verein/schiedrichter/` },
+      { label: 'BABA', href: `${base}unser-verein/unsere-baba/` },
+      { label: 'Unsere Anlage', href: `${base}unser-verein/unsere-anlage/` },
+      { label: 'Vereinsgeschichte', href: `${base}unser-verein/vereinsgeschichte/` },
+      { label: 'Anfahrt', href: `${base}unser-verein/anfahrt/` },
+      { label: 'Neuigkeiten', href: `${base}unser-verein/neuigkeiten/` },
+    ],
+  },
+  {
+    label: 'Kaderübersicht',
+    href: `${base}kaderuebersicht/`,
+    children: [
+      { label: '1. Senioren', href: `${base}kaderuebersicht/1-senioren/` },
+      { label: 'Alte Herren', href: `${base}kaderuebersicht/alte-herren/` },
+      { label: 'C-Junioren 2011', href: `${base}kaderuebersicht/c-junioren-2011/` },
+      { label: 'D-Junioren 2013', href: `${base}kaderuebersicht/d-junioren-2013/` },
+      { label: 'E-Junioren 2015', href: `${base}kaderuebersicht/e-junioren-2015/` },
+      { label: 'F-Junioren 2017', href: `${base}kaderuebersicht/f-junioren-2017/` },
+      { label: 'Bambini 2018', href: `${base}kaderuebersicht/bambini-2018/` },
+      { label: 'Bambini 2019', href: `${base}kaderuebersicht/bambini-2019/` },
+      { label: 'Bambini 2020/2021', href: `${base}kaderuebersicht/bambini-20202021/` },
+      { label: 'Bambini 2021/2022', href: `${base}kaderuebersicht/bambini-20212022/` },
+    ],
+  },
+  {
+    label: 'Mitmachen',
+    href: `${base}mitmachen/`,
+    children: [
+      { label: 'Mitglied werden', href: `${base}mitmachen/mitglied-werden/` },
+      { label: 'Probetraining', href: `${base}mitmachen/mitglied-werden/probetraining/` },
+      { label: 'Wir Suchen Dich', href: `${base}mitmachen/wir-suchen-dich/` },
+      { label: 'Downloads & Formulare', href: `${base}mitmachen/downloads-formulare/` },
+      { label: 'FAQ', href: `${base}mitmachen/fragen-antworten-faq/` },
+    ],
+  },
   { label: 'Fundgrube', href: `${base}fundgrube/` },
+  { label: 'Impressum', href: `${base}impressum/` },
 ];
 
 const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === base) return currentPath === href;
+  return currentPath.startsWith(href);
+}
 ---
 <header class="site-header" id="site-header">
   <div class="container header-inner">
@@ -25,14 +82,40 @@ const currentPath = Astro.url.pathname;
     </button>
 
     <nav class="site-nav" id="site-nav">
-      {navItems.map(item => (
-        <a
-          href={item.href}
-          class:list={[{ active: currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) }]}
-        >
-          {item.label}
-        </a>
-      ))}
+      {navItems.map(item =>
+        item.children ? (
+          <div class={`nav-item has-dropdown ${isActive(item.href) ? 'is-active-parent' : ''}`}>
+            <a
+              href={item.href}
+              class:list={[{ active: isActive(item.href) }]}
+            >
+              {item.label}
+            </a>
+            <button class="dropdown-toggle" aria-label={`${item.label} Untermenü`} type="button">
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="dropdown">
+              {item.children.map(child => (
+                <a
+                  href={child.href}
+                  class:list={[{ active: currentPath === child.href }]}
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            class:list={['nav-item', { active: isActive(item.href) }]}
+          >
+            {item.label}
+          </a>
+        )
+      )}
     </nav>
   </div>
 </header>

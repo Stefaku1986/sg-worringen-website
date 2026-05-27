@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import newsData from '../../../data/news.json';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Neuigkeiten – SG Köln-Worringen" description="Aktuelle Neuigkeiten und Berichte der SG Köln-Worringen Fußballabteilung. Spielberichte, Events und Vereinsnachrichten.">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/`}>Unser Verein</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/neuigkeiten/`}>Neuigkeiten</a>
+      </nav>
+      <h1>Neuigkeiten</h1>
+    </div>
+  </div>
+
+  <section class="container news-page">
+    {newsData.map((entry: any, entryIndex: number) => (
+      <>
+        <article class="news-entry" id={entry.id}>
+          <span class="news-date">{entry.dateDisplay}</span>
+          <h2 class="news-title">{entry.title}</h2>
+          <div class="news-text">
+            {entry.text.split('\n\n').map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          {entry.images && entry.images.length > 0 && (
+            <div class="news-gallery">
+              {entry.images.map((img: any, imgIndex: number) => (
+                <img
+                  src={`${base}${img.src}`}
+                  alt={img.alt}
+                  loading={entryIndex === 0 && imgIndex === 0 ? undefined : 'lazy'}
+                />
+              ))}
+            </div>
+          )}
+        </article>
+        {entryIndex < newsData.length - 1 && (
+          <div class="news-separator" />
+        )}
+      </>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .news-page {
+    padding-block: 3rem 4rem;
+  }
+
+  .news-entry {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .news-date {
+    display: inline-block;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-pill);
+    padding: 0.25rem 0.85rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--blue);
+    margin: 0 0 0.75rem;
+    line-height: 1.3;
+  }
+
+  .news-text {
+    line-height: 1.75;
+    margin-block: 1rem;
+    color: var(--text-muted);
+  }
+
+  .news-text p {
+    margin: 0 0 0.75rem;
+  }
+
+  .news-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .news-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .news-gallery img {
+    border-radius: var(--r-md);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .news-gallery img:hover {
+    transform: scale(1.03);
+  }
+
+  .news-separator {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+    margin-block: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .news-gallery {
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+
+    .news-title {
+      font-size: 1.25rem;
+    }
+
+    .news-page {
+      padding-block: 2rem 3rem;
+    }
+  }
+</style>

@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Unsere Anlage – SG Köln-Worringen" description="Sportanlage am Erdweg in Köln-Worringen: Naturrasenplatz, Ascheplatz und Multifunktionshalle für Training und Spiele.">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/`}>Unser Verein</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/unsere-anlage/`}>Unsere Anlage</a>
+      </nav>
+      <h1>Unsere Anlage</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="hero-image">
+        <img
+          src={`${base}images/content/sonstiges/worrinegn.JPG`}
+          alt="Luftaufnahme der Sportanlage am Erdweg in Köln-Worringen"
+          loading="eager"
+        />
+      </div>
+
+      <div class="section-header">
+        <span class="eyebrow">Sportanlage</span>
+        <h2>Am Erdweg</h2>
+      </div>
+
+      <div class="address-block">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        <p>Erdweg 1a, 50769 Köln (Worringen)</p>
+      </div>
+
+      <div class="card-grid cols-3 feature-grid">
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2" />
+              <line x1="12" y1="2" x2="12" y2="22" />
+              <circle cx="12" cy="12" r="3" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+            </svg>
+          </div>
+          <h3>Naturrasenplatz</h3>
+          <p>
+            Gepflegter Naturrasen mit umlaufender C-Kampfbahn. Wird auch von der
+            Leichtathletik-Abteilung und dem Rehasport genutzt.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+          </div>
+          <h3>Ascheplatz</h3>
+          <p>
+            Der bestehende Ascheplatz soll perspektivisch durch einen modernen
+            Kunstrasenplatz ersetzt werden.
+          </p>
+        </div>
+
+        <div class="card feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+          </div>
+          <h3>Multifunktionshalle</h3>
+          <p>
+            Großzügige Halle für Wintertraining und verschiedenste Sportveranstaltungen.
+            Ideale Bedingungen für den Hallenfußball.
+          </p>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>So findest du uns</h3>
+        <p>Anfahrtsbeschreibung und Wegbeschreibung zur Sportanlage am Erdweg.</p>
+        <a href={`${base}unser-verein/anfahrt/`} class="btn btn-primary">
+          Anfahrt anzeigen
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-image {
+    margin-bottom: 3rem;
+  }
+
+  .hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .address-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .address-block svg {
+    color: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .address-block p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .feature-grid {
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    color: var(--blue);
+    margin-bottom: 1.25rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .cta-box {
+    margin-top: 4rem;
+    text-align: center;
+    background: var(--blue-soft);
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+  }
+
+  .cta-box h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cta-box p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero-image img {
+      border-radius: 0.75rem;
+    }
+
+    .feature-card {
+      padding: 1.5rem 1rem;
+    }
+
+    .cta-box {
+      padding: 2rem 1.25rem;
+    }
+  }
+</style>

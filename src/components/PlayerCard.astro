@@ -1,0 +1,263 @@
+---
+interface Props {
+  name: string;
+  number: number | null;
+  position: string;
+  positionLabel?: string;
+  image?: string | null;
+  role?: string; // "Trainer", "Co-Trainer" etc. for staff
+  since?: string;
+  isStaff?: boolean;
+}
+
+const {
+  name,
+  number,
+  position,
+  positionLabel,
+  image,
+  role,
+  since,
+  isStaff = false,
+} = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const imgSrc = image
+  ? `${base}images/content/${image}`
+  : `${base}images/content/sonstiges/player-placeholder.png`;
+
+const displayNumber = number ?? (isStaff ? '★' : '–');
+const cardClass = isStaff ? 'player-card is-staff' : 'player-card';
+---
+
+<div class={cardClass}>
+  {/* Diagonal accent stripe */}
+  <div class="card-accent"></div>
+
+  {/* Top: Position badge + Number */}
+  <div class="card-header">
+    <div class="card-number">{displayNumber}</div>
+    <div class="card-position">{position}</div>
+  </div>
+
+  {/* Player photo */}
+  <div class="card-photo">
+    <img src={imgSrc} alt={name} loading="lazy" />
+  </div>
+
+  {/* Bottom: Name plate */}
+  <div class="card-nameplate">
+    <div class="card-name">{name}</div>
+    {role && <div class="card-role">{role}</div>}
+    {!role && positionLabel && <div class="card-role">{positionLabel}</div>}
+  </div>
+
+  {/* Club crest watermark */}
+  <div class="card-crest">
+    <img src={`${base}images/logo.png`} alt="" aria-hidden="true" loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .player-card {
+    --card-bg: var(--blue-deep, #0B2545);
+    --card-accent: var(--yellow, #F0C808);
+    --card-text: #ffffff;
+    --card-subtle: rgba(255, 255, 255, 0.5);
+
+    position: relative;
+    width: 220px;
+    aspect-ratio: 3 / 4.2;
+    background: linear-gradient(145deg, var(--card-bg) 0%, #132f52 50%, #0a1e38 100%);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow:
+      0 4px 20px rgba(11, 37, 69, 0.3),
+      0 1px 4px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+    cursor: default;
+    isolation: isolate;
+  }
+
+  .player-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow:
+      0 12px 40px rgba(11, 37, 69, 0.45),
+      0 4px 12px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Staff variant: gold accent border */
+  .player-card.is-staff {
+    background: linear-gradient(145deg, #1a3a5c 0%, #0f2744 50%, #0B2545 100%);
+    border: 2px solid var(--card-accent);
+  }
+
+  /* Diagonal accent stripe */
+  .card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--card-accent) 0%, rgba(240, 200, 8, 0.15) 100%);
+    clip-path: polygon(0 0, 100% 0, 40% 100%, 0 100%);
+    z-index: 1;
+  }
+
+  .is-staff .card-accent {
+    background: linear-gradient(180deg, var(--card-accent) 0%, rgba(240, 200, 8, 0.3) 100%);
+    width: 70px;
+  }
+
+  /* Header: Number + Position */
+  .card-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.85rem 0 0 0.85rem;
+    gap: 0.1rem;
+  }
+
+  .card-number {
+    font-family: var(--font-display, 'Syne', sans-serif);
+    font-weight: 900;
+    font-size: 2.2rem;
+    line-height: 1;
+    color: var(--card-text);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+  }
+
+  .is-staff .card-number {
+    color: var(--card-accent);
+    font-size: 1.8rem;
+  }
+
+  .card-position {
+    font-family: var(--font-display, 'Syne', sans-serif);
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--card-accent);
+    background: rgba(240, 200, 8, 0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(240, 200, 8, 0.25);
+  }
+
+  /* Player photo */
+  .card-photo {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 55%;
+    padding: 0 0.75rem;
+    margin-top: -0.5rem;
+  }
+
+  .card-photo img {
+    width: 85%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .player-card:hover .card-photo img {
+    transform: scale(1.05);
+  }
+
+  /* Name plate at bottom */
+  .card-nameplate {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    text-align: center;
+    padding: 0.6rem 0.75rem 0.75rem;
+    background: linear-gradient(to top, rgba(11, 37, 69, 0.95) 60%, transparent);
+  }
+
+  .card-name {
+    font-family: var(--font-display, 'Syne', sans-serif);
+    font-weight: 800;
+    font-size: 0.85rem;
+    color: var(--card-text);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-role {
+    font-family: var(--font-body, 'DM Sans', sans-serif);
+    font-size: 0.65rem;
+    color: var(--card-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 0.15rem;
+    font-weight: 600;
+  }
+
+  /* Club crest watermark */
+  .card-crest {
+    position: absolute;
+    top: 50%;
+    right: -5%;
+    transform: translateY(-50%);
+    width: 45%;
+    opacity: 0.06;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .card-crest img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Subtle border glow on hover */
+  .player-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    z-index: 4;
+    pointer-events: none;
+    transition: border-color 0.35s ease;
+  }
+
+  .player-card:hover::after {
+    border-color: rgba(240, 200, 8, 0.2);
+  }
+
+  /* Responsive sizing */
+  @media (max-width: 720px) {
+    .player-card {
+      width: 160px;
+    }
+    .card-number { font-size: 1.8rem; }
+    .card-name { font-size: 0.75rem; }
+    .card-position { font-size: 0.6rem; }
+  }
+
+  @media (max-width: 380px) {
+    .player-card {
+      width: 140px;
+    }
+    .card-number { font-size: 1.5rem; }
+  }
+</style>

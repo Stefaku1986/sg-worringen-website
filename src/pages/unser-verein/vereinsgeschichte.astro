@@ -1,0 +1,282 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const eras = [
+  {
+    years: '1920er',
+    badge: '1927',
+    title: 'Die Gründung',
+    text: `Das Fußballfieber erfasste Worringen in den 1920er Jahren. Am 2. April 1927 gründeten ehemalige Mitglieder des „Vereins für Spiel und Sport Worringen" in der Gaststätte Matheisen den „Ballspiel-Verein Worringen" (BVW). Zu den Gründungsmitgliedern zählten Peter Annas, Johann Bensel, Hans Daubenbüchel, Wilhelm Esser, Paul Fischer, Josef Hackenbroich, Josef Kluth, Johann Monius, Heinrich Mizineck, Willi Odendahl, Werner Pullem, Heinrich Schorn und Hermann Sturm. Erster Vorsitzender wurde Peter Annas.`,
+    text2: `Bereits im September 1927 zählte der junge Verein 40 Mitglieder. Der BVW trat dem Westdeutschen Fußballverband bei und startete in der 2. Kreisklasse. Die Mannschaft entwickelte sich rasch weiter — 1932 gelang der Aufstieg in die 1. Kreisklasse, und das ungeschlagen.`,
+    image: `${base}images/content/Vereinsgeschichte/BVW-1928---gro.jpg`,
+    imageAlt: 'BVW 1928',
+  },
+  {
+    years: '1940er–1950er',
+    badge: '1945',
+    title: 'Krieg und Wiederaufbau',
+    text: `Der Zweite Weltkrieg brachte den Spielbetrieb zum Erliegen. Doch schon kurz nach Kriegsende sorgte Peter Bündgen dafür, dass in Worringen wieder Fußball gespielt wurde. Er organisierte das erste Nachkriegsspiel im Kölner Raum — gegen den FC Zons.`,
+    text2: `In den 1950er Jahren stellte der BVW eine starke Mannschaft, die mehrfach Herbstmeister wurde. Am Krebelspfad verfolgten regelmäßig über 1.000 Zuschauer die Heimspiele — ein Zeichen für die Begeisterung, die der Verein in Worringen entfachte.`,
+    image: `${base}images/content/Vereinsgeschichte/BVW-1964---gro.jpg`,
+    imageAlt: 'BVW 1964',
+  },
+  {
+    years: '1960er–1970er',
+    badge: '1971',
+    title: 'Auf und Ab',
+    text: `Die folgenden Jahrzehnte brachten sportliche Höhen und Tiefen. In der Saison 1959/60 musste der BVW den Abstieg in die 2. Kreisklasse hinnehmen. Die Saison 1967/68 brachte einen erneuten Abstieg.`,
+    text2: `Das Jahr 1971 markierte einen Wendepunkt: Der BVW ging in der neu gegründeten Sportgemeinschaft EC/Bayer Köln-Worringen auf. Damit begann ein neues Kapitel in der Worringer Fußballgeschichte.`,
+    image: null,
+    imageAlt: null,
+  },
+  {
+    years: '1980er–2000er',
+    badge: '2000',
+    title: 'Der Aufstieg',
+    text: `Die 1980er und 1990er Jahre brachten eine beeindruckende Serie von Aufstiegen. In der Saison 1986/87 schaffte die Mannschaft den Sprung in die Kreisliga A. Nur wenige Jahre später, 1992/93, folgte der Aufstieg in die Bezirksliga.`,
+    text2: `Der Höhepunkt dieser Ära war die Saison 1999/2000: Die SG Worringen stieg in die Landesliga auf — eine Spielklasse, in der der Verein bis heute überwiegend vertreten ist.`,
+    image: `${base}images/content/Vereinsgeschichte/BVW-1987---gro.jpg`,
+    imageAlt: 'BVW 1987',
+  },
+  {
+    years: 'Heute',
+    badge: '2025',
+    title: 'SG Worringen heute',
+    text: `Heute ist die SG Köln-Worringen ein lebendiger Fußballverein mit einer starken Jugendabteilung und mehreren Seniorenmannschaften. Die Verbundenheit zum Stadtteil Worringen und die ehrenamtliche Arbeit vieler Mitglieder bilden das Fundament des Vereinslebens — damals wie heute.`,
+    text2: null,
+    image: `${base}images/content/WORRINGEN/WhatsApp_Image_2023-05-26_at_15.44.29.jpeg`,
+    imageAlt: 'SG Worringen heute',
+  },
+];
+---
+
+<BaseLayout title="Vereinsgeschichte – SG Köln-Worringen" description="Die Geschichte des Fußballs in Worringen seit 1927 – vom BVW zur SG Köln-Worringen. Historische Fotos und Meilensteine.">
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/`}>Unser Verein</a>
+        <span class="sep">/</span>
+        <a href={`${base}unser-verein/vereinsgeschichte/`}>Vereinsgeschichte</a>
+      </nav>
+      <h1>Vereinsgeschichte</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Seit 1927</span>
+        <h2>Fußball in Worringen</h2>
+      </div>
+
+      <div class="timeline">
+        {eras.map((era, i) => (
+          <div class={`timeline-item ${i % 2 === 0 ? 'left' : 'right'}`}>
+            <div class="timeline-connector">
+              <span class="timeline-badge">{era.badge}</span>
+            </div>
+            <div class="timeline-content card">
+              <span class="era-years">{era.years}</span>
+              <h3>{era.title}</h3>
+              <p>{era.text}</p>
+              {era.text2 && <p>{era.text2}</p>}
+              {era.image && (
+                <div class="timeline-image">
+                  <img src={era.image} alt={era.imageAlt} loading="lazy" />
+                  <span class="image-caption">{era.imageAlt}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  /* ── Timeline layout ── */
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  /* Vertical connector line */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--yellow), var(--blue), var(--yellow));
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    align-items: start;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Left items: content in left column */
+  .timeline-item.left .timeline-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .timeline-item.left .timeline-connector {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Right items: content in right column */
+  .timeline-item.right .timeline-content {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .timeline-item.right .timeline-connector {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* ── Connector dot / badge ── */
+  .timeline-connector {
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+    padding-top: 1.5rem;
+  }
+
+  .timeline-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: var(--yellow);
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: -0.02em;
+    box-shadow: 0 4px 16px rgba(26, 58, 114, 0.3);
+    border: 3px solid var(--yellow);
+  }
+
+  /* ── Card content ── */
+  .timeline-content {
+    padding: 2rem;
+  }
+
+  .era-years {
+    display: inline-block;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: var(--r-pill);
+    padding: 0.25rem 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  .timeline-content p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  /* ── Image inside timeline card ── */
+  .timeline-image {
+    margin-top: 1.25rem;
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .timeline-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s var(--ease-out);
+  }
+
+  .timeline-image:hover img {
+    transform: scale(1.03);
+  }
+
+  .image-caption {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--bg);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* ── Mobile: stacked layout ── */
+  @media (max-width: 768px) {
+    .timeline::before {
+      left: 20px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1rem;
+    }
+
+    .timeline-item.left .timeline-content,
+    .timeline-item.right .timeline-content {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .timeline-item.left .timeline-connector,
+    .timeline-item.right .timeline-connector {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .timeline-badge {
+      width: 42px;
+      height: 42px;
+      font-size: 0.7rem;
+    }
+
+    .timeline-content {
+      padding: 1.5rem;
+    }
+  }
+</style>

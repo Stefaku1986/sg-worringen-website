@@ -6,9 +6,11 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
+  ogType?: string;
 }
 
-const { title, description = 'Sportgemeinschaft Köln-Worringen – Fußball seit 1971' } = Astro.props;
+const { title, description = 'Sportgemeinschaft Köln-Worringen – Fußball seit 1971', ogImage, ogType } = Astro.props;
 const base = import.meta.env.BASE_URL;
 ---
 <!DOCTYPE html>
@@ -17,6 +19,16 @@ const base = import.meta.env.BASE_URL;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType || 'website'} />
+  <meta property="og:image" content={ogImage || `${Astro.site}${base.slice(1)}images/logo.png`} />
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="SG Köln-Worringen Fußball" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
   <link rel="icon" type="image/png" href={`${base}images/logo.png`} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,14 +54,33 @@ const base = import.meta.env.BASE_URL;
         document.body.style.overflow = open ? 'hidden' : '';
       });
 
-      // Close on link click
+      // Close on link click (but not dropdown toggle buttons)
       nav.addEventListener('click', (e) => {
-        if ((e.target as HTMLElement).tagName === 'A') {
+        const target = e.target as HTMLElement;
+        if (target.tagName === 'A' && !target.closest('.has-dropdown.is-open') ||
+            (target.tagName === 'A' && target.closest('.dropdown'))) {
           nav.classList.remove('open');
           toggle.classList.remove('is-active');
           toggle.setAttribute('aria-expanded', 'false');
           document.body.style.overflow = '';
+          // Close all open dropdowns
+          nav.querySelectorAll('.has-dropdown.is-open').forEach(el => el.classList.remove('is-open'));
         }
+      });
+
+      // Mobile dropdown accordion toggles
+      nav.querySelectorAll('.dropdown-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const parent = (e.currentTarget as HTMLElement).closest('.has-dropdown');
+          if (!parent) return;
+          // Close sibling dropdowns
+          nav.querySelectorAll('.has-dropdown.is-open').forEach(el => {
+            if (el !== parent) el.classList.remove('is-open');
+          });
+          parent.classList.toggle('is-open');
+        });
       });
     }
 

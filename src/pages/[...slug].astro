@@ -3,8 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import pages from '../../data/spa_pages.json';
 
 export function getStaticPaths() {
+  // Exclude pages that have dedicated .astro files
+  const dedicatedPages = new Set([
+    'home',
+    'impressum',
+    'gaestebuch',
+    'onlineshop',
+    'mitmachen/downloads-formulare',
+    'unser-verein/der-verein',
+    'unser-verein/unser-abteilungsleitung',
+    'unser-verein/unser-platzwart',
+    'unser-verein/schiedrichter',
+    'unser-verein/unsere-baba',
+    'unser-verein/unsere-anlage',
+    'unser-verein/vereinsgeschichte',
+    'unser-verein/anfahrt',
+    'unser-verein/neuigkeiten',
+    'mitmachen/mitglied-werden/probetraining',
+    'kaderuebersicht/1-senioren',
+    'kaderuebersicht/alte-herren',
+    'kaderuebersicht/b-junioren-2009',
+    'kaderuebersicht/c-junioren-2010',
+    'kaderuebersicht/c-junioren-2011',
+    'kaderuebersicht/d-junioren-2013',
+    'kaderuebersicht/e-junioren-2015',
+    'kaderuebersicht/f-junioren-2016',
+    'kaderuebersicht/f-junioren-2017',
+    'kaderuebersicht/bambini-2018',
+    'kaderuebersicht/bambini-2019',
+    'kaderuebersicht/bambini-20202021',
+    'kaderuebersicht/bambini-20212022',
+  ]);
+
   return (pages as any[])
-    .filter((p) => p.id !== 'home')
+    .filter((p) => !dedicatedPages.has(p.id))
     .map((p) => {
       const slug = p.id;
       const rawTitle = p.title
@@ -63,7 +95,7 @@ const breadcrumbs = segments.map((seg: string, i: number) => {
   return { href, label };
 });
 ---
-<BaseLayout title={`${page.cleanTitle} – SG Köln-Worringen`}>
+<BaseLayout title={`${page.cleanTitle} – SG Köln-Worringen`} description={`${page.cleanTitle} – Informationen und Inhalte der SG Köln-Worringen Fußballabteilung.`}>
   <div class="page-hero">
     <div class="container">
       <nav class="breadcrumbs">

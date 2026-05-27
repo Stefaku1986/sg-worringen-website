@@ -1,0 +1,619 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PlayerCard from '../../components/PlayerCard.astro';
+import playersData from '../../../data/players.json';
+import fussballData from '../../../data/fussball.json';
+
+const posLabels = playersData.positionLabels as Record<string, string>;
+
+export function getStaticPaths() {
+  return Object.entries(playersData.teams).map(([slug, team]) => ({
+    params: { team: slug },
+    props: { team, slug },
+  }));
+}
+
+interface StaffMember {
+  name: string;
+  role: string;
+  number: number | null;
+  position: string;
+  image: string | null;
+  since: string | null;
+}
+
+interface Player {
+  name: string;
+  number: number;
+  position: string;
+  image: string | null;
+}
+
+interface Team {
+  name: string;
+  shortName: string;
+  season: string;
+  staff: StaffMember[];
+  players: Player[];
+}
+
+const { team, slug } = Astro.props as { team: Team; slug: string };
+const base = import.meta.env.BASE_URL;
+const hasStaff = team.staff.length > 0;
+const hasPlayers = team.players.length > 0;
+const isEmpty = !hasStaff && !hasPlayers;
+
+// Fussball.de widget data
+const fbTeam = (fussballData.teams as Record<string, any>)[slug];
+const hasWidgets = fbTeam?.widgets && Object.values(fbTeam.widgets).some((id: any) => id);
+const hasFussballData = !!fbTeam;
+const seasonEnd = fussballData.seasonEnd || '';
+const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in Kürze aktualisiert.';
+---
+
+<BaseLayout
+  title={`${team.name} – Kader ${team.season} – SG Köln-Worringen`}
+  description={`Kaderübersicht der ${team.name} (${team.shortName}) der SG Köln-Worringen – Saison ${team.season}`}
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>
+        <span class="sep">/</span>
+        <a href={`${base}kaderuebersicht/${slug}/`}>{team.name}</a>
+      </nav>
+      <h1>{team.name}</h1>
+    </div>
+  </div>
+
+  <section class="section kader-section">
+    <div class="container">
+
+      {/* Season + Team Badge */}
+      <div class="team-header">
+        <div class="team-badge">
+          <img src={`${base}images/logo.png`} alt="SG Köln-Worringen" />
+        </div>
+        <div class="team-info">
+          <span class="eyebrow">Saison {team.season}</span>
+          <h2>{team.shortName} · {team.name}</h2>
+          <p class="team-meta">SG Köln-Worringen e.V. · Fußballabteilung</p>
+        </div>
+      </div>
+
+      {/* Trainerstab */}
+      {hasStaff && (
+        <div class="kader-group">
+          <div class="kader-group-label">
+            <span>Trainerstab</span>
+          </div>
+          <div class="kader-grid">
+            {team.staff.map((person) => (
+              <PlayerCard
+                name={person.name}
+                number={person.number}
+                position={person.position}
+                positionLabel={posLabels[person.position] || person.role}
+                image={person.image}
+                role={person.role}
+                isStaff={true}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Spieler */}
+      {hasPlayers && (
+        <div class="kader-group">
+          <div class="kader-group-label">
+            <span>Spieler</span>
+          </div>
+          <div class="kader-grid">
+            {team.players.map((player) => (
+              <PlayerCard
+                name={player.name}
+                number={player.number}
+                position={player.position}
+                positionLabel={posLabels[player.position]}
+                image={player.image}
+                isStaff={false}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Leer-Hinweis wenn weder Staff noch Spieler */}
+      {isEmpty && (
+        <div class="kader-empty">
+          <div class="empty-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <line x1="19" y1="8" x2="19" y2="14" />
+              <line x1="22" y1="11" x2="16" y2="11" />
+            </svg>
+          </div>
+          <h3>Kader wird noch erfasst</h3>
+          <p>Die Spielerdaten für die {team.name} werden aktuell zusammengestellt.</p>
+          <p>Schau bald wieder vorbei!</p>
+        </div>
+      )}
+
+      {/* Hinweis */}
+      {!isEmpty && (
+        <div class="kader-notice">
+          <p>
+            <strong>Spielerdaten werden aktuell erfasst.</strong> Die Karten werden nach und nach mit Fotos und Namen ergänzt.
+            Bitte wende dich an die Abteilungsleitung, wenn du Spielerdaten ergänzen möchtest.
+          </p>
+        </div>
+      )}
+
+      {/* Tabelle & Kommende Spiele – Live fussball.de Widgets */}
+      {hasFussballData && (
+        <div class="fussball-section" data-season-end={seasonEnd} data-season-msg={seasonEndMessage}>
+          <div class="section-header">
+            <span class="eyebrow">{fbTeam.league}</span>
+            <h2>Saison {fbTeam.season}</h2>
+          </div>
+
+          {/* Saisonende-Overlay (wird per JS eingeblendet wenn Saison abgelaufen) */}
+          <div class="season-end-overlay" style="display: none;">
+            <div class="season-end-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <p class="season-end-text"></p>
+            {fbTeam.fussballDeUrl && (
+              <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer" class="fussball-link">
+                Zur Mannschaftsseite auf fussball.de
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            )}
+          </div>
+
+          {hasWidgets ? (
+            <div class="fussball-grid fussball-widgets-content">
+              {/* Tabelle */}
+              {fbTeam.widgets?.table && (
+                <div class="fussball-card">
+                  <div class="fussball-card-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <h3>Aktuelle Tabelle</h3>
+                  </div>
+                  <div class="widget-wrap">
+                    <div
+                      class="fussballde_widget"
+                      data-id={fbTeam.widgets.table}
+                      data-type="table"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </div>
+              )}
+
+              {/* Kommende Spiele */}
+              {fbTeam.widgets?.nextMatches && (
+                <div class="fussball-card">
+                  <div class="fussball-card-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <h3>Nächste Spiele</h3>
+                  </div>
+                  <div class="widget-wrap">
+                    <div
+                      class="fussballde_widget"
+                      data-id={fbTeam.widgets.nextMatches}
+                      data-type="next-matches"
+                      style="width: 100%"
+                    ></div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div class="fussball-placeholder fussball-widgets-content">
+              <div class="placeholder-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="none" />
+                </svg>
+              </div>
+              <p>Tabelle und Spielplan werden in Kürze hier angezeigt.</p>
+              {fbTeam.fussballDeUrl && (
+                <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer" class="fussball-link">
+                  Zur Mannschaftsseite auf fussball.de
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  </a>
+              )}
+            </div>
+          )}
+
+          {/* Quelle & Link */}
+          <div class="fussball-source fussball-widgets-content">
+            <p>
+              Daten live von <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer">fussball.de</a>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* fussball.de Widget Script */}
+      {hasWidgets && (
+        <script is:inline src="https://www.fussball.de/widgets.js"></script>
+      )}
+
+      {/* Saisonende-Check: blendet Overlay ein wenn Saison abgelaufen */}
+      {hasFussballData && (
+        <script is:inline>
+          (function() {
+            var section = document.querySelector('.fussball-section[data-season-end]');
+            if (!section) return;
+            var endDate = section.getAttribute('data-season-end');
+            var msg = section.getAttribute('data-season-msg');
+            if (!endDate) return;
+            var now = new Date();
+            var end = new Date(endDate + 'T23:59:59');
+            if (now > end) {
+              var overlay = section.querySelector('.season-end-overlay');
+              var textEl = section.querySelector('.season-end-text');
+              if (overlay && textEl) {
+                textEl.textContent = msg || 'Die Daten werden in Kürze aktualisiert.';
+                overlay.style.display = '';
+              }
+              // Widgets ausblenden
+              var widgets = section.querySelectorAll('.fussball-widgets-content');
+              widgets.forEach(function(el) { el.style.display = 'none'; });
+            }
+          })();
+        </script>
+      )}
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .kader-section {
+    background: var(--bg);
+  }
+
+  /* Team header */
+  .team-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem 2rem;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .team-badge img {
+    width: 72px;
+    height: auto;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1));
+  }
+
+  .team-info .eyebrow {
+    margin-bottom: 0.25rem;
+  }
+
+  .team-info h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.2rem;
+  }
+
+  .team-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  /* Group label */
+  .kader-group {
+    margin-bottom: 3rem;
+  }
+
+  .kader-group-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .kader-group-label::before,
+  .kader-group-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .kader-group-label span {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* Player card grid */
+  .kader-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  /* Empty state */
+  .kader-empty {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+  }
+
+  .empty-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    color: var(--blue);
+    margin-bottom: 1.5rem;
+  }
+
+  .kader-empty h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .kader-empty p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  /* Notice box */
+  .kader-notice {
+    margin-top: 2rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--blue-soft);
+    border-radius: var(--r-md);
+    border-left: 4px solid var(--yellow);
+  }
+
+  .kader-notice p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .kader-notice strong {
+    color: var(--blue-deep);
+  }
+
+  /* ── Fussball.de Section ── */
+  .fussball-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .fussball-section .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .fussball-section .section-header .eyebrow {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.25rem;
+  }
+
+  .fussball-section .section-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--blue-deep);
+  }
+
+  .fussball-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .fussball-card {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .fussball-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    background: var(--blue-deep);
+    color: #fff;
+  }
+
+  .fussball-card-header h3 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* Widget container */
+  .widget-wrap {
+    min-height: 200px;
+  }
+
+  .fde-widget {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .widget-placeholder {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  .widget-placeholder p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .widget-placeholder a {
+    display: inline-block;
+    font-size: 0.85rem;
+    color: var(--blue);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* Placeholder when no widgets configured */
+  .fussball-placeholder {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    border: 1px dashed var(--border);
+  }
+
+  .placeholder-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    color: var(--blue);
+    margin-bottom: 1.25rem;
+  }
+
+  .fussball-placeholder p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .fussball-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--r-md);
+    background: var(--blue-soft);
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .fussball-link:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  /* Season-end overlay */
+  .season-end-overlay {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--yellow);
+  }
+
+  .season-end-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(240, 200, 8, 0.15), rgba(240, 200, 8, 0.05));
+    color: var(--yellow);
+    margin-bottom: 1.25rem;
+  }
+
+  .season-end-text {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    max-width: 500px;
+    margin-inline: auto;
+  }
+
+  /* Source link */
+  .fussball-source {
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+  }
+
+  .fussball-source p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .fussball-source a {
+    color: var(--blue);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  @media (max-width: 720px) {
+    .team-header {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.25rem;
+      gap: 1rem;
+    }
+
+    .team-info h2 {
+      font-size: 1.25rem;
+    }
+
+    .kader-grid {
+      gap: 0.75rem;
+    }
+
+    .fussball-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
