@@ -6,7 +6,7 @@
       "season": "2025/2026",
       "staff": [
         {
-          "name": "Trainer",
+          "name": "Sebastian Tange",
           "role": "Trainer",
           "number": null,
           "position": "TR",
@@ -30,7 +30,7 @@
           "since": "2025"
         },
         {
-          "name": "Mannschaftsverantwortlicher",
+          "name": "Karl-Heinz Laas",
           "role": "Mannschaftsverantwortlicher",
           "number": null,
           "position": "BT",
@@ -114,20 +114,6 @@
       "staff": [],
       "players": []
     },
-    "b-junioren-2009": {
-      "name": "B-Junioren 2009",
-      "shortName": "U17",
-      "season": "2025/2026",
-      "staff": [],
-      "players": []
-    },
-    "c-junioren-2010": {
-      "name": "C-Junioren 2010",
-      "shortName": "U16",
-      "season": "2025/2026",
-      "staff": [],
-      "players": []
-    },
     "c-junioren-2011": {
       "name": "C-Junioren 2011",
       "shortName": "U15",
@@ -176,7 +162,7 @@
           "image": null
         },
         {
-          "name": "Spieler 5",
+          "name": "Denis Avram",
           "number": 5,
           "position": "RV",
           "image": null
@@ -218,7 +204,7 @@
           "image": null
         },
         {
-          "name": "Spieler 12",
+          "name": "Aras Senol",
           "number": 12,
           "position": "IV",
           "image": ""
@@ -230,15 +216,15 @@
           "image": ""
         },
         {
-          "name": "Spieler 14",
+          "name": "Lasse Amelsberg",
           "number": 14,
-          "position": "IV",
+          "position": "ZM",
           "image": ""
         },
         {
-          "name": "Spieler 15",
+          "name": "Lukas Mayer",
           "number": 15,
-          "position": "ZM",
+          "position": "LV",
           "image": ""
         },
         {
@@ -275,7 +261,7 @@
           "since": ""
         },
         {
-          "name": "Linis",
+          "name": "Linus Thivessen",
           "role": "Co-Trainer",
           "number": null,
           "position": "CO",
@@ -315,14 +301,14 @@
         }
       ]
     },
-    "f-Junioren-2016": {
+    "F-Junioren-2016": {
       "name": "F-Junioren 2016",
       "shortName": "U10",
       "season": "2025/2026",
       "staff": [],
       "players": []
     },
-    "f-junioren-2017": {
+    "F-Junioren-2017": {
       "name": "F-Junioren 2017",
       "shortName": "U9",
       "season": "2025/2026",
@@ -332,14 +318,6 @@
           "role": "Trainer",
           "number": null,
           "position": "TR",
-          "image": null,
-          "since": null
-        },
-        {
-          "name": "Tobias Louis",
-          "role": "Co-Trainer",
-          "number": null,
-          "position": "CO",
           "image": null,
           "since": null
         },
@@ -362,7 +340,7 @@
       ]
     },
     "F-Junioren-2018": {
-      "name": "Bambini 2018",
+      "name": "F-Junioren 2018",
       "shortName": "U8",
       "season": "2025/2026",
       "staff": [
@@ -421,7 +399,7 @@
       "season": "2025/2026",
       "staff": [
         {
-          "name": "Simon Peters",
+          "name": "Coskun",
           "role": "Trainer",
           "number": null,
           "position": "TR",
