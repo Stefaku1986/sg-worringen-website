@@ -261,7 +261,7 @@
         }
       ]
     },
-    "d-junioren-2013": {
+    "D-Junioren-2013": {
       "name": "D-Junioren 2013",
       "shortName": "U13",
       "season": "2025/2026",
@@ -292,7 +292,7 @@
         }
       ]
     },
-    "e-junioren-2015": {
+    "E-Junioren-2015": {
       "name": "E-Junioren 2015",
       "shortName": "U11",
       "season": "2025/2026",
@@ -305,14 +305,6 @@
           "image": "DSC_0607.JPG",
           "since": null
         },
-        {
-          "name": "Dominik Rother",
-          "role": "Co-Trainer",
-          "number": null,
-          "position": "CO",
-          "image": null,
-          "since": ""
-        }
       ],
       "players": [],
       "trainingTimes": [
@@ -323,7 +315,7 @@
         }
       ]
     },
-    "f-junioren-2016": {
+    "f-Junioren-2016": {
       "name": "F-Junioren 2016",
       "shortName": "U10",
       "season": "2025/2026",
@@ -369,13 +361,13 @@
         }
       ]
     },
-    "bambini-2018": {
+    "F-Junioren-2018": {
       "name": "Bambini 2018",
       "shortName": "U8",
       "season": "2025/2026",
       "staff": [
         {
-          "name": "Markus Trenz",
+          "name": "Markus Trentz",
           "role": "Trainer",
           "number": null,
           "position": "TR",
@@ -406,7 +398,7 @@
           "since": null
         },
         {
-          "name": "Bodo",
+          "name": "Bodo Bernhardt",
           "role": "Trainer",
           "number": null,
           "position": "TR",
