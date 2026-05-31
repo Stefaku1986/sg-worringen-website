@@ -12,19 +12,18 @@ const hasClubMatches = !!clubMatchesWidget;
 const seasonEnd = fussballData.seasonEnd || '';
 const seasonEndMessage = fussballData.seasonEndMessage || '';
 
-const mannschaften = pages.filter((p: any) =>
-  p.id.startsWith('kaderuebersicht/') && p.id !== 'kaderuebersicht'
-);
+// Mannschaften werden jetzt über Quick-Links referenziert
 
 const latestNews = (allNews as any).items
   .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime())
   .slice(0, 3);
 
 const quickLinks = [
-  { icon: '⚽', title: 'Mannschaften', desc: 'Unsere Teams von Bambini bis Alte Herren', href: `${base}kaderuebersicht/` },
-  { icon: '🏟️', title: 'Unsere Anlage', desc: 'Sportplatz und Vereinsheim in Worringen', href: `${base}unser-verein/unsere-anlage/` },
   { icon: '📋', title: 'Mitglied werden', desc: 'Jetzt anmelden und Teil der SG werden', href: `${base}mitmachen/mitglied-werden/` },
-  { icon: '📰', title: 'Neuigkeiten', desc: 'Aktuelle News rund um den Verein', href: `${base}unser-verein/neuigkeiten/` },
+  { icon: '⚽', title: 'Probetraining', desc: 'Unverbindlich reinschnuppern', href: `${base}mitmachen/mitglied-werden/probetraining/` },
+  { icon: '👥', title: 'Alle Mannschaften', desc: 'Von Bambini bis 1. Mannschaft', href: `${base}kaderuebersicht/` },
+  { icon: '🗓️', title: 'Trainingsplan', desc: 'Wochenübersicht aller Trainingszeiten', href: `${base}kaderuebersicht/trainingsplan/` },
+  { icon: '🏟️', title: 'Mehr über den Verein', desc: 'Geschichte, Anlage und Anfahrt', href: `${base}unser-verein/` },
 ];
 ---
 <BaseLayout title="SG Köln-Worringen – Fußball seit 1971" description="SG Köln-Worringen – Fußballabteilung seit 1971. Aktuelle News, 10 Jugendmannschaften, Probetraining und mehr.">
@@ -58,7 +57,7 @@ const quickLinks = [
         <span class="stat-label">Gegründet</span>
       </div>
       <div class="stat">
-        <span class="stat-value" data-count={mannschaften.length.toString()}>0</span>
+        <span class="stat-value" data-count="12">0</span>
         <span class="stat-label">Mannschaften</span>
       </div>
       <div class="stat">
@@ -79,7 +78,7 @@ const quickLinks = [
         <span class="eyebrow">Auf einen Blick</span>
         <h2>Willkommen bei der SG Köln-Worringen</h2>
       </div>
-      <div class="card-grid cols-4 stagger-children">
+      <div class="card-grid cols-3 stagger-children">
         {quickLinks.map((link) => (
           <a href={link.href} class="card is-link reveal">
             <span class="card-icon">{link.icon}</span>
@@ -189,29 +188,7 @@ const quickLinks = [
     </div>
   </section>
 
-  <!-- Mannschaften-Übersicht -->
-  <section class="section section-blue">
-    <div class="container" style="position: relative; z-index: 1;">
-      <div class="section-header reveal">
-        <span class="eyebrow">Unsere Teams</span>
-        <h2>Mannschaften der SG</h2>
-      </div>
-      <div class="card-grid cols-3 stagger-children">
-        {mannschaften.slice(0, 6).map((team: any) => {
-          const name = team.title.replace('SPORTGEMEINSCHAFT KÖLN-WORRINGEN - ', '').replace(/SPORTGEMEINSCHAFT K.*? - /, '');
-          return (
-            <a href={`${base}${team.id}/`} class="card is-link reveal">
-              <h3>{name}</h3>
-              <span class="card-link">Zum Kader</span>
-            </a>
-          );
-        })}
-      </div>
-      <div class="reveal" style="text-align: center; margin-top: 2.5rem;">
-        <a href={`${base}kaderuebersicht/`} class="btn btn-accent">Alle Mannschaften ansehen</a>
-      </div>
-    </div>
-  </section>
+  <!-- Mannschaften-Link wurde in die Quick-Links oben integriert -->
 
   <!-- CTA -->
   <section class="section">
