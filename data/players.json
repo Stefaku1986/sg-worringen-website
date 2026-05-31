@@ -12,9 +12,9 @@
           "position": "TR",
           "image": "U15_Stefan_und_Paffi/Trainer_Stefan_Kuehl.jpeg",
           "since": "2023",
-          "phone": "",
-          "email": "",
-          "qualification": ""
+          "phone": "015783452873",
+          "email": "info@sg-fussball.online",
+          "qualification": "Trainer C-Lizenz"
         },
         {
           "name": "Michael Paffendorf",
@@ -22,9 +22,9 @@
           "number": null,
           "position": "CO",
           "image": "U15_Stefan_und_Paffi/Trainer_Michael_Paffendorf.jpeg",
-          "since": "2023",
-          "phone": "",
-          "email": "",
+          "since": "2022",
+          "phone": "015143250312",
+          "email": "jugendleitung@sg-fussball.online",
           "qualification": ""
         }
       ],
@@ -150,7 +150,7 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": "",
+          "since": "2017",
           "phone": "",
           "email": "",
           "qualification": ""
@@ -161,7 +161,7 @@
           "number": null,
           "position": "CO",
           "image": null,
-          "since": "",
+          "since": "2026",
           "phone": "",
           "email": "",
           "qualification": ""
@@ -215,23 +215,23 @@
       "season": "2025/2026",
       "staff": [
         {
-          "name": "Marcel Schneider",
+          "name": "Michael Atorf",
           "role": "Trainer",
           "number": null,
           "position": "TR",
           "image": null,
-          "since": null,
+          "since": "2023",
           "phone": "",
           "email": "",
           "qualification": ""
         },
         {
-          "name": "Michael Atorf",
+          "name": "Marcel Schneider",
           "role": "Co-Trainer",
           "number": null,
           "position": "CO",
           "image": null,
-          "since": null,
+          "since": "2022",
           "phone": "",
           "email": "",
           "qualification": ""
