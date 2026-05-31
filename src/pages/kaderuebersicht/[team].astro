@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PlayerCard from '../../components/PlayerCard.astro';
 import playersData from '../../../data/players.json';
 import fussballData from '../../../data/fussball.json';
+import teamsConfig from '../../../data/teams-config.json';
 
 const posLabels = playersData.positionLabels as Record<string, string>;
 
@@ -43,6 +44,11 @@ const hasStaff = team.staff.length > 0;
 const hasPlayers = team.players.length > 0;
 const isEmpty = !hasStaff && !hasPlayers;
 
+// Team display info from central config
+const teamInfo = (teamsConfig.teams as any[]).find(t => t.slug === slug);
+const displayName = teamInfo?.displayName || team.name;
+const teamCategory = teamInfo?.category || '';
+
 // Fussball.de widget data
 const fbTeam = (fussballData.teams as Record<string, any>)[slug];
 const hasWidgets = fbTeam?.widgets && Object.values(fbTeam.widgets).some((id: any) => id);
@@ -52,19 +58,19 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
 ---
 
 <BaseLayout
-  title={`${team.name} – Kader ${team.season} – SG Köln-Worringen`}
-  description={`Kaderübersicht der ${team.name} (${team.shortName}) der SG Köln-Worringen – Saison ${team.season}`}
+  title={`${displayName} – Kader ${team.season} – SG Köln-Worringen`}
+  description={`Kader der ${displayName} der SG Köln-Worringen – Saison ${team.season}`}
 >
   <div class="page-hero">
     <div class="container">
       <nav class="breadcrumbs">
         <a href={base}>Startseite</a>
         <span class="sep">/</span>
-        <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>
+        <a href={`${base}kaderuebersicht/`}>Mannschaften</a>
         <span class="sep">/</span>
-        <a href={`${base}kaderuebersicht/${slug}/`}>{team.name}</a>
+        <a href={`${base}kaderuebersicht/${slug}/`}>{displayName}</a>
       </nav>
-      <h1>{team.name}</h1>
+      <h1>{displayName}</h1>
     </div>
   </div>
 
@@ -78,7 +84,7 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
         </div>
         <div class="team-info">
           <span class="eyebrow">Saison {team.season}</span>
-          <h2>{team.shortName} · {team.name}</h2>
+          <h2>{displayName}</h2>
           <p class="team-meta">SG Köln-Worringen e.V. · Fußballabteilung</p>
         </div>
       </div>
@@ -476,9 +482,20 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
     margin: 0;
   }
 
-  /* Widget container */
+  /* Widget container – fussball.de renders via JS, needs room */
   .widget-wrap {
-    min-height: 200px;
+    min-height: 300px;
+    overflow: visible;
+  }
+
+  .widget-wrap iframe {
+    width: 100% !important;
+    min-height: 400px;
+  }
+
+  .fussballde_widget {
+    width: 100% !important;
+    overflow: visible;
   }
 
   .fde-widget {

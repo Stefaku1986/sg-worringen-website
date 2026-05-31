@@ -2,7 +2,7 @@
   "season": "2025/2026",
   "teams": [
     {
-      "slug": "1-senioren",
+      "slug": "1-mannschaft",
       "uNumber": null,
       "displayName": "1. Mannschaft",
       "category": "Herren",
@@ -26,7 +26,7 @@
       "categoryColor": "#A0AEC0"
     },
     {
-      "slug": "c-junioren-2011",
+      "slug": "2011",
       "uNumber": "U16",
       "displayName": "U16 – B-Jugend",
       "category": "B-Jugend",
@@ -38,7 +38,7 @@
       "categoryColor": "#FC8181"
     },
     {
-      "slug": "d-junioren-2013",
+      "slug": "2013",
       "uNumber": "U14",
       "displayName": "U14 – C-Jugend",
       "category": "C-Jugend",
@@ -50,7 +50,7 @@
       "categoryColor": "#B794F4"
     },
     {
-      "slug": "e-junioren-2015",
+      "slug": "2015",
       "uNumber": "U12",
       "displayName": "U12 – D-Jugend",
       "category": "D-Jugend",
@@ -62,7 +62,7 @@
       "categoryColor": "#63B3ED"
     },
     {
-      "slug": "f-junioren-2017",
+      "slug": "2017",
       "uNumber": "U10",
       "displayName": "U10 – E-Jugend",
       "category": "E-Jugend",
@@ -74,7 +74,7 @@
       "categoryColor": "#F687B3"
     },
     {
-      "slug": "bambini-2018",
+      "slug": "2018",
       "uNumber": "U9",
       "displayName": "U9 – F-Jugend",
       "category": "F-Jugend",
@@ -86,7 +86,7 @@
       "categoryColor": "#38B2AC"
     },
     {
-      "slug": "bambini-2019",
+      "slug": "2019",
       "uNumber": "U8",
       "displayName": "U8 – F-Jugend",
       "category": "F-Jugend",
@@ -98,7 +98,7 @@
       "categoryColor": "#38B2AC"
     },
     {
-      "slug": "bambini-20202021",
+      "slug": "2020",
       "uNumber": "U7",
       "displayName": "U7 – G-Jugend",
       "category": "G-Jugend",
@@ -110,7 +110,7 @@
       "categoryColor": "#68D391"
     },
     {
-      "slug": "bambini-20212022",
+      "slug": "2021",
       "uNumber": "U6",
       "displayName": "U6 – G-Jugend",
       "category": "G-Jugend",
@@ -122,7 +122,7 @@
       "categoryColor": "#68D391"
     },
     {
-      "slug": "bambini-20212022",
+      "slug": "2021",
       "uNumber": "U5",
       "displayName": "U5 – Bambini",
       "category": "Bambini",

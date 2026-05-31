@@ -1,120 +1,6 @@
 {
   "teams": {
-    "1-senioren": {
-      "name": "1. Seniorenmannschaft",
-      "shortName": "Senioren",
-      "season": "2025/2026",
-      "staff": [
-        {
-          "name": "Sebastian Tange",
-          "role": "Trainer",
-          "number": null,
-          "position": "TR",
-          "image": null,
-          "since": "2025"
-        },
-        {
-          "name": "Co-Trainer",
-          "role": "Co-Trainer",
-          "number": null,
-          "position": "CO",
-          "image": null,
-          "since": "2025"
-        },
-        {
-          "name": "Torwart-Trainer",
-          "role": "Torwart-Trainer",
-          "number": null,
-          "position": "TR",
-          "image": null,
-          "since": "2025"
-        },
-        {
-          "name": "Karl-Heinz Laas",
-          "role": "Mannschaftsverantwortlicher",
-          "number": null,
-          "position": "BT",
-          "image": null,
-          "since": "2025"
-        }
-      ],
-      "players": [
-        {
-          "name": "Spieler 1",
-          "number": 1,
-          "position": "TW",
-          "image": null
-        },
-        {
-          "name": "Spieler 2",
-          "number": 2,
-          "position": "IV",
-          "image": null
-        },
-        {
-          "name": "Spieler 3",
-          "number": 3,
-          "position": "IV",
-          "image": null
-        },
-        {
-          "name": "Spieler 4",
-          "number": 4,
-          "position": "LV",
-          "image": null
-        },
-        {
-          "name": "Spieler 5",
-          "number": 5,
-          "position": "RV",
-          "image": null
-        },
-        {
-          "name": "Spieler 6",
-          "number": 6,
-          "position": "ZM",
-          "image": null
-        },
-        {
-          "name": "Spieler 7",
-          "number": 7,
-          "position": "ZM",
-          "image": null
-        },
-        {
-          "name": "Spieler 8",
-          "number": 8,
-          "position": "ZM",
-          "image": null
-        },
-        {
-          "name": "Spieler 9",
-          "number": 9,
-          "position": "OM",
-          "image": null
-        },
-        {
-          "name": "Spieler 10",
-          "number": 10,
-          "position": "ST",
-          "image": null
-        },
-        {
-          "name": "Spieler 11",
-          "number": 11,
-          "position": "LA",
-          "image": null
-        }
-      ]
-    },
-    "alte-herren": {
-      "name": "Alte Herren",
-      "shortName": "AH",
-      "season": "2025/2026",
-      "staff": [],
-      "players": []
-    },
-    "c-junioren-2011": {
+    "2011": {
       "name": "C-Junioren 2011",
       "shortName": "U15",
       "season": "2025/2026",
@@ -247,7 +133,7 @@
         }
       ]
     },
-    "D-Junioren-2013": {
+    "2013": {
       "name": "D-Junioren 2013",
       "shortName": "U13",
       "season": "2025/2026",
@@ -278,7 +164,7 @@
         }
       ]
     },
-    "E-Junioren-2015": {
+    "2015": {
       "name": "E-Junioren 2015",
       "shortName": "U11",
       "season": "2025/2026",
@@ -301,14 +187,14 @@
         }
       ]
     },
-    "F-Junioren-2016": {
+    "2016": {
       "name": "F-Junioren 2016",
       "shortName": "U10",
       "season": "2025/2026",
       "staff": [],
       "players": []
     },
-    "F-Junioren-2017": {
+    "2017": {
       "name": "F-Junioren 2017",
       "shortName": "U9",
       "season": "2025/2026",
@@ -339,7 +225,7 @@
         }
       ]
     },
-    "F-Junioren-2018": {
+    "2018": {
       "name": "F-Junioren 2018",
       "shortName": "U8",
       "season": "2025/2026",
@@ -362,7 +248,7 @@
         }
       ]
     },
-    "bambini-2019": {
+    "2019": {
       "name": "Bambini 2019",
       "shortName": "U7",
       "season": "2025/2026",
@@ -393,7 +279,7 @@
         }
       ]
     },
-    "bambini-20202021": {
+    "2020": {
       "name": "Bambini 2020/2021",
       "shortName": "U6",
       "season": "2025/2026",
@@ -416,7 +302,7 @@
         }
       ]
     },
-    "bambini-20212022": {
+    "2021": {
       "name": "Bambini 2021/2022",
       "shortName": "U5",
       "season": "2025/2026",
@@ -429,6 +315,120 @@
           "to": "17:30"
         }
       ]
+    },
+    "1-mannschaft": {
+      "name": "1. Seniorenmannschaft",
+      "shortName": "Senioren",
+      "season": "2025/2026",
+      "staff": [
+        {
+          "name": "Sebastian Tange",
+          "role": "Trainer",
+          "number": null,
+          "position": "TR",
+          "image": null,
+          "since": "2025"
+        },
+        {
+          "name": "Co-Trainer",
+          "role": "Co-Trainer",
+          "number": null,
+          "position": "CO",
+          "image": null,
+          "since": "2025"
+        },
+        {
+          "name": "Torwart-Trainer",
+          "role": "Torwart-Trainer",
+          "number": null,
+          "position": "TR",
+          "image": null,
+          "since": "2025"
+        },
+        {
+          "name": "Karl-Heinz Laas",
+          "role": "Mannschaftsverantwortlicher",
+          "number": null,
+          "position": "BT",
+          "image": null,
+          "since": "2025"
+        }
+      ],
+      "players": [
+        {
+          "name": "Spieler 1",
+          "number": 1,
+          "position": "TW",
+          "image": null
+        },
+        {
+          "name": "Spieler 2",
+          "number": 2,
+          "position": "IV",
+          "image": null
+        },
+        {
+          "name": "Spieler 3",
+          "number": 3,
+          "position": "IV",
+          "image": null
+        },
+        {
+          "name": "Spieler 4",
+          "number": 4,
+          "position": "LV",
+          "image": null
+        },
+        {
+          "name": "Spieler 5",
+          "number": 5,
+          "position": "RV",
+          "image": null
+        },
+        {
+          "name": "Spieler 6",
+          "number": 6,
+          "position": "ZM",
+          "image": null
+        },
+        {
+          "name": "Spieler 7",
+          "number": 7,
+          "position": "ZM",
+          "image": null
+        },
+        {
+          "name": "Spieler 8",
+          "number": 8,
+          "position": "ZM",
+          "image": null
+        },
+        {
+          "name": "Spieler 9",
+          "number": 9,
+          "position": "OM",
+          "image": null
+        },
+        {
+          "name": "Spieler 10",
+          "number": 10,
+          "position": "ST",
+          "image": null
+        },
+        {
+          "name": "Spieler 11",
+          "number": 11,
+          "position": "LA",
+          "image": null
+        }
+      ]
+    },
+    "alte-herren": {
+      "name": "Alte Herren",
+      "shortName": "AH",
+      "season": "2025/2026",
+      "staff": [],
+      "players": []
     }
   },
   "positionLabels": {

@@ -4,7 +4,7 @@
   "seasonEndMessage": "Die Saison 2025/2026 ist beendet. Die Daten werden in den kommenden Tagen für die neue Saison aktualisiert.",
   "clubMatchesWidget": "b3fd4876-204c-47e3-a05e-96640926bfa8",
   "teams": {
-    "c-junioren-2011": {
+    "2011": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u15-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/01PE2GOQS8000000VV0AG811VTTGJ5UH#!/",
       "league": "U15-Kreisklasse 2 Frühjahr",
       "season": "2025/2026",
@@ -13,7 +13,7 @@
         "nextMatches": "adcc9dfa-1f31-4561-8926-4d9709caba7e"
       }
     },
-    "d-junioren-2013": {
+    "2013": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u13-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/02TEHFRHVC000000VS5489BRVU522QNF#!/",
       "league": "U13-Kreisklasse 3",
       "season": "2025/2026",
@@ -22,7 +22,7 @@
         "nextMatches": "7e6ddcae-d6dd-4d09-a6a9-987f701e8130"
       }
     },
-    "e-junioren-2015": {
+    "2015": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u12-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/01HJRUC1N4000000VV0AG811VTBIQH7J#!/",
       "league": "U12-Kreisklasse",
       "season": "2025/2026",
@@ -31,7 +31,7 @@
         "nextMatches": "ae27cacf-2fbb-49f6-bad1-a28c3ca28a71"
       }
     },
-    "f-junioren-2017": {
+    "2017": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u9-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/02EN2JMCHS000000VS5489B2VSAS84KM#!/",
       "league": "U9-Kinderfussball Staffel 6",
       "season": "2025/2026",
@@ -40,7 +40,7 @@
         "nextMatches": "286d8a0c-94d3-49f8-a21e-0772137c0e49"
       }
     },
-    "bambini-2018": {
+    "2018": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u8-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/011MIDPTO4000000VTVG0001VTR8C1K7#!/",
       "league": "U8-Kinderfussball Staffel 14",
       "season": "2025/2026",
@@ -49,7 +49,7 @@
         "nextMatches": "4fe70862-4e01-4db8-acb9-8500271de312"
       }
     },
-    "bambini-2019": {
+    "2019": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u7-i-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/020A8HL56O000000VS548984VV30KF68#!/",
       "league": "U7-Kinderfussball Staffel 2",
       "season": "2025/2026",
@@ -58,7 +58,7 @@
         "nextMatches": "07adc8d1-06e3-4269-9359-70930fffeac4"
       }
     },
-    "bambini-20202021": {
+    "2020": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u6-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/02BCIFCJN8000000VS5489B1VTPVH7C1#!/",
       "league": "U6-Kinderfussball Staffel 7",
       "season": "2025/2026",
