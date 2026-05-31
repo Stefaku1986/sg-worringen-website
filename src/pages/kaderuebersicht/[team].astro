@@ -127,8 +127,8 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
         </div>
       )}
 
-      {/* Staff Detail Modal */}
-      {hasStaff && (
+      {/* Detail Modal (shared by staff + players) */}
+      {(hasStaff || hasPlayers) && (
         <div class="staff-modal-overlay" id="staff-modal-overlay">
           <div class="staff-modal" id="staff-modal">
             <button class="staff-modal-close" id="staff-modal-close" type="button" aria-label="Schließen">
@@ -146,6 +146,24 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
         </div>
       )}
 
+      {/* Modal close handlers (shared) */}
+      {(hasStaff || hasPlayers) && (
+        <script is:inline>
+          (function() {
+            var overlay = document.getElementById('staff-modal-overlay');
+            var closeBtn = document.getElementById('staff-modal-close');
+            if (!overlay || !closeBtn) return;
+            function closeModal() {
+              overlay.classList.remove('is-open');
+              document.body.style.overflow = '';
+            }
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+          })();
+        </script>
+      )}
+
       {/* Staff data for JS modal */}
       {hasStaff && (
         <script is:inline define:vars={{ staffData: team.staff.map(s => ({
@@ -160,9 +178,7 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
         })), base }}>
           (function() {
             var overlay = document.getElementById('staff-modal-overlay');
-            var modal = document.getElementById('staff-modal');
-            var closeBtn = document.getElementById('staff-modal-close');
-            if (!overlay || !modal) return;
+            if (!overlay) return;
 
             function openModal(idx) {
               var s = staffData[idx];
@@ -203,25 +219,11 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
               document.body.style.overflow = 'hidden';
             }
 
-            function closeModal() {
-              overlay.classList.remove('is-open');
-              document.body.style.overflow = '';
-            }
-
             // Click handlers on staff card buttons
-            document.querySelectorAll('.staff-card-btn').forEach(function(btn) {
+            document.querySelectorAll('[data-staff-idx]').forEach(function(btn) {
               btn.addEventListener('click', function() {
                 openModal(parseInt(btn.getAttribute('data-staff-idx')));
               });
-            });
-
-            // Close handlers
-            closeBtn.addEventListener('click', closeModal);
-            overlay.addEventListener('click', function(e) {
-              if (e.target === overlay) closeModal();
-            });
-            document.addEventListener('keydown', function(e) {
-              if (e.key === 'Escape') closeModal();
             });
           })();
         </script>
@@ -234,18 +236,73 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
             <span>Spieler</span>
           </div>
           <div class="kader-grid">
-            {team.players.map((player) => (
-              <PlayerCard
-                name={player.name}
-                number={player.number}
-                position={player.position}
-                positionLabel={posLabels[player.position]}
-                image={player.image}
-                isStaff={false}
-              />
+            {team.players.map((player, idx) => (
+              <button
+                class="staff-card-btn"
+                type="button"
+                data-player-idx={idx}
+                aria-label={`Details zu ${player.name}`}
+              >
+                <PlayerCard
+                  name={player.name}
+                  number={player.number}
+                  position={player.position}
+                  positionLabel={posLabels[player.position]}
+                  image={player.image}
+                  isStaff={false}
+                />
+              </button>
             ))}
           </div>
         </div>
+      )}
+
+      {/* Player data for JS modal */}
+      {hasPlayers && (
+        <script is:inline define:vars={{ playerData: team.players.map(p => ({
+          name: p.name,
+          number: p.number,
+          position: p.position,
+          positionLabel: (posLabels as any)[p.position] || p.position,
+          image: p.image || '',
+        })), base: base }}>
+          (function() {
+            var overlay = document.getElementById('staff-modal-overlay');
+            if (!overlay) return;
+
+            function openPlayerModal(idx) {
+              var p = playerData[idx];
+              if (!p) return;
+
+              var img = document.getElementById('staff-modal-img');
+              var photoWrap = document.getElementById('staff-modal-photo');
+              if (p.image) {
+                img.src = base + 'images/content/' + p.image;
+                img.alt = p.name;
+                photoWrap.style.display = '';
+              } else {
+                photoWrap.style.display = 'none';
+              }
+
+              document.getElementById('staff-modal-role').textContent = p.positionLabel;
+              document.getElementById('staff-modal-name').textContent = p.name;
+
+              var details = '';
+              details += '<div class="detail-row"><span class="detail-label">Trikotnummer</span><span>#' + p.number + '</span></div>';
+              details += '<div class="detail-row"><span class="detail-label">Position</span><span>' + p.positionLabel + '</span></div>';
+
+              document.getElementById('staff-modal-details').innerHTML = details;
+              overlay.classList.add('is-open');
+              document.body.style.overflow = 'hidden';
+            }
+
+            document.querySelectorAll('[data-player-idx]').forEach(function(btn) {
+              btn.addEventListener('click', function() {
+                openPlayerModal(parseInt(btn.getAttribute('data-player-idx')));
+              });
+            });
+          })();
+        </script>
       )}
 
       {/* Leer-Hinweis wenn weder Staff noch Spieler */}
