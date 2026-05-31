@@ -46,6 +46,18 @@ const base = import.meta.env.BASE_URL;
     const nav = document.getElementById('site-nav');
     const header = document.getElementById('site-header');
 
+    const overlay = document.getElementById('nav-overlay');
+    const closeBtn = document.getElementById('nav-close');
+
+    function closeNav() {
+      nav.classList.remove('open');
+      toggle.classList.remove('is-active');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+      document.body.style.overflow = '';
+      nav.querySelectorAll('.has-dropdown.is-open').forEach(el => el.classList.remove('is-open'));
+    }
+
     if (toggle && nav) {
       toggle.addEventListener('click', () => {
         const open = nav.classList.toggle('open');
@@ -55,18 +67,18 @@ const base = import.meta.env.BASE_URL;
         document.body.style.overflow = open ? 'hidden' : '';
       });
 
+      // Close via overlay click (tap outside nav panel)
+      overlay?.addEventListener('click', closeNav);
+
+      // Close via X button inside nav
+      closeBtn?.addEventListener('click', closeNav);
+
       // Close on link click (but not dropdown toggle buttons)
       nav.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         if (target.tagName === 'A' && !target.closest('.has-dropdown.is-open') ||
             (target.tagName === 'A' && target.closest('.dropdown'))) {
-          nav.classList.remove('open');
-          toggle.classList.remove('is-active');
-          toggle.setAttribute('aria-expanded', 'false');
-          document.body.classList.remove('nav-open');
-          document.body.style.overflow = '';
-          // Close all open dropdowns
-          nav.querySelectorAll('.has-dropdown.is-open').forEach(el => el.classList.remove('is-open'));
+          closeNav();
         }
       });
 

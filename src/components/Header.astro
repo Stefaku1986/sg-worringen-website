@@ -81,7 +81,14 @@ function isActive(href: string): boolean {
       <span></span><span></span><span></span>
     </button>
 
+    <div class="nav-overlay" id="nav-overlay"></div>
+
     <nav class="site-nav" id="site-nav">
+      <button class="nav-close" id="nav-close" aria-label="Menü schließen" type="button">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
       {navItems.map(item =>
         item.children ? (
           <div class={`nav-item has-dropdown ${isActive(item.href) ? 'is-active-parent' : ''}`}>
