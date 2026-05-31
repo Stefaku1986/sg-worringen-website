@@ -3,16 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL;
 
-// ── Training schedule data (from PDF, Stand: 30.05.2026) ──
+// ── Training schedule data (from PDF, gültig ab 01.07.2026) ──
 const categories = [
-  { key: 'bambini',  label: 'Bambini',  color: '#F6AD55' },
-  { key: 'f-jugend', label: 'F-Jugend', color: '#68D391' },
-  { key: 'e-jugend', label: 'E-Jugend', color: '#F687B3' },
-  { key: 'd-jugend', label: 'D-Jugend', color: '#63B3ED' },
-  { key: 'c-jugend', label: 'C-Jugend', color: '#B794F4' },
-  { key: 'b-jugend', label: 'B-Jugend', color: '#FC8181' },
-  { key: 'herren',   label: 'Herren',   color: '#F56565' },
-  { key: 'senioren', label: 'Senioren', color: '#A0AEC0' },
+  { key: 'bambini',  label: 'Bambini (U5/U6)',  color: '#F6AD55' },
+  { key: 'g-jugend', label: 'G-Jugend (U7/U8)', color: '#68D391' },
+  { key: 'f-jugend', label: 'F-Jugend (U9)',     color: '#48BB78' },
+  { key: 'e-jugend', label: 'E-Jugend (U10)',    color: '#F687B3' },
+  { key: 'd-jugend', label: 'D-Jugend (U12)',    color: '#63B3ED' },
+  { key: 'c-jugend', label: 'C-Jugend (U14)',    color: '#B794F4' },
+  { key: 'b-jugend', label: 'B-Jugend (U16)',    color: '#FC8181' },
+  { key: 'herren',   label: 'Herren',            color: '#F56565' },
+  { key: 'senioren', label: 'Senioren',          color: '#A0AEC0' },
 ];
 
 interface TrainingSession {
@@ -34,19 +35,19 @@ const schedule: DaySchedule[] = [
     day: 'Montag',
     sessions: [
       { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'd-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
       { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: `${base}kaderuebersicht/alte-herren/` },
     ],
   },
   {
     day: 'Dienstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'e-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'c-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
       { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-senioren/` },
     ],
   },
@@ -55,18 +56,18 @@ const schedule: DaySchedule[] = [
     sessions: [
       { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
       { team: 'U5', trainer: 'Trainer offen', from: '17:00', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20212022/` },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'd-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
     ],
   },
   {
     day: 'Donnerstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'e-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'c-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
       { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-senioren/` },
     ],
   },
@@ -97,7 +98,7 @@ function getCategoryColor(key: string): string {
         <a href={`${base}kaderuebersicht/trainingsplan/`}>Trainingsplan</a>
       </nav>
       <h1>Trainingsplan</h1>
-      <p class="hero-sub">Saison 2025/2026 &middot; Stand: 30.05.2026</p>
+      <p class="hero-sub">Saison 2025/2026 &middot; gültig ab 01.07.2026</p>
     </div>
   </div>
 
@@ -107,6 +108,16 @@ function getCategoryColor(key: string): string {
         Alle Trainingszeiten unserer Mannschaften auf einen Blick.
         Training findet auf unserer <a href={`${base}unser-verein/unsere-anlage/`}>Sportanlage am Erdweg</a> statt.
       </p>
+
+      <div class="season-notice">
+        <div class="notice-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <p><strong>Sommerfahrplan (01.07. – 30.09.):</strong> Die hier aufgeführten Trainingszeiten gelten für die Sommersaison. Alle Mannschaften trainieren auf dem Rasenplatz unserer Sportanlage am Erdweg.</p>
+          <p><strong>Winterfahrplan (01.10. – 31.03.):</strong> In der Winterzeit gelten gesonderte Trainingszeiten und -orte. Die aktualisierte Übersicht wird rechtzeitig vor Saisonwechsel hier veröffentlicht – bitte dann die geänderten Zeiten beachten.</p>
+        </div>
+      </div>
 
       <!-- ── Desktop: Visual Grid Schedule ── -->
       <div class="schedule-grid-wrapper">
@@ -275,6 +286,41 @@ function getCategoryColor(key: string): string {
   .intro-text a {
     color: var(--blue);
     text-decoration: underline;
+  }
+
+  .season-notice {
+    display: flex;
+    gap: 1rem;
+    background: #FFFBEB;
+    border: 1px solid #F6E05E;
+    border-left: 4px solid #D69E2E;
+    border-radius: var(--r-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #744210;
+  }
+
+  .season-notice p {
+    margin: 0 0 0.5rem;
+  }
+
+  .season-notice p:last-child {
+    margin-bottom: 0;
+  }
+
+  .notice-icon {
+    flex-shrink: 0;
+    color: #D69E2E;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .season-notice {
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+    }
   }
 
   /* ═══════════════════════════════════════
