@@ -51,7 +51,9 @@ const teamCategory = teamInfo?.category || '';
 
 // Fussball.de widget data
 const fbTeam = (fussballData.teams as Record<string, any>)[slug];
-const hasWidget = !!fbTeam?.teamMatchesWidget;
+const hasMatchesWidget = !!fbTeam?.teamMatchesWidget;
+const hasTableWidget = !!fbTeam?.tableWidget;
+const hasWidget = hasMatchesWidget || hasTableWidget;
 const hasFussballData = !!fbTeam;
 const seasonEnd = fussballData.seasonEnd || '';
 const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in Kürze aktualisiert.';
@@ -189,21 +191,42 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
           </div>
 
           {hasWidget ? (
-            <div class="fussball-widgets-content">
-              <div class="fussball-card">
-                <div class="fussball-card-header">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  <h3>Spiele</h3>
+            <div class="fussball-grid fussball-widgets-content">
+              {/* Tabelle (wenn vorhanden) */}
+              {hasTableWidget && (
+                <div class="fussball-card">
+                  <div class="fussball-card-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                    <h3>Aktuelle Tabelle</h3>
+                  </div>
+                  <div class="widget-wrap">
+                    <div
+                      class="fussballde_widget"
+                      data-id={fbTeam.tableWidget}
+                      data-type="table"
+                      style="width: 100%"
+                    ></div>
+                  </div>
                 </div>
-                <div class="widget-wrap">
-                  <div
-                    class="fussballde_widget"
-                    data-id={fbTeam.teamMatchesWidget}
-                    data-type="team-matches"
-                    style="width: 100%"
-                  ></div>
+              )}
+
+              {/* Spiele */}
+              {hasMatchesWidget && (
+                <div class="fussball-card">
+                  <div class="fussball-card-header">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <h3>Spiele</h3>
+                  </div>
+                  <div class="widget-wrap">
+                    <div
+                      class="fussballde_widget"
+                      data-id={fbTeam.teamMatchesWidget}
+                      data-type="team-matches"
+                      style="width: 100%"
+                    ></div>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           ) : (
             <div class="fussball-placeholder fussball-widgets-content">
