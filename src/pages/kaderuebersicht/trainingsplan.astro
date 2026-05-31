@@ -1,0 +1,542 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+// ── Training schedule data (from PDF, Stand: 30.05.2026) ──
+const categories = [
+  { key: 'bambini',  label: 'Bambini',  color: '#F6AD55' },
+  { key: 'f-jugend', label: 'F-Jugend', color: '#68D391' },
+  { key: 'e-jugend', label: 'E-Jugend', color: '#F687B3' },
+  { key: 'd-jugend', label: 'D-Jugend', color: '#63B3ED' },
+  { key: 'c-jugend', label: 'C-Jugend', color: '#B794F4' },
+  { key: 'b-jugend', label: 'B-Jugend', color: '#FC8181' },
+  { key: 'herren',   label: 'Herren',   color: '#F56565' },
+  { key: 'senioren', label: 'Senioren', color: '#A0AEC0' },
+];
+
+interface TrainingSession {
+  team: string;
+  trainer: string;
+  from: string;
+  to: string;
+  category: string;
+  link?: string;
+}
+
+interface DaySchedule {
+  day: string;
+  sessions: TrainingSession[];
+}
+
+const schedule: DaySchedule[] = [
+  {
+    day: 'Montag',
+    sessions: [
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'd-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
+      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: `${base}kaderuebersicht/alte-herren/` },
+    ],
+  },
+  {
+    day: 'Dienstag',
+    sessions: [
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'e-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'c-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-senioren/` },
+    ],
+  },
+  {
+    day: 'Mittwoch',
+    sessions: [
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
+      { team: 'U5', trainer: 'Trainer offen', from: '17:00', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20212022/` },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'd-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
+    ],
+  },
+  {
+    day: 'Donnerstag',
+    sessions: [
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'e-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'c-jugend', link: `${base}kaderuebersicht/c-junioren-2011/` },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-senioren/` },
+    ],
+  },
+];
+
+// Helper: time string to grid row (16:00 = row 2, each 30min = 1 row)
+function timeToRow(time: string): number {
+  const [h, m] = time.split(':').map(Number);
+  return (h - 16) * 2 + Math.round(m / 30) + 2; // +2 because row 1 is header
+}
+
+function getCategoryColor(key: string): string {
+  return categories.find(c => c.key === key)?.color || '#CBD5E0';
+}
+---
+
+<BaseLayout
+  title="Trainingsplan – SG Köln-Worringen"
+  description="Wochenübersicht aller Trainingszeiten der SG Köln-Worringen. Saison 2025/2026."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}kaderuebersicht/`}>Mannschaften</a>
+        <span class="sep">/</span>
+        <a href={`${base}kaderuebersicht/trainingsplan/`}>Trainingsplan</a>
+      </nav>
+      <h1>Trainingsplan</h1>
+      <p class="hero-sub">Saison 2025/2026 &middot; Stand: 30.05.2026</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <p class="intro-text">
+        Alle Trainingszeiten unserer Mannschaften auf einen Blick.
+        Training findet auf unserer <a href={`${base}unser-verein/unsere-anlage/`}>Sportanlage am Erdweg</a> statt.
+      </p>
+
+      <!-- ── Desktop: Visual Grid Schedule ── -->
+      <div class="schedule-grid-wrapper">
+        <div class="schedule-table">
+          <!-- Header -->
+          <div class="schedule-header">
+            <div class="schedule-time-col"></div>
+            {schedule.map(day => (
+              <div class="schedule-day-col">
+                <div class="schedule-day-title">{day.day}</div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Body with time rows -->
+          <div class="schedule-body">
+            <!-- Time labels -->
+            <div class="schedule-time-col">
+              {Array.from({ length: 11 }, (_, i) => {
+                const hour = 16 + Math.floor(i / 2);
+                const min = (i % 2) * 30;
+                const label = `${hour}:${String(min).padStart(2, '0')}`;
+                return (
+                  <div class="time-slot" style={`top: ${i * 48}px;`}>
+                    {min === 0 ? label : ''}
+                  </div>
+                );
+              })}
+            </div>
+
+            <!-- Day columns with absolute-positioned blocks -->
+            {schedule.map(day => {
+              // Group overlapping sessions to assign sub-columns
+              const positioned = day.sessions.map(s => {
+                const top = ((parseInt(s.from.split(':')[0]) - 16) * 2 + Math.round(parseInt(s.from.split(':')[1]) / 30)) * 48;
+                const bottom = ((parseInt(s.to.split(':')[0]) - 16) * 2 + Math.round(parseInt(s.to.split(':')[1]) / 30)) * 48;
+                return { ...s, top, height: bottom - top };
+              });
+
+              // Assign columns for overlapping blocks
+              type PosSession = typeof positioned[number] & { col: number; totalCols: number };
+              const withCols: PosSession[] = positioned.map(s => ({ ...s, col: 0, totalCols: 1 }));
+
+              // Find overlapping groups
+              for (let i = 0; i < withCols.length; i++) {
+                const overlapping = withCols.filter((s, j) =>
+                  j !== i && s.top < withCols[i].top + withCols[i].height && s.top + s.height > withCols[i].top
+                );
+                const group = [withCols[i], ...overlapping];
+                const total = group.length;
+                // Sort by original index to keep stable order
+                group.sort((a, b) => withCols.indexOf(a) - withCols.indexOf(b));
+                group.forEach((s, idx) => {
+                  s.col = idx;
+                  s.totalCols = Math.max(s.totalCols, total);
+                });
+              }
+
+              return (
+                <div class="schedule-day-col">
+                  <div class="day-column-body">
+                    {/* Grid lines */}
+                    {Array.from({ length: 11 }, (_, i) => (
+                      <div class="grid-line" style={`top: ${i * 48}px;`}></div>
+                    ))}
+
+                    {/* Session blocks */}
+                    {withCols.map(session => {
+                      const color = getCategoryColor(session.category);
+                      const width = `calc(${100 / session.totalCols}% - 4px)`;
+                      const left = `calc(${(session.col / session.totalCols) * 100}% + 2px)`;
+                      const style = `top: ${session.top + 1}px; height: ${session.height - 2}px; left: ${left}; width: ${width}; --session-color: ${color};`;
+
+                      return session.link ? (
+                        <a href={session.link} class="session-block" style={style}>
+                          <strong>{session.team}</strong>
+                          <span class="session-trainer">{session.trainer}</span>
+                          <span class="session-time">{session.from}–{session.to}</span>
+                        </a>
+                      ) : (
+                        <div class="session-block" style={style}>
+                          <strong>{session.team}</strong>
+                          <span class="session-trainer">{session.trainer}</span>
+                          <span class="session-time">{session.from}–{session.to}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Legend ── -->
+      <div class="schedule-legend">
+        {categories.map(cat => (
+          <div class="legend-item">
+            <span class="legend-dot" style={`background: ${cat.color};`}></span>
+            <span>{cat.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- ── Mobile: Card List ── -->
+      <div class="schedule-cards">
+        {schedule.map(day => (
+          <div class="day-card">
+            <h3 class="day-card-title">{day.day}</h3>
+            <div class="day-card-sessions">
+              {day.sessions.map(session => {
+                const color = getCategoryColor(session.category);
+                const inner = (
+                  <>
+                    <span class="card-session-dot" style={`background: ${color};`}></span>
+                    <div class="card-session-info">
+                      <strong>{session.team}</strong>
+                      <span class="card-session-meta">{session.trainer}</span>
+                    </div>
+                    <span class="card-session-time">{session.from}–{session.to}</span>
+                  </>
+                );
+                return session.link ? (
+                  <a href={session.link} class="card-session">
+                    {inner}
+                  </a>
+                ) : (
+                  <div class="card-session">
+                    {inner}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- ── Info box ── -->
+      <div class="info-box" style="margin-top: 3rem;">
+        <h3>Hinweise</h3>
+        <p><strong>Sportanlage:</strong> Erdweg, 50769 Köln-Worringen</p>
+        <p>Änderungen vorbehalten. Bei Fragen wende dich an deinen Trainer oder an <a href="mailto:Info@sg-fussball.online">Info@sg-fussball.online</a>.</p>
+        <p><a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining anfragen &rarr;</a></p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-sub {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+
+  .intro-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin-bottom: 2.5rem;
+  }
+
+  .intro-text a {
+    color: var(--blue);
+    text-decoration: underline;
+  }
+
+  /* ═══════════════════════════════════════
+     Desktop Grid Schedule
+     ═══════════════════════════════════════ */
+  .schedule-grid-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+  }
+
+  .schedule-table {
+    min-width: 750px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .schedule-header,
+  .schedule-body {
+    display: flex;
+  }
+
+  .schedule-header {
+    background: var(--blue-deep);
+  }
+
+  .schedule-time-col {
+    width: 55px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .schedule-header .schedule-time-col {
+    background: var(--blue-deep);
+  }
+
+  .schedule-day-col {
+    flex: 1;
+    min-width: 0;
+    border-left: 1px solid var(--border);
+  }
+
+  .schedule-header .schedule-day-col {
+    border-left-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .schedule-day-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    padding: 0.85rem 0.5rem;
+  }
+
+  .time-slot {
+    position: absolute;
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 2px 6px 0 0;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .day-column-body {
+    position: relative;
+    height: calc(10 * 48px); /* 16:00-21:00 = 10 half-hour slots */
+  }
+
+  .grid-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Session block – absolute positioned within day column */
+  .session-block {
+    position: absolute;
+    border-left: 4px solid var(--session-color);
+    background: color-mix(in srgb, var(--session-color) 12%, white);
+    border-radius: 4px;
+    padding: 0.3rem 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+    color: var(--text);
+    cursor: default;
+    box-sizing: border-box;
+  }
+
+  a.session-block {
+    cursor: pointer;
+  }
+
+  a.session-block:hover {
+    transform: scale(1.04);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    text-decoration: none;
+  }
+
+  .session-block strong {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .session-trainer {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .session-time {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    opacity: 0.8;
+  }
+
+  /* ═══════════════════════════════════════
+     Legend
+     ═══════════════════════════════════════ */
+  .schedule-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.5rem;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════
+     Mobile Card View (hidden on desktop)
+     ═══════════════════════════════════════ */
+  .schedule-cards {
+    display: none;
+  }
+
+  .day-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    margin-bottom: 1.25rem;
+  }
+
+  .day-card-title {
+    background: var(--blue-deep);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.25rem;
+    margin: 0;
+  }
+
+  .day-card-sessions {
+    padding: 0.5rem 0;
+  }
+
+  .card-session {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-session:last-child {
+    border-bottom: none;
+  }
+
+  a.card-session:hover {
+    background: var(--blue-soft);
+    text-decoration: none;
+  }
+
+  .card-session-dot {
+    width: 10px;
+    height: 36px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .card-session-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-session-info strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .card-session-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .card-session-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ═══════════════════════════════════════
+     Responsive
+     ═══════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .schedule-grid-wrapper {
+      display: none !important;
+    }
+
+    .schedule-cards {
+      display: block;
+    }
+
+    .schedule-legend {
+      justify-content: center;
+    }
+  }
+</style>
