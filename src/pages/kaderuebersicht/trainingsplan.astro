@@ -5,9 +5,9 @@ const base = import.meta.env.BASE_URL;
 
 // ── Training schedule data (from PDF, gültig ab 01.07.2026) ──
 const categories = [
-  { key: 'bambini',  label: 'Bambini (U5/U6)',  color: '#F6AD55' },
-  { key: 'g-jugend', label: 'G-Jugend (U7/U8)', color: '#68D391' },
-  { key: 'f-jugend', label: 'F-Jugend (U9)',     color: '#48BB78' },
+  { key: 'bambini',  label: 'Bambini (U5)',      color: '#F6AD55' },
+  { key: 'g-jugend', label: 'G-Jugend (U6/U7)', color: '#68D391' },
+  { key: 'f-jugend', label: 'F-Jugend (U8/U9)', color: '#48BB78' },
   { key: 'e-jugend', label: 'E-Jugend (U10)',    color: '#F687B3' },
   { key: 'd-jugend', label: 'D-Jugend (U12)',    color: '#63B3ED' },
   { key: 'c-jugend', label: 'C-Jugend (U14)',    color: '#B794F4' },
@@ -34,7 +34,7 @@ const schedule: DaySchedule[] = [
   {
     day: 'Montag',
     sessions: [
-      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-20202021/` },
       { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
       { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: `${base}kaderuebersicht/alte-herren/` },
     ],
@@ -43,7 +43,7 @@ const schedule: DaySchedule[] = [
     day: 'Dienstag',
     sessions: [
       { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
       { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
@@ -54,7 +54,7 @@ const schedule: DaySchedule[] = [
   {
     day: 'Mittwoch',
     sessions: [
-      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20202021/` },
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-20202021/` },
       { team: 'U5', trainer: 'Trainer offen', from: '17:00', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/bambini-20212022/` },
       { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/d-junioren-2013/` },
     ],
@@ -63,7 +63,7 @@ const schedule: DaySchedule[] = [
     day: 'Donnerstag',
     sessions: [
       { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
+      { team: 'U8', trainer: 'Daniel Eichmül', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/bambini-2018/` },
       { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/f-junioren-2017/` },
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/e-junioren-2015/` },
