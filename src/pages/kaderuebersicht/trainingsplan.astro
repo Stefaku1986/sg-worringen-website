@@ -1,7 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import teamsConfig from '../../../data/teams-config.json';
 
 const base = import.meta.env.BASE_URL;
+
+// Build link lookup from central config: U-number/name → page URL
+const teamLink = (name: string): string | undefined => {
+  const t = (teamsConfig.teams as any[]).find(t =>
+    t.uNumber === name || t.displayName === name || t.navLabel?.startsWith(name)
+  );
+  return t ? `${base}kaderuebersicht/${t.slug}/` : undefined;
+};
 
 // ── Training schedule data (from PDF, gültig ab 01.07.2026) ──
 const categories = [
@@ -34,41 +43,41 @@ const schedule: DaySchedule[] = [
   {
     day: 'Montag',
     sessions: [
-      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/2020/` },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/2013/` },
-      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: `${base}kaderuebersicht/alte-herren/` },
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U6') },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
+      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: teamLink('Alte Herren') },
     ],
   },
   {
     day: 'Dienstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/2018/` },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/2017/` },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
-      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/2015/` },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: `${base}kaderuebersicht/2011/` },
-      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-mannschaft/` },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
     ],
   },
   {
     day: 'Mittwoch',
     sessions: [
-      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/2020/` },
-      { team: 'U5', trainer: 'Trainer offen', from: '17:00', to: '18:00', category: 'bambini', link: `${base}kaderuebersicht/2021/` },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: `${base}kaderuebersicht/2013/` },
+      { team: 'U6', trainer: 'Trainer offen', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U6') },
+      { team: 'U5', trainer: 'Trainer offen', from: '17:00', to: '18:00', category: 'bambini', link: teamLink('U5') },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
     ],
   },
   {
     day: 'Donnerstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: `${base}kaderuebersicht/2019/` },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/2018/` },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: `${base}kaderuebersicht/2017/` },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend' },
-      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: `${base}kaderuebersicht/2015/` },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: `${base}kaderuebersicht/2011/` },
-      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: `${base}kaderuebersicht/1-mannschaft/` },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
     ],
   },
 ];
