@@ -259,6 +259,32 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
         <script is:inline src="https://www.fussball.de/widgets.js"></script>
       )}
 
+      {/* Fix: fussball.de sets tiny iframe heights via inline styles.
+          This observer enforces a minimum height after the widget loads. */}
+      {hasWidgets && (
+        <script is:inline>
+          (function() {
+            function fixWidgetHeights() {
+              document.querySelectorAll('.widget-wrap iframe').forEach(function(iframe) {
+                var h = parseInt(iframe.style.height) || 0;
+                if (h < 350) {
+                  iframe.style.height = '500px';
+                  iframe.scrolling = 'auto';
+                  iframe.setAttribute('scrolling', 'auto');
+                }
+              });
+            }
+            // Run after widgets load (they inject iframes async)
+            var attempts = 0;
+            var timer = setInterval(function() {
+              fixWidgetHeights();
+              attempts++;
+              if (attempts > 20) clearInterval(timer);
+            }, 500);
+          })();
+        </script>
+      )}
+
       {/* Saisonende-Check: blendet Overlay ein wenn Saison abgelaufen */}
       {hasFussballData && (
         <script is:inline>
@@ -485,17 +511,21 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
   /* Widget container – fussball.de renders via JS, needs room */
   .widget-wrap {
     min-height: 300px;
-    overflow: visible;
+    overflow: auto;
   }
 
   .widget-wrap iframe {
     width: 100% !important;
-    min-height: 400px;
+    min-height: 500px !important;
   }
 
   .fussballde_widget {
     width: 100% !important;
     overflow: visible;
+  }
+
+  .fussballde_widget iframe {
+    min-height: 500px !important;
   }
 
   .fde-widget {
