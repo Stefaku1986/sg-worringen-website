@@ -1,117 +1,80 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import playersData from '../../../data/players.json';
+import teamsConfig from '../../../data/teams-config.json';
 
 const base = import.meta.env.BASE_URL;
 
-// All teams with their data
-const allTeams = Object.entries(playersData.teams as Record<string, any>).map(
-  ([slug, team]) => ({ slug, ...team })
-);
-
-// Teams with training times (youth + active teams shown on this page)
-const teamsWithTraining = allTeams.filter((t) => t.trainingTimes && t.trainingTimes.length > 0);
-
-// All teams for the card grid (sorted: Senioren first, then by shortName desc for youth)
-const orderedTeams = [
-  ...allTeams.filter((t) => ['1-senioren', 'alte-herren'].includes(t.slug)),
-  ...allTeams
-    .filter((t) => !['1-senioren', 'alte-herren'].includes(t.slug))
-    .sort((a, b) => {
-      // Sort youth by shortName (U15 > U13 > ... > U5)
-      const numA = parseInt(a.shortName?.replace(/\D/g, '') || '0');
-      const numB = parseInt(b.shortName?.replace(/\D/g, '') || '0');
-      return numB - numA;
-    }),
-];
-
-// Day icon helper
-const dayIcons: Record<string, string> = {
-  Montag: 'Mo',
-  Dienstag: 'Di',
-  Mittwoch: 'Mi',
-  Donnerstag: 'Do',
-  Freitag: 'Fr',
-};
+// Deduplicate teams (U5 + U6 share a slug)
+const seen = new Set<string>();
+const teams = (teamsConfig.teams as any[]).filter(t => {
+  const key = t.uNumber || t.displayName;
+  if (seen.has(key)) return false;
+  seen.add(key);
+  return true;
+});
 ---
 
 <BaseLayout
-  title="Kaderübersicht & Trainingszeiten – SG Köln-Worringen"
-  description="Alle Mannschaften der SG Köln-Worringen im Überblick – von den Bambini bis zu den Senioren. Aktuelle Trainingszeiten Saison 2025/2026."
+  title="Mannschaften & Trainingszeiten – SG Köln-Worringen"
+  description="Alle Mannschaften der SG Köln-Worringen im Überblick – von den Bambini bis zur 1. Mannschaft. Aktuelle Trainingszeiten Saison 2025/2026."
 >
   <div class="page-hero">
     <div class="container">
       <nav class="breadcrumbs">
         <a href={base}>Startseite</a>
         <span class="sep">/</span>
-        <a href={`${base}kaderuebersicht/`}>Kaderübersicht</a>
+        <a href={`${base}kaderuebersicht/`}>Mannschaften</a>
       </nav>
-      <h1>Kaderübersicht</h1>
+      <h1>Mannschaften</h1>
     </div>
   </div>
 
-  <!-- Trainingszeiten -->
   <section class="section">
     <div class="container">
       <div class="section-header reveal">
-        <span class="eyebrow">Saison 2025/2026</span>
-        <h2>Trainingszeiten Jugend</h2>
+        <span class="eyebrow">Saison {teamsConfig.season}</span>
+        <h2>Alle Mannschaften</h2>
       </div>
-      <p class="training-subtitle reveal">Alle Trainings finden auf unserer Anlage am <strong>Erdweg 1a, 50769 Köln-Worringen</strong> statt.</p>
+      <p class="training-subtitle reveal">
+        Alle Trainings finden auf unserer Anlage am <strong>Erdweg 1a, 50769 Köln-Worringen</strong> statt.
+        Den vollständigen Wochenplan findest du im <a href={`${base}kaderuebersicht/trainingsplan/`}>Trainingsplan</a>.
+      </p>
 
       <div class="training-grid stagger-children">
-        {teamsWithTraining.map((team) => (
+        {teams.map((team) => (
           <a href={`${base}kaderuebersicht/${team.slug}/`} class="training-card reveal">
             <div class="training-card-header">
-              <span class="age-badge">{team.shortName}</span>
-              <span class="team-label">{team.name}</span>
+              <span class="age-badge" style={`background: ${team.categoryColor}; color: #fff;`}>
+                {team.uNumber || '⚽'}
+              </span>
+              <div class="team-header-text">
+                <span class="team-label">{team.displayName}</span>
+                {team.birthYear && <span class="team-year">Jahrgang {team.birthYear}</span>}
+              </div>
             </div>
-            <div class="training-times">
-              {(team.trainingTimes as any[]).map((session) => (
-                <div class="training-session">
-                  <div class="session-days">
-                    {session.days.split(' und ').map((day: string) => (
-                      <span class="day-chip">{dayIcons[day.trim()] ?? day.trim()}</span>
-                    ))}
-                  </div>
-                  <span class="session-time">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    {session.from} – {session.to} Uhr
-                  </span>
-                </div>
-              ))}
+
+            <div class="training-info">
+              <div class="training-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                <span>{team.trainer}</span>
+              </div>
+              <div class="training-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>{team.trainingDays}</span>
+              </div>
+              <div class="training-row">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{team.trainingTime} Uhr</span>
+              </div>
             </div>
+
             <span class="card-link">Zum Kader →</span>
           </a>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- Alle Mannschaften -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="eyebrow">Unsere Teams</span>
-        <h2>Alle Mannschaften</h2>
-      </div>
-      <div class="card-grid cols-3 stagger-children">
-        {orderedTeams.map((team) => (
-          <a href={`${base}kaderuebersicht/${team.slug}/`} class="card is-link reveal">
-            <div class="team-card-inner">
-              <span class="team-badge-pill">{team.shortName}</span>
-              <h3>{team.name}</h3>
-              {(team.trainingTimes as any[] | undefined) && (
-                <p class="card-training-preview">
-                  {(team.trainingTimes as any[])[0].days}, {(team.trainingTimes as any[])[0].from} Uhr
-                </p>
-              )}
-            </div>
-            <span class="card-link">Zum Kader</span>
-          </a>
-        ))}
+      <div class="cta-center">
+        <a href={`${base}kaderuebersicht/trainingsplan/`} class="btn btn-primary">Trainingsplan ansehen</a>
       </div>
     </div>
   </section>
@@ -123,6 +86,13 @@ const dayIcons: Record<string, string> = {
     color: var(--text-muted);
     margin-bottom: 2.5rem;
     font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .training-subtitle a {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: underline;
   }
 
   /* ── Training Grid ── */
@@ -165,14 +135,19 @@ const dayIcons: Record<string, string> = {
     justify-content: center;
     min-width: 48px;
     height: 48px;
+    padding: 0 0.5rem;
     border-radius: 50%;
-    background: var(--blue-deep);
-    color: var(--yellow);
     font-family: var(--font-display);
     font-size: 0.82rem;
     font-weight: 800;
     letter-spacing: 0.02em;
     flex-shrink: 0;
+  }
+
+  .team-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
   }
 
   .team-label {
@@ -185,58 +160,29 @@ const dayIcons: Record<string, string> = {
     line-height: 1.2;
   }
 
-  /* ── Training sessions ── */
-  .training-times {
+  .team-year {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ── Training info ── */
+  .training-info {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.45rem;
     flex: 1;
   }
 
-  .training-session {
+  .training-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-  }
-
-  .session-days {
-    display: flex;
-    gap: 0.35rem;
-  }
-
-  .day-chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 28px;
-    background: var(--blue-soft);
-    color: var(--blue);
-    border-radius: var(--r-sm);
-    font-size: 0.72rem;
-    font-weight: 700;
-    font-family: var(--font-display);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .training-card:hover .day-chip {
-    background: var(--blue);
-    color: #fff;
-  }
-
-  .session-time {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
+    gap: 0.5rem;
     font-size: 0.88rem;
-    font-weight: 600;
     color: var(--text-muted);
   }
 
-  .session-time svg {
+  .training-row svg {
     color: var(--blue);
     flex-shrink: 0;
   }
@@ -256,42 +202,14 @@ const dayIcons: Record<string, string> = {
     border-top: 1px solid var(--border);
   }
 
-  /* ── Team cards in overview ── */
-  .team-card-inner {
-    flex: 1;
-  }
-
-  .team-badge-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.2rem 0.65rem;
-    background: var(--blue-deep);
-    color: var(--yellow);
-    border-radius: var(--r-pill);
-    font-family: var(--font-display);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-
-  .card-training-preview {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    margin: 0.3rem 0 0;
+  .cta-center {
+    text-align: center;
+    margin-top: 2.5rem;
   }
 
   @media (max-width: 720px) {
     .training-grid {
       grid-template-columns: 1fr;
-    }
-
-    .training-session {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.35rem;
     }
   }
 </style>

@@ -1,4 +1,6 @@
 ---
+import teamsConfig from '../../data/teams-config.json';
+
 const base = import.meta.env.BASE_URL;
 
 interface NavChild {
@@ -11,6 +13,23 @@ interface NavItem {
   href: string;
   children?: NavChild[];
 }
+
+// Build team nav links from central config (deduplicate by slug)
+const seen = new Set<string>();
+const teamNavLinks: NavChild[] = [
+  { label: 'Trainingsplan', href: `${base}kaderuebersicht/trainingsplan/` },
+  ...(teamsConfig.teams as any[])
+    .filter(t => {
+      const key = t.navLabel;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(t => ({
+      label: t.navLabel,
+      href: `${base}kaderuebersicht/${t.slug}/`,
+    })),
+];
 
 const navItems: NavItem[] = [
   { label: 'Startseite', href: base },
@@ -32,20 +51,7 @@ const navItems: NavItem[] = [
   {
     label: 'Mannschaften',
     href: `${base}kaderuebersicht/`,
-    children: [
-      { label: 'Trainingsplan', href: `${base}kaderuebersicht/trainingsplan/` },
-      { label: '1. Mannschaft', href: `${base}kaderuebersicht/1-senioren/` },
-      { label: 'Alte Herren', href: `${base}kaderuebersicht/alte-herren/` },
-      { label: 'U16 · B-Jugend · Jg. 2011', href: `${base}kaderuebersicht/c-junioren-2011/` },
-      { label: 'U14 · C-Jugend · Jg. 2013', href: `${base}kaderuebersicht/d-junioren-2013/` },
-      { label: 'U12 · D-Jugend · Jg. 2015', href: `${base}kaderuebersicht/e-junioren-2015/` },
-      { label: 'U10 · E-Jugend · Jg. 2017', href: `${base}kaderuebersicht/f-junioren-2017/` },
-      { label: 'U9 · F-Jugend · Jg. 2018', href: `${base}kaderuebersicht/bambini-2018/` },
-      { label: 'U8 · F-Jugend · Jg. 2019', href: `${base}kaderuebersicht/bambini-2019/` },
-      { label: 'U7 · G-Jugend · Jg. 2020', href: `${base}kaderuebersicht/bambini-20202021/` },
-      { label: 'U6 · G-Jugend · Jg. 2021', href: `${base}kaderuebersicht/bambini-20212022/` },
-      { label: 'U5 · Bambini · Jg. 2022/2023', href: `${base}kaderuebersicht/bambini-20212022/` },
-    ],
+    children: teamNavLinks,
   },
   {
     label: 'Mitmachen',
