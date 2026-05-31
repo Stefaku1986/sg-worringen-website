@@ -11,7 +11,10 @@
           "number": null,
           "position": "TR",
           "image": "U15_Stefan_und_Paffi/Trainer_Stefan_Kuehl.jpeg",
-          "since": "2023"
+          "since": "2023",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Michael Paffendorf",
@@ -19,7 +22,10 @@
           "number": null,
           "position": "CO",
           "image": "U15_Stefan_und_Paffi/Trainer_Michael_Paffendorf.jpeg",
-          "since": "2023"
+          "since": "2023",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [
@@ -144,7 +150,10 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": ""
+          "since": "",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Linus Thivessen",
@@ -152,7 +161,10 @@
           "number": null,
           "position": "CO",
           "image": null,
-          "since": ""
+          "since": "",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -175,7 +187,10 @@
           "number": null,
           "position": "TR",
           "image": "DSC_0607.JPG",
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -205,7 +220,10 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Michael Atorf",
@@ -213,7 +231,10 @@
           "number": null,
           "position": "CO",
           "image": null,
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -236,7 +257,10 @@
           "number": null,
           "position": "TR",
           "image": "Trainer/Markus_Trenz.jpeg",
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -259,7 +283,10 @@
           "number": null,
           "position": "TR",
           "image": "Trainer/Daniel_Eichmüller.jpeg",
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Bodo Bernhardt",
@@ -267,7 +294,10 @@
           "number": null,
           "position": "TR",
           "image": "Trainer/Bodo.jpeg",
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -290,7 +320,10 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": null
+          "since": null,
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [],
@@ -327,7 +360,10 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": "2025"
+          "since": "2025",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Co-Trainer",
@@ -335,7 +371,10 @@
           "number": null,
           "position": "CO",
           "image": null,
-          "since": "2025"
+          "since": "2025",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Torwart-Trainer",
@@ -343,7 +382,10 @@
           "number": null,
           "position": "TR",
           "image": null,
-          "since": "2025"
+          "since": "2025",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         },
         {
           "name": "Karl-Heinz Laas",
@@ -351,7 +393,10 @@
           "number": null,
           "position": "BT",
           "image": null,
-          "since": "2025"
+          "since": "2025",
+          "phone": "",
+          "email": "",
+          "qualification": ""
         }
       ],
       "players": [

@@ -82,6 +82,9 @@ collections:
                       - { name: position, label: Position, widget: string, hint: "TR, CO, BT" }
                       - { name: image,    label: Bild,     widget: image, required: false }
                       - { name: since,    label: Seit,     widget: string, required: false, hint: "z.B. 2023" }
+                      - { name: phone,    label: Telefon,  widget: string, required: false, hint: "z.B. 0157 12345678" }
+                      - { name: email,    label: E-Mail,   widget: string, required: false, hint: "z.B. name@sg-fussball.online" }
+                      - { name: qualification, label: Qualifikation, widget: string, required: false, hint: "z.B. DFB-Trainerlizenz C" }
                   - name: players
                     label: Spieler
                     widget: list

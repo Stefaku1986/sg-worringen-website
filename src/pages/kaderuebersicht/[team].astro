@@ -21,6 +21,9 @@ interface StaffMember {
   position: string;
   image: string | null;
   since: string | null;
+  phone: string;
+  email: string;
+  qualification: string;
 }
 
 interface Player {
@@ -102,19 +105,126 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
             <span>Trainerstab</span>
           </div>
           <div class="kader-grid">
-            {team.staff.map((person) => (
-              <PlayerCard
-                name={person.name}
-                number={person.number}
-                position={person.position}
-                positionLabel={posLabels[person.position] || person.role}
-                image={person.image}
-                role={person.role}
-                isStaff={true}
-              />
+            {team.staff.map((person, idx) => (
+              <button
+                class="staff-card-btn"
+                type="button"
+                data-staff-idx={idx}
+                aria-label={`Details zu ${person.name}`}
+              >
+                <PlayerCard
+                  name={person.name}
+                  number={person.number}
+                  position={person.position}
+                  positionLabel={posLabels[person.position] || person.role}
+                  image={person.image}
+                  role={person.role}
+                  isStaff={true}
+                />
+              </button>
             ))}
           </div>
         </div>
+      )}
+
+      {/* Staff Detail Modal */}
+      {hasStaff && (
+        <div class="staff-modal-overlay" id="staff-modal-overlay">
+          <div class="staff-modal" id="staff-modal">
+            <button class="staff-modal-close" id="staff-modal-close" type="button" aria-label="Schließen">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5L5 15M5 5L15 15"/></svg>
+            </button>
+            <div class="staff-modal-photo" id="staff-modal-photo">
+              <img src="" alt="" id="staff-modal-img" />
+            </div>
+            <div class="staff-modal-body">
+              <span class="staff-modal-role" id="staff-modal-role"></span>
+              <h3 class="staff-modal-name" id="staff-modal-name"></h3>
+              <div class="staff-modal-details" id="staff-modal-details"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Staff data for JS modal */}
+      {hasStaff && (
+        <script is:inline define:vars={{ staffData: team.staff.map(s => ({
+          name: s.name,
+          role: s.role,
+          position: s.position,
+          image: s.image,
+          since: s.since,
+          phone: s.phone || '',
+          email: s.email || '',
+          qualification: s.qualification || '',
+        })), base }}>
+          (function() {
+            var overlay = document.getElementById('staff-modal-overlay');
+            var modal = document.getElementById('staff-modal');
+            var closeBtn = document.getElementById('staff-modal-close');
+            if (!overlay || !modal) return;
+
+            function openModal(idx) {
+              var s = staffData[idx];
+              if (!s) return;
+
+              var img = document.getElementById('staff-modal-img');
+              var photoWrap = document.getElementById('staff-modal-photo');
+              if (s.image) {
+                img.src = base + 'images/content/' + s.image;
+                img.alt = s.name;
+                photoWrap.style.display = '';
+              } else {
+                photoWrap.style.display = 'none';
+              }
+
+              document.getElementById('staff-modal-role').textContent = s.role;
+              document.getElementById('staff-modal-name').textContent = s.name;
+
+              var details = '';
+              if (s.qualification) {
+                details += '<div class="detail-row"><span class="detail-label">Qualifikation</span><span>' + s.qualification + '</span></div>';
+              }
+              if (s.since) {
+                details += '<div class="detail-row"><span class="detail-label">Im Verein seit</span><span>' + s.since + '</span></div>';
+              }
+              if (s.phone) {
+                details += '<div class="detail-row"><span class="detail-label">Telefon</span><a href="tel:' + s.phone + '">' + s.phone + '</a></div>';
+              }
+              if (s.email) {
+                details += '<div class="detail-row"><span class="detail-label">E-Mail</span><a href="mailto:' + s.email + '">' + s.email + '</a></div>';
+              }
+              if (!details) {
+                details = '<p class="detail-empty">Weitere Informationen folgen in Kürze.</p>';
+              }
+
+              document.getElementById('staff-modal-details').innerHTML = details;
+              overlay.classList.add('is-open');
+              document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+              overlay.classList.remove('is-open');
+              document.body.style.overflow = '';
+            }
+
+            // Click handlers on staff card buttons
+            document.querySelectorAll('.staff-card-btn').forEach(function(btn) {
+              btn.addEventListener('click', function() {
+                openModal(parseInt(btn.getAttribute('data-staff-idx')));
+              });
+            });
+
+            // Close handlers
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', function(e) {
+              if (e.target === overlay) closeModal();
+            });
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') closeModal();
+            });
+          })();
+        </script>
       )}
 
       {/* Spieler */}
@@ -293,6 +403,199 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
 <style>
   .kader-section {
     background: var(--bg);
+  }
+
+  /* ── Clickable staff card button ── */
+  .staff-card-btn {
+    all: unset;
+    cursor: pointer;
+    display: contents;
+  }
+
+  .staff-card-btn:focus-visible > :global(.player-card) {
+    outline: 3px solid var(--blue);
+    outline-offset: 4px;
+  }
+
+  .staff-card-btn > :global(.player-card) {
+    cursor: pointer;
+  }
+
+  .staff-card-btn > :global(.player-card::after) {
+    content: 'Tippen für Details';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.6rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 0.3rem;
+    background: rgba(11, 37, 69, 0.85);
+    border-radius: 0 0 1rem 1rem;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .staff-card-btn:hover > :global(.player-card::after) {
+    opacity: 1;
+  }
+
+  /* ── Staff Detail Modal ── */
+  .staff-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+  }
+
+  .staff-modal-overlay.is-open {
+    display: flex;
+  }
+
+  .staff-modal {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideUp 0.3s ease;
+  }
+
+  @keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .staff-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+  }
+
+  .staff-modal-close:hover {
+    background: #fff;
+    transform: scale(1.1);
+  }
+
+  .staff-modal-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    background: var(--blue-deep);
+  }
+
+  .staff-modal-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .staff-modal-body {
+    padding: 1.5rem;
+  }
+
+  .staff-modal-role {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+    background: var(--blue-soft);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--r-pill);
+    margin-bottom: 0.5rem;
+  }
+
+  .staff-modal-name {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--blue-deep);
+    margin: 0 0 1.25rem;
+    text-transform: uppercase;
+  }
+
+  :global(.detail-row) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+    gap: 1rem;
+  }
+
+  :global(.detail-row:last-child) {
+    border-bottom: none;
+  }
+
+  :global(.detail-label) {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
+
+  :global(.detail-row a) {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 500;
+    word-break: break-all;
+  }
+
+  :global(.detail-row a:hover) {
+    text-decoration: underline;
+  }
+
+  :global(.detail-empty) {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .staff-modal {
+      max-height: 85vh;
+    }
+
+    .staff-modal-body {
+      padding: 1.25rem;
+    }
+
+    .staff-modal-name {
+      font-size: 1.2rem;
+    }
   }
 
   /* Team header */
