@@ -8,6 +8,7 @@
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u15-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/01PE2GOQS8000000VV0AG811VTTGJ5UH#!/",
       "league": "B-Jugend Kreisklasse",
       "season": "2025/2026",
+      "tableWidget": "5c698d08-984d-4a45-a7e4-7d09dd4650cf",
       "teamMatchesWidget": "e2f1c406-2c23-4c9f-9fa0-a99cb6711ef3"
     },
     "2013": {
@@ -21,18 +22,21 @@
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u12-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/01HJRUC1N4000000VV0AG811VTBIQH7J#!/",
       "league": "D-Jugend Kreisklasse",
       "season": "2025/2026",
-      "teamMatchesWidget": ""
+      "tableWidget": "0c6404e3-71de-4820-9472-c6548519167d",
+      "teamMatchesWidget": "ae27cacf-2fbb-49f6-bad1-a28c3ca28a71"
     },
     "2017": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u9-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/02EN2JMCHS000000VS5489B2VSAS84KM#!/",
       "league": "E-Jugend Kinderfußball",
       "season": "2025/2026",
+      "tableWidget": "",
       "teamMatchesWidget": ""
     },
     "2018": {
       "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u8-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/011MIDPTO4000000VTVG0001VTR8C1K7#!/",
       "league": "F-Jugend Kinderfußball",
       "season": "2025/2026",
+      "tableWidget": "",
       "teamMatchesWidget": ""
     },
     "2019": {
