@@ -1143,6 +1143,16 @@ p { margin: 0 0 1em; }
   color: #fff;
   margin: 0;
   animation: heroFadeUp 0.6s var(--ease-out) both;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+@media (max-width: 480px) {
+  .page-hero h1 {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+  }
 }
 
 /* Breadcrumbs */
