@@ -1,5 +1,5 @@
 {
-  "season": "2025/2026",
+  "season": "2026/2027",
   "positionLabels": {
     "TW": "Torwart",
     "IV": "Innenverteidiger",
@@ -20,8 +20,8 @@
   },
   "fussballDe": {
     "widgetScriptUrl": "https://www.fussball.de/widgets.js",
-    "seasonEnd": "2026-06-30",
-    "seasonEndMessage": "Die Saison 2025/2026 ist beendet. Die Daten werden in den kommenden Tagen für die neue Saison aktualisiert.",
+    "seasonEnd": "2027-06-30",
+    "seasonEndMessage": "Die Saison 2026/2027 ist beendet. Die Daten werden in den kommenden Tagen für die neue Saison aktualisiert.",
     "clubMatchesWidget": "b3fd4876-204c-47e3-a05e-96640926bfa8"
   }
 }
