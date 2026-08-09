@@ -16,15 +16,15 @@ staff:
   - name: Guillano Weiß
     role: Co-Trainer
     position: CO
-    since: "2025"
+    since: "2026"
   - name: Dean Marx
     role: Torwart-Trainer
     position: TR
-    since: "2025"
+    since: "2026"
   - name: Karl-Heinz Laas
     role: Mannschaftsverantwortlicher
     position: BT
-    since: "2025"
+    since: "2026"
 players:
   - name: Spieler 1
     number: 1
