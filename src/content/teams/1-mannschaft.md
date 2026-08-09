@@ -33,7 +33,7 @@ players:
   - name: Spieler 1
     number: 1
     position: TW
-  - name: Spieler 2
+  - name: Raphael London
     number: 2
     position: IV
   - name: Spieler 3
