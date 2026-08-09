@@ -12,19 +12,35 @@ committet, ändert die Website:
 
 | Datei | Inhalt |
 |---|---|
-| `data/teams-config.json` | Mannschaften: Name, Trainer, Trainingszeiten, Reihenfolge im Menü |
-| `data/players.json` | Kader und Trainerteam je Mannschaft (Spieler, Fotos, Rückennummern) |
+| `data/teams/<slug>.json` | **Eine Datei je Mannschaft** – siehe unten |
 | `data/news.json` | Neuigkeiten auf der Startseite und unter „Neuigkeiten" |
-| `data/fussball.json` | Einbindung der fussball.de-Widgets (Tabellen, Spielpläne) |
-| `data/spa_pages.json` | Fließtext der Unterseiten (aus der alten Website übernommen) |
+| `data/site.json` | Gilt für den ganzen Verein: Saison, Positionskürzel, Vereins-Widget |
+| `data/spa_pages.json` | Fließtext einiger Unterseiten (aus der alten Website übernommen) |
 
-Bilder liegen unter `public/images/`. Ein Bild, das in `players.json` als
+### Eine Mannschaft pflegen
+
+Alles zu einer Mannschaft steht in **einer einzigen Datei** unter `data/teams/`, benannt
+nach ihrem Slug – zum Beispiel `data/teams/2011.json` für die U16:
+
+| Feld | Bedeutung |
+|---|---|
+| `slug` | Bestimmt die Adresse: `/kaderuebersicht/2011/`. Muss dem Dateinamen entsprechen. |
+| `order` | Reihenfolge im Menü und in der Mannschaftsliste |
+| `displayName`, `navLabel` | Überschrift der Seite bzw. Beschriftung im Menü |
+| `trainer`, `trainingDays`, `trainingTime` | Angaben für Trainingsplan und Übersicht |
+| `trainingTimes` | Mehrere Trainingseinheiten (für den Wochenplan) |
+| `fussballDe` | Liga und Widget-Kennungen für Tabelle und Spielplan |
+| `staff` | Trainerteam mit Foto, Telefon, E-Mail, Lizenz |
+| `players` | Kader mit Rückennummer, Position und Foto |
+
+**Eine neue Mannschaft anlegen:** eine neue Datei in `data/teams/` ablegen. Menüpunkt,
+Eintrag in der Mannschaftsliste und die eigene Kaderseite entstehen daraus automatisch –
+es muss an keiner weiteren Stelle etwas eingetragen werden. `staff` und `players` dürfen
+leer (`[]`) bleiben; die Seite zeigt dann „Kader wird noch erfasst".
+
+Bilder liegen unter `public/images/`. Ein Foto, das in der Mannschaftsdatei als
 `"image": "U15_Stefan_und_Paffi/Trainer_Stefan_Kuehl.jpeg"` steht, wird unter
 `public/images/content/U15_Stefan_und_Paffi/Trainer_Stefan_Kuehl.jpeg` gesucht.
-
-> **Wichtig:** Jede Mannschaft braucht einen eigenen, eindeutigen `slug` in `teams-config.json` –
-> daraus entsteht die URL (`/kaderuebersicht/<slug>/`). Zwei Teams mit demselben Slug
-> überschreiben sich gegenseitig, und eine der beiden Seiten verschwindet.
 
 ## Lokal entwickeln
 
@@ -48,8 +64,12 @@ src/
   pages/        Jede Datei = eine Seite der Website
   layouts/      Gemeinsames Grundgerüst aller Seiten
   components/   Header, Footer, Spielerkarte
+  lib/teams.ts  liest data/teams/ ein
   styles/       Zentrales Stylesheet
-data/           Inhalte als JSON (siehe oben)
+data/
+  teams/        eine Datei je Mannschaft
+  site.json     vereinsweite Angaben
+  news.json     Neuigkeiten
 public/         Bilder, Logo, Dokumente – wird unverändert ausgeliefert
 docs/           Anleitungen (z. B. Einrichtung der Trainer-E-Mails)
 ```
