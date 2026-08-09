@@ -75,15 +75,24 @@ const teams = defineCollection({
 
 /**
  * Inhaltsseiten (Fundgrube, Mitmachen, …). Der Text steht als Markdown
- * unter dem Frontmatter. Uebersichtsseiten listen ihre Unterseiten
- * automatisch als Karten – gesteuert ueber "showChildren".
+ * unter dem Frontmatter – dort schreibt man normalen Fliesstext, keine
+ * HTML-Tags.
+ *
+ * Die Adresse ergibt sich aus dem Dateinamen:
+ *   src/content/pages/fundgrube/gefunden-verloren.md
+ *     -> /fundgrube/gefunden-verloren/
+ *
+ * Unter "children" koennen Karten zu Unterseiten stehen; sie erscheinen
+ * unterhalb des Textes.
  */
 const pages = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
-    showChildren: z.boolean().default(false),
+    children: z
+      .array(z.object({ title: z.string(), href: z.string() }))
+      .default([]),
   }),
 });
 

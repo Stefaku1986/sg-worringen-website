@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+/**
+ * Rendert die Inhaltsseiten aus src/content/pages/.
+ *
+ * Der Dateiname bestimmt die Adresse:
+ *   src/content/pages/fundgrube/gefunden-verloren.md
+ *     -> /fundgrube/gefunden-verloren/
+ *
+ * Seiten, die als eigene .astro-Datei unter src/pages/ liegen, haben
+ * Vorrang – Astro bevorzugt feste Routen vor dieser Sammelroute. Eine
+ * Ausnahmeliste ist deshalb nicht noetig.
+ */
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const base = import.meta.env.BASE_URL;
+
+const hasText = entry.body.trim().length > 0;
+const children = entry.data.children ?? [];
+
+// Breadcrumbs aus dem Pfad ableiten
+const segments = entry.slug.split('/');
+const breadcrumbs = segments.map((seg, i) => ({
+  href: base + segments.slice(0, i + 1).join('/') + '/',
+  label: seg.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+}));
+---
+
+<BaseLayout
+  title={`${entry.data.title} – SG Köln-Worringen`}
+  description={entry.data.description ??
+    `${entry.data.title} – Informationen und Inhalte der SG Köln-Worringen Fußballabteilung.`}
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        {breadcrumbs.map((bc) => (
+          <Fragment>
+            <span class="sep">/</span>
+            <a href={bc.href}>{bc.label}</a>
+          </Fragment>
+        ))}
+      </nav>
+      <h1>{entry.data.title}</h1>
+    </div>
+  </div>
+
+  <div class="page-body">
+    {hasText && (
+      <div class="page-content reveal">
+        <Content />
+      </div>
+    )}
+
+    {children.length > 0 && (
+      <div class="container" style="padding-top: 1rem; padding-bottom: 2rem;">
+        {hasText && (
+          <div class="section-header reveal" style="margin-top: 2.5rem;">
+            <span class="eyebrow">Unterseiten</span>
+            <h2>Weiterlesen</h2>
+          </div>
+        )}
+        <div
+          class={`card-grid ${children.length >= 3 ? 'cols-3' : 'cols-2'} ${hasText ? 'stagger-children' : ''}`}
+        >
+          {children.map((child) => (
+            <a href={child.href} class={`card is-link ${hasText ? 'reveal' : ''}`}>
+              <h3>{child.title}</h3>
+              <span class="card-link">Mehr erfahren</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</BaseLayout>
