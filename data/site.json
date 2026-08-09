@@ -1,0 +1,27 @@
+{
+  "season": "2025/2026",
+  "positionLabels": {
+    "TW": "Torwart",
+    "IV": "Innenverteidiger",
+    "LV": "Linker Verteidiger",
+    "RV": "Rechter Verteidiger",
+    "ZM": "Zentrales Mittelfeld",
+    "OM": "Offensives Mittelfeld",
+    "LM": "Linkes Mittelfeld",
+    "RM": "Rechtes Mittelfeld",
+    "ST": "Stürmer",
+    "LA": "Linksaußen",
+    "RA": "Rechtsaußen",
+    "TR": "Trainer",
+    "CO": "Co-Trainer",
+    "TT": "Torwart-Trainer",
+    "BT": "Betreuer",
+    "MV": "Mannschaftsverantwortlicher"
+  },
+  "fussballDe": {
+    "widgetScriptUrl": "https://www.fussball.de/widgets.js",
+    "seasonEnd": "2026-06-30",
+    "seasonEndMessage": "Die Saison 2025/2026 ist beendet. Die Daten werden in den kommenden Tagen für die neue Saison aktualisiert.",
+    "clubMatchesWidget": "b3fd4876-204c-47e3-a05e-96640926bfa8"
+  }
+}

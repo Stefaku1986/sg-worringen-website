@@ -1,85 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PlayerCard from '../../components/PlayerCard.astro';
-import playersData from '../../../data/players.json';
-import fussballData from '../../../data/fussball.json';
-import teamsConfig from '../../../data/teams-config.json';
+import { teams, type Team } from '../../lib/teams';
+import site from '../../../data/site.json';
 
-const posLabels = playersData.positionLabels as Record<string, string>;
+const posLabels = site.positionLabels as Record<string, string>;
 
-// teams-config.json is the single source of truth for which teams exist – it also
-// drives the nav menu. Teams without a roster entry still get a page (with the
-// existing empty-roster state) so menu links can never 404.
+// Jede Datei in data/teams/ ergibt eine Kaderseite. Eine neue Mannschaft
+// anzulegen heisst: dort eine Datei ablegen – Menue, Trainingsplan und
+// Kaderseite entstehen daraus automatisch.
 export function getStaticPaths() {
-  const rosters = playersData.teams as Record<string, any>;
-  const fallbackSeason = Object.values(rosters).find((t: any) => t?.season)?.season ?? '';
-
-  return (teamsConfig.teams as any[]).map((t) => ({
-    params: { team: t.slug },
-    props: {
-      slug: t.slug,
-      team: rosters[t.slug] ?? {
-        name: t.displayName,
-        shortName: t.uNumber ?? '',
-        season: fallbackSeason,
-        staff: [],
-        players: [],
-      },
-    },
+  return teams.map((team) => ({
+    params: { team: team.slug },
+    props: { team },
   }));
 }
 
-interface StaffMember {
-  name: string;
-  role: string;
-  number: number | null;
-  position: string;
-  image: string | null;
-  since: string | null;
-  phone: string;
-  email: string;
-  qualification: string;
-}
-
-interface Player {
-  name: string;
-  number: number;
-  position: string;
-  image: string | null;
-}
-
-interface Team {
-  name: string;
-  shortName: string;
-  season: string;
-  staff: StaffMember[];
-  players: Player[];
-}
-
-const { team, slug } = Astro.props as { team: Team; slug: string };
+const { team } = Astro.props as { team: Team };
 const base = import.meta.env.BASE_URL;
+const slug = team.slug;
 const hasStaff = team.staff.length > 0;
 const hasPlayers = team.players.length > 0;
 const isEmpty = !hasStaff && !hasPlayers;
 
-// Team display info from central config
-const teamInfo = (teamsConfig.teams as any[]).find(t => t.slug === slug);
-const displayName = teamInfo?.displayName || team.name;
-const teamCategory = teamInfo?.category || '';
+const displayName = team.displayName;
+const teamCategory = team.category ?? '';
+const season = site.season;
 
-// Fussball.de widget data
-const fbTeam = (fussballData.teams as Record<string, any>)[slug];
+// fussball.de-Widgets der Mannschaft
+const fbTeam = team.fussballDe ? { ...team.fussballDe, season } : undefined;
 const hasMatchesWidget = !!fbTeam?.teamMatchesWidget;
 const hasTableWidget = !!fbTeam?.tableWidget;
 const hasWidget = hasMatchesWidget || hasTableWidget;
 const hasFussballData = !!fbTeam;
-const seasonEnd = fussballData.seasonEnd || '';
-const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in Kürze aktualisiert.';
+const seasonEnd = site.fussballDe.seasonEnd || '';
+const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden in Kürze aktualisiert.';
 ---
 
 <BaseLayout
-  title={`${displayName} – Kader ${team.season} – SG Köln-Worringen`}
-  description={`Kader der ${displayName} der SG Köln-Worringen – Saison ${team.season}`}
+  title={`${displayName} – Kader ${season} – SG Köln-Worringen`}
+  description={`Kader der ${displayName} der SG Köln-Worringen – Saison ${season}`}
 >
   {/* fussball.de widget script must be in <head> */}
   {hasWidget && (
@@ -107,7 +67,7 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
           <img src={`${base}images/logo.png`} alt="SG Köln-Worringen" />
         </div>
         <div class="team-info">
-          <span class="eyebrow">Saison {team.season}</span>
+          <span class="eyebrow">Saison {season}</span>
           <h2>{displayName}</h2>
           <p class="team-meta">SG Köln-Worringen e.V. · Fußballabteilung</p>
         </div>
@@ -332,7 +292,7 @@ const seasonEndMessage = fussballData.seasonEndMessage || 'Die Daten werden in K
             </svg>
           </div>
           <h3>Kader wird noch erfasst</h3>
-          <p>Die Spielerdaten für die {team.name} werden aktuell zusammengestellt.</p>
+          <p>Die Spielerdaten für die {displayName} werden aktuell zusammengestellt.</p>
           <p>Schau bald wieder vorbei!</p>
         </div>
       )}

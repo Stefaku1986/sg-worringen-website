@@ -1,5 +1,5 @@
 ---
-import teamsConfig from '../../data/teams-config.json';
+import { teams } from '../lib/teams';
 
 const base = import.meta.env.BASE_URL;
 
@@ -14,21 +14,13 @@ interface NavItem {
   children?: NavChild[];
 }
 
-// Build team nav links from central config (deduplicate by slug)
-const seen = new Set<string>();
+// Mannschafts-Links aus data/teams/ – die Reihenfolge steuert dort "order".
 const teamNavLinks: NavChild[] = [
   { label: 'Trainingsplan', href: `${base}kaderuebersicht/trainingsplan/` },
-  ...(teamsConfig.teams as any[])
-    .filter(t => {
-      const key = t.navLabel;
-      if (seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    })
-    .map(t => ({
-      label: t.navLabel,
-      href: `${base}kaderuebersicht/${t.slug}/`,
-    })),
+  ...teams.map((t) => ({
+    label: t.navLabel ?? t.displayName,
+    href: `${base}kaderuebersicht/${t.slug}/`,
+  })),
 ];
 
 const navItems: NavItem[] = [

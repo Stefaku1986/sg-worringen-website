@@ -1,16 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import pages from '../../data/spa_pages.json';
 import allNews from '../../data/news.json';
-import fussballData from '../../data/fussball.json';
+import site from '../../data/site.json';
 
 const base = import.meta.env.BASE_URL;
 
 // Vereins-Widget: zeigt alle Spiele aller Mannschaften
-const clubMatchesWidget = (fussballData as any).clubMatchesWidget || '';
+const clubMatchesWidget = site.fussballDe.clubMatchesWidget || '';
 const hasClubMatches = !!clubMatchesWidget;
-const seasonEnd = fussballData.seasonEnd || '';
-const seasonEndMessage = fussballData.seasonEndMessage || '';
+const seasonEnd = site.fussballDe.seasonEnd || '';
+const seasonEndMessage = site.fussballDe.seasonEndMessage || '';
 
 // Mannschaften werden jetzt über Quick-Links referenziert
 

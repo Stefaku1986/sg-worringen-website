@@ -1,0 +1,51 @@
+{
+  "slug": "2017",
+  "order": 6,
+  "displayName": "U10 – E-Jugend",
+  "uNumber": "U10",
+  "category": "E-Jugend",
+  "birthYear": "2017",
+  "navLabel": "U10 · E-Jugend · Jg. 2017",
+  "categoryColor": "#F687B3",
+  "trainer": "Michael Attorf",
+  "trainingDays": "Dienstag und Donnerstag",
+  "trainingTime": "16:30–18:00",
+  "trainingTimes": [
+    {
+      "days": "Dienstag und Donnerstag",
+      "from": "16:30",
+      "to": "18:00"
+    }
+  ],
+  "fussballDe": {
+    "fussballDeUrl": "https://www.fussball.de/mannschaft/sg-worringen-u9-sg-koeln-worringen-mittelrhein/-/saison/2526/team-id/02EN2JMCHS000000VS5489B2VSAS84KM#!/",
+    "league": "E-Jugend Kinderfußball",
+    "tableWidget": "",
+    "teamMatchesWidget": "286d8a0c-94d3-49f8-a21e-0772137c0e49"
+  },
+  "staff": [
+    {
+      "name": "Michael Atorf",
+      "role": "Trainer",
+      "number": null,
+      "position": "TR",
+      "image": null,
+      "since": "2023",
+      "phone": "017634297818",
+      "email": "michael.atorf@sg-fussball.online",
+      "qualification": ""
+    },
+    {
+      "name": "Marcel Schneider",
+      "role": "Co-Trainer",
+      "number": null,
+      "position": "CO",
+      "image": null,
+      "since": "2022",
+      "phone": "015901259613",
+      "email": "marcel.schneider@sg-fussball.online",
+      "qualification": "Trainer C-Lizenz"
+    }
+  ],
+  "players": []
+}

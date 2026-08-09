@@ -1,0 +1,22 @@
+{
+  "slug": "2021",
+  "order": 10,
+  "displayName": "U6 – G-Jugend",
+  "uNumber": "U6",
+  "category": "G-Jugend",
+  "birthYear": "2021",
+  "navLabel": "U6 · G-Jugend · Jg. 2021",
+  "categoryColor": "#68D391",
+  "trainer": "Trainer offen",
+  "trainingDays": "Montag und Mittwoch",
+  "trainingTime": "16:30–18:00",
+  "trainingTimes": [
+    {
+      "days": "Mittwoch",
+      "from": "16:30",
+      "to": "17:30"
+    }
+  ],
+  "staff": [],
+  "players": []
+}

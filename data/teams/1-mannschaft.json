@@ -1,0 +1,127 @@
+{
+  "slug": "1-mannschaft",
+  "order": 1,
+  "displayName": "1. Mannschaft",
+  "uNumber": null,
+  "category": "Herren",
+  "birthYear": null,
+  "navLabel": "1. Mannschaft",
+  "categoryColor": "#F56565",
+  "trainer": "Sebastian Tange",
+  "trainingDays": "Dienstag und Donnerstag",
+  "trainingTime": "19:30–21:00",
+  "staff": [
+    {
+      "name": "Sebastian Tange",
+      "role": "Trainer",
+      "number": null,
+      "position": "TR",
+      "image": null,
+      "since": "2025",
+      "phone": "",
+      "email": "sebastian.tange@sg-fussball.online",
+      "qualification": ""
+    },
+    {
+      "name": "Co-Trainer",
+      "role": "Co-Trainer",
+      "number": null,
+      "position": "CO",
+      "image": null,
+      "since": "2025",
+      "phone": "",
+      "email": "",
+      "qualification": ""
+    },
+    {
+      "name": "Torwart-Trainer",
+      "role": "Torwart-Trainer",
+      "number": null,
+      "position": "TR",
+      "image": null,
+      "since": "2025",
+      "phone": "",
+      "email": "",
+      "qualification": ""
+    },
+    {
+      "name": "Karl-Heinz Laas",
+      "role": "Mannschaftsverantwortlicher",
+      "number": null,
+      "position": "BT",
+      "image": null,
+      "since": "2025",
+      "phone": "",
+      "email": "",
+      "qualification": ""
+    }
+  ],
+  "players": [
+    {
+      "name": "Spieler 1",
+      "number": 1,
+      "position": "TW",
+      "image": null
+    },
+    {
+      "name": "Spieler 2",
+      "number": 2,
+      "position": "IV",
+      "image": null
+    },
+    {
+      "name": "Spieler 3",
+      "number": 3,
+      "position": "IV",
+      "image": null
+    },
+    {
+      "name": "Spieler 4",
+      "number": 4,
+      "position": "LV",
+      "image": null
+    },
+    {
+      "name": "Spieler 5",
+      "number": 5,
+      "position": "RV",
+      "image": null
+    },
+    {
+      "name": "Spieler 6",
+      "number": 6,
+      "position": "ZM",
+      "image": null
+    },
+    {
+      "name": "Spieler 7",
+      "number": 7,
+      "position": "ZM",
+      "image": null
+    },
+    {
+      "name": "Spieler 8",
+      "number": 8,
+      "position": "ZM",
+      "image": null
+    },
+    {
+      "name": "Spieler 9",
+      "number": 9,
+      "position": "OM",
+      "image": null
+    },
+    {
+      "name": "Spieler 10",
+      "number": 10,
+      "position": "ST",
+      "image": null
+    },
+    {
+      "name": "Spieler 11",
+      "number": 11,
+      "position": "LA",
+      "image": null
+    }
+  ]
+}

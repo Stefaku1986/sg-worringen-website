@@ -1,13 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import teamsConfig from '../../../data/teams-config.json';
+import { teams } from '../../lib/teams';
 
 const base = import.meta.env.BASE_URL;
 
-// Build link lookup from central config: U-number/name → page URL
+// Link-Suche ueber data/teams/: U-Nummer bzw. Name → Seiten-URL
 const teamLink = (name: string): string | undefined => {
-  const t = (teamsConfig.teams as any[]).find(t =>
-    t.uNumber === name || t.displayName === name || t.navLabel?.startsWith(name)
+  const t = teams.find(
+    (t) =>
+      t.uNumber === name || t.displayName === name || t.navLabel?.startsWith(name)
   );
   return t ? `${base}kaderuebersicht/${t.slug}/` : undefined;
 };
