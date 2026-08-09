@@ -11,3 +11,10 @@ dist/
 # Alles mit .local.md bleibt nur auf diesem Rechner und wird nie nach GitHub gepusht.
 *.local.md
 .private/
+
+# Test- und Debug-Screenshots. Bilder fuer die Website gehoeren nach public/images/ –
+# die Regeln hier greifen nur im Wurzelverzeichnis und lassen public/ unberuehrt.
+/*.png
+/*.jpg
+/*.jpeg
+/screenshots/
