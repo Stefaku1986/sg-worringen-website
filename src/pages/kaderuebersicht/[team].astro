@@ -41,6 +41,14 @@ const hasWidget = hasMatchesWidget || hasTableWidget;
 const hasFussballData = !!fbTeam;
 const seasonEnd = site.fussballDe.seasonEnd || '';
 const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden in Kürze aktualisiert.';
+
+// Mannschaften ohne feststehenden Spielplan: "seasonEnded: true" in der
+// Mannschaftsdatei blendet Tabelle und Spiele aus und zeigt stattdessen
+// einen Hinweis – unabhaengig vom Datum.
+const seasonEnded = team.fussballDe?.seasonEnded === true;
+const teamSeasonMessage =
+  (site.fussballDe as any).teamSeasonMessage ||
+  'Die Daten werden in Kürze aktualisiert.';
 ---
 
 <BaseLayout
@@ -328,15 +336,16 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
             <h2>Saison {fbTeam.season}</h2>
           </div>
 
-          {/* Saisonende-Overlay (wird per JS eingeblendet wenn Saison abgelaufen) */}
-          <div class="season-end-overlay" style="display: none;">
+          {/* Hinweis statt Widgets: entweder fest per "seasonEnded" in der
+              Mannschaftsdatei oder per JS, wenn das Saisonende ueberschritten ist */}
+          <div class="season-end-overlay" style={seasonEnded ? '' : 'display: none;'}>
             <div class="season-end-icon">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
             </div>
-            <p class="season-end-text"></p>
+            <p class="season-end-text">{seasonEnded ? teamSeasonMessage : ''}</p>
             {fbTeam.fussballDeUrl && (
               <a href={fbTeam.fussballDeUrl} target="_blank" rel="noopener noreferrer" class="fussball-link">
                 Zur Mannschaftsseite auf fussball.de
@@ -346,7 +355,7 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
           </div>
 
           {hasWidget ? (
-            <div class="fussball-grid fussball-widgets-content">
+            <div class="fussball-grid fussball-widgets-content"{...(seasonEnded ? { style: "display: none;" } : {})}>
               {/* Tabelle (wenn vorhanden) */}
               {hasTableWidget && (
                 <div class="fussball-card">
@@ -384,7 +393,7 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
               )}
             </div>
           ) : (
-            <div class="fussball-placeholder fussball-widgets-content">
+            <div class="fussball-placeholder fussball-widgets-content"{...(seasonEnded ? { style: "display: none;" } : {})}>
               <div class="placeholder-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="10" />
@@ -402,7 +411,7 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
           )}
 
           {/* Quelle & Link */}
-          <div class="fussball-source fussball-widgets-content">
+          <div class="fussball-source fussball-widgets-content"{...(seasonEnded ? { style: "display: none;" } : {})}>
             <p>
               Daten live von{' '}
               {fbTeam.fussballDeUrl ? (

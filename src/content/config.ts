@@ -64,6 +64,11 @@ const teams = defineCollection({
         league: z.string().optional(),
         tableWidget: z.string().optional(),
         teamMatchesWidget: z.string().optional(),
+        // Auf true setzen, solange fuer diese Mannschaft kein Spielplan
+        // vorliegt: Statt Tabelle und Spielen erscheint dann ein Hinweis.
+        // Sobald die Staffeleinteilung steht, wieder auf false setzen
+        // (oder die Zeile entfernen).
+        seasonEnded: z.boolean().default(false),
       })
       .optional(),
 

@@ -22,6 +22,7 @@
     "widgetScriptUrl": "https://www.fussball.de/widgets.js",
     "seasonEnd": "2027-06-30",
     "seasonEndMessage": "Die Saison 2026/2027 ist beendet. Die Daten werden in den kommenden Tagen für die neue Saison aktualisiert.",
-    "clubMatchesWidget": "b3fd4876-204c-47e3-a05e-96640926bfa8"
+    "clubMatchesWidget": "b3fd4876-204c-47e3-a05e-96640926bfa8",
+    "teamSeasonMessage": "Der Spielplan für die Saison 2026/2027 steht noch nicht fest. Sobald die Staffeleinteilung veröffentlicht ist, erscheinen hier Tabelle und Spiele."
   }
 }
