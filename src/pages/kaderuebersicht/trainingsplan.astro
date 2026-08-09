@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { teams } from '../../lib/teams';
+import { getTeams } from '../../lib/teams';
 
 const base = import.meta.env.BASE_URL;
+const teams = await getTeams();
 
 // Link-Suche ueber data/teams/: U-Nummer bzw. Name → Seiten-URL
 const teamLink = (name: string): string | undefined => {

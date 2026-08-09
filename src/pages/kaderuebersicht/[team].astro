@@ -1,22 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PlayerCard from '../../components/PlayerCard.astro';
-import { teams, type Team } from '../../lib/teams';
+import { getTeamEntries, type TeamEntry } from '../../lib/teams';
 import site from '../../../data/site.json';
 
 const posLabels = site.positionLabels as Record<string, string>;
 
-// Jede Datei in data/teams/ ergibt eine Kaderseite. Eine neue Mannschaft
-// anzulegen heisst: dort eine Datei ablegen – Menue, Trainingsplan und
-// Kaderseite entstehen daraus automatisch.
-export function getStaticPaths() {
-  return teams.map((team) => ({
-    params: { team: team.slug },
-    props: { team },
+// Jede Datei in src/content/teams/ ergibt eine Kaderseite. Eine neue
+// Mannschaft anzulegen heisst: dort eine Datei ablegen – Menue,
+// Trainingsplan und Kaderseite entstehen daraus automatisch.
+export async function getStaticPaths() {
+  const entries = await getTeamEntries();
+  return entries.map((entry) => ({
+    params: { team: entry.slug },
+    props: { entry },
   }));
 }
 
-const { team } = Astro.props as { team: Team };
+const { entry } = Astro.props as { entry: TeamEntry };
+const team = { slug: entry.slug, ...entry.data };
+// Freier Text unterhalb des Frontmatters – optional.
+const { Content } = await entry.render();
+const hasText = entry.body.replace(/<!--[\s\S]*?-->/g, '').trim().length > 0;
+
 const base = import.meta.env.BASE_URL;
 const slug = team.slug;
 const hasStaff = team.staff.length > 0;
@@ -72,6 +78,13 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
           <p class="team-meta">SG Köln-Worringen e.V. · Fußballabteilung</p>
         </div>
       </div>
+
+      {/* Freier Text aus der Mannschaftsdatei, falls vorhanden */}
+      {hasText && (
+        <div class="team-intro reveal">
+          <Content />
+        </div>
+      )}
 
       {/* Trainerstab */}
       {hasStaff && (
@@ -658,6 +671,22 @@ const seasonEndMessage = site.fussballDe.seasonEndMessage || 'Die Daten werden i
     font-size: 1.5rem;
     color: var(--blue-deep);
     margin-bottom: 0.2rem;
+  }
+
+  .team-intro {
+    max-width: 68ch;
+    margin: 0 auto 2.5rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .team-intro :global(p) {
+    margin: 0 0 0.9rem;
+  }
+
+  .team-intro :global(a) {
+    color: var(--blue);
+    font-weight: 600;
   }
 
   .team-meta {

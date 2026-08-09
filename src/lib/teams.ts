@@ -1,73 +1,34 @@
+import { getCollection, type CollectionEntry } from 'astro:content';
+
 /**
- * Laedt die Mannschaften aus data/teams/.
+ * Laedt die Mannschaften aus src/content/teams/.
  *
- * Jede Mannschaft hat dort genau eine Datei mit allem, was zu ihr gehoert:
- * Bezeichnung, Trainer, Trainingszeiten, fussball.de-Widgets und Kader.
+ * Jede Mannschaft hat dort genau eine Markdown-Datei mit allem, was zu ihr
+ * gehoert: Bezeichnung, Trainer, Trainingszeiten, fussball.de-Widgets und
+ * Kader stehen im Frontmatter, darunter kann freier Text stehen.
+ *
  * Eine neue Mannschaft anzulegen heisst: eine neue Datei ablegen – sie
  * erscheint dann automatisch im Menue, im Trainingsplan und bekommt ihre
- * eigene Kaderseite. Die Reihenfolge steuert das Feld "order".
+ * eigene Kaderseite. Die Reihenfolge steuert das Feld "order", die Adresse
+ * ergibt sich aus dem Dateinamen.
+ *
+ * Welche Felder erlaubt sind, steht in src/content/config.ts – Astro prueft
+ * das beim Bauen.
  */
 
-export interface StaffMember {
-  name: string;
-  role: string;
-  number: number | null;
-  position: string;
-  image: string | null;
-  since: string | null;
-  phone: string;
-  email: string;
-  qualification: string;
+export type TeamEntry = CollectionEntry<'teams'>;
+
+/** Frontmatter einer Mannschaft, ergaenzt um ihren Slug (= Dateiname). */
+export type Team = TeamEntry['data'] & { slug: string };
+
+/** Alle Mannschaften als Eintraege, sortiert nach dem Feld "order". */
+export async function getTeamEntries(): Promise<TeamEntry[]> {
+  const entries = await getCollection('teams');
+  return entries.sort((a, b) => a.data.order - b.data.order);
 }
 
-export interface Player {
-  name: string;
-  number: number;
-  position: string;
-  image: string | null;
-}
-
-export interface TrainingSlot {
-  days: string;
-  from: string;
-  to: string;
-}
-
-export interface FussballDe {
-  fussballDeUrl?: string;
-  league?: string;
-  tableWidget?: string;
-  teamMatchesWidget?: string;
-}
-
-export interface Team {
-  slug: string;
-  order: number;
-  displayName: string;
-  uNumber: string | null;
-  category: string | null;
-  birthYear: string | null;
-  navLabel: string | null;
-  categoryColor: string | null;
-  trainer: string | null;
-  trainingDays: string | null;
-  trainingTime: string | null;
-  trainingTimes?: TrainingSlot[];
-  fussballDe?: FussballDe;
-  staff: StaffMember[];
-  players: Player[];
-}
-
-const modules = import.meta.glob<{ default: Team }>('../../data/teams/*.json', {
-  eager: true,
-});
-
-/** Alle Mannschaften in der Reihenfolge des Feldes "order". */
-export const teams: Team[] = Object.values(modules)
-  .map((m) => m.default)
-  .sort((a, b) => a.order - b.order);
-
-/** Eine Mannschaft ueber ihren Slug (= ihren Dateinamen) finden. */
-export function getTeam(slug: string): Team | undefined {
-  return teams.find((t) => t.slug === slug);
+/** Alle Mannschaften als flache Datensaetze – fuer Menue, Listen, Trainingsplan. */
+export async function getTeams(): Promise<Team[]> {
+  const entries = await getTeamEntries();
+  return entries.map((e) => ({ slug: e.slug, ...e.data }));
 }
