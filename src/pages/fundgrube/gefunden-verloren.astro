@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="„Gefunden & verloren“ – SG Köln-Worringen"
+  description="„Gefunden & verloren“ – Informationen und Inhalte der SG Köln-Worringen Fußballabteilung."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}fundgrube/`}>Fundgrube</a>
+        <span class="sep">/</span>
+        <a href={`${base}fundgrube/gefunden-verloren/`}>Gefunden Verloren</a>
+      </nav>
+      <h1>„Gefunden & verloren“</h1>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-content reveal">
+      <h1 style="text-align: center">Unsere Fundgrube – Vermisst du etwas?</h1><h2 style="text-align: center">In der Hektik des Trainings oder nach dem Spiel bleibt schnell mal etwas liegen – Trinkflaschen, Jacken, Schienbeinschoner oder ganze Trikots. Damit nichts verloren geht, haben wir eine Fundgrube eingerichtet.<br />Alles, was auf dem Sportgelände gefunden wurde, wird dort gesammelt und kann zu den Trainingszeiten oder nach Absprache abgeholt werden.<br /> Schau einfach vorbei – vielleicht wartet dein vermisster Gegenstand schon auf dich!<br />Bitte denkt daran, persönliche Gegenstände zu kennzeichnen – das erleichtert die Zuordnung erheblich</h2><div style="text-align: center">Oder einfach hier schauen </div><div><div><a name="STRATP_cm4all_com_widgets_UroPhoto_54429857"></a></div><div> <img loading="lazy" src="/images/content/Fundgrube/f1bee16f-baef-466d-91b4-817df8e47001.jpeg" />
+</div></div>
+    </div>
+  </div>
+</BaseLayout>

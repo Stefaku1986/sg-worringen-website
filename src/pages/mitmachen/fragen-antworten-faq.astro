@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Fragen & Antworten (FAQ) – SG Köln-Worringen"
+  description="Fragen & Antworten (FAQ) – Informationen und Inhalte der SG Köln-Worringen Fußballabteilung."
+>
+  <div class="page-hero">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <a href={base}>Startseite</a>
+        <span class="sep">/</span>
+        <a href={`${base}mitmachen/`}>Mitmachen</a>
+        <span class="sep">/</span>
+        <a href={`${base}mitmachen/fragen-antworten-faq/`}>Fragen Antworten Faq</a>
+      </nav>
+      <h1>Fragen & Antworten (FAQ)</h1>
+    </div>
+  </div>
+
+  <div class="page-body">
+    <div class="page-content reveal">
+      <h1 style="text-align: center">Häufige Fragen zur Anmeldung – Elterninformation</h1><h2 style="text-align: left">1. Ab welchem Alter kann mein Kind am Training teilnehmen?<br />Ein Einstieg ist in der Regel ab dem vollendeten 4. Lebensjahr möglich. Die Zuordnung erfolgt altersgerecht gemäß den Jahrgängen der Fußballverbände.</h2><h2>2. Muss mein Kind bereits Fußball spielen können?<br />Nein. Grundkenntnisse sind nicht erforderlich. Wir begrüßen ausdrücklich auch Kinder ohne Vorerfahrung. Im Mittelpunkt stehen Freude an Bewegung, Teamgeist und spielerisches Lernen.</h2><h2>3. Wie kann mein Kind ein Probetraining absolvieren?<br />Bitte nehmen Sie vorab Kontakt mit der Jugendleitung oder dem zuständigen Trainer auf. In der Regel bieten wir ein bis zwei unverbindliche Probetrainings an, damit Ihr Kind den Trainingsalltag kennenlernen kann.</h2><h2>4. Welche Ausrüstung wird benötigt?<br />Für das Probetraining genügen wettergerechte Sportkleidung, Schuhe und eine gefüllte Trinkflasche.<br />Schienbeinschoner sind für den Spielbetrieb verpflichtend.</h2><h2>5. Wie oft wird trainiert, und wann?<br />Die Trainingszeiten sind jahrgangsabhängig und variieren je nach Mannschaft. In der Regel findet das Training ein- bis zweimal pro Woche statt. Die aktuellen Zeiten erhalten Sie auf Anfrage oder auf unserer Website.</h2><h2>6. Wie läuft die Anmeldung ab?<br />Nach dem Probetraining erhalten Sie unser Anmeldeformular sowie die aktuellen Informationen zu Mitgliedsbeiträgen. Die Anmeldung wird mit der Abgabe des vollständig ausgefüllten Formulars und der Zustimmung zu den Vereinsbedingungen wirksam.</h2><h2>7. Wann wird mein Kind für Spiele berücksichtigt?<br />Die Teilnahme am Spielbetrieb hängt vom individuellen Entwicklungsstand, der Trainingsbeteiligung und der Mannschaftsplanung ab. Die Entscheidung trifft der Trainer in sportlicher Verantwortung. Ziel ist eine faire und altersgerechte Förderung aller Kinder.</h2><h2>8. Gibt es Unterstützung bei Fahrten zu Auswärtsspielen?<br />In vielen Fällen organisieren Eltern Fahrgemeinschaften. Der Verein unterstützt bei der Vernetzung, kann aber keine regelmäßige Beförderung gewährleisten.</h2><h2>9. Wie erfolgt die Kommunikation mit dem Verein?<br />Die Kommunikation erfolgt in der Regel über die Trainer oder Betreuer:innen der Mannschaft sowie über digitale Gruppen (z. B. WhatsApp). Zusätzlich stehen die Jugendleitung und der Vorstand bei übergeordneten Fragen zur Verfügung.</h2><h2>10. Was passiert, wenn mein Kind den Verein wieder verlassen möchte?<br />Eine Beendigung der Mitgliedschaft ist unter Einhaltung der satzungsgemäßen Fristen möglich. Bitte wenden Sie sich hierzu schriftlich an den Vorstand oder die Geschäftsstelle.</h2>
+    </div>
+  </div>
+</BaseLayout>

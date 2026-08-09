@@ -10,12 +10,12 @@ Jeder Push auf `main` baut und veröffentlicht die Seite automatisch – ein Dep
 Die Texte und Daten der Seite liegen als JSON-Dateien in `data/`. Wer hier etwas ändert und
 committet, ändert die Website:
 
-| Datei | Inhalt |
+| Wo | Inhalt |
 |---|---|
+| `src/pages/…astro` | **Eine Datei je Seite.** Der Text steht direkt darin – `unser-verein/anfahrt.astro` ist die Seite `/unser-verein/anfahrt/`. |
 | `data/teams/<slug>.json` | **Eine Datei je Mannschaft** – siehe unten |
 | `data/news.json` | Neuigkeiten auf der Startseite und unter „Neuigkeiten" |
 | `data/site.json` | Gilt für den ganzen Verein: Saison, Positionskürzel, Vereins-Widget |
-| `data/spa_pages.json` | Fließtext einiger Unterseiten (aus der alten Website übernommen) |
 
 ### Eine Mannschaft pflegen
 
@@ -61,7 +61,7 @@ Die Vorschau läuft dann auf http://localhost:4321.
 
 ```
 src/
-  pages/        Jede Datei = eine Seite der Website
+  pages/        Jede Datei = eine Seite der Website (Text steht direkt darin)
   layouts/      Gemeinsames Grundgerüst aller Seiten
   components/   Header, Footer, Spielerkarte
   lib/teams.ts  liest data/teams/ ein
