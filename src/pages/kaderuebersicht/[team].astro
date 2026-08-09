@@ -7,10 +7,25 @@ import teamsConfig from '../../../data/teams-config.json';
 
 const posLabels = playersData.positionLabels as Record<string, string>;
 
+// teams-config.json is the single source of truth for which teams exist – it also
+// drives the nav menu. Teams without a roster entry still get a page (with the
+// existing empty-roster state) so menu links can never 404.
 export function getStaticPaths() {
-  return Object.entries(playersData.teams).map(([slug, team]) => ({
-    params: { team: slug },
-    props: { team, slug },
+  const rosters = playersData.teams as Record<string, any>;
+  const fallbackSeason = Object.values(rosters).find((t: any) => t?.season)?.season ?? '';
+
+  return (teamsConfig.teams as any[]).map((t) => ({
+    params: { team: t.slug },
+    props: {
+      slug: t.slug,
+      team: rosters[t.slug] ?? {
+        name: t.displayName,
+        shortName: t.uNumber ?? '',
+        season: fallbackSeason,
+        staff: [],
+        players: [],
+      },
+    },
   }));
 }
 
