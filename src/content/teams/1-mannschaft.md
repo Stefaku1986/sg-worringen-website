@@ -36,6 +36,7 @@ players:
   - name: Raphael London
     number: 2
     position: IV
+    image: 1_Mannschaft/Spieler/Raphael_London.jpeg
   - name: Spieler 3
     number: 3
     position: IV
