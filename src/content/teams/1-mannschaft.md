@@ -7,6 +7,10 @@ categoryColor: "#F56565"
 trainer: Sebastian Tange
 trainingDays: Dienstag und Donnerstag
 trainingTime: 19:30–21:00
+fussballDe:
+  league: Kreisliga D Staffel 1
+  tableWidget: 44f4b097-dac4-4616-b252-d4cd8dbfc833
+  teamMatchesWidget: 5ff594e8-4a90-4680-970e-75b55cc9ad1b
 staff:
   - name: Sebastian Tange
     role: Trainer
