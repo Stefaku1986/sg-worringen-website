@@ -17,7 +17,7 @@ const teamLink = (name: string): string | undefined => {
 // ── Training schedule data (from PDF, gültig ab 01.07.2026) ──
 const categories = [
   { key: 'bambini',  label: 'Bambini (U5)',      color: '#F6AD55' },
-  { key: 'g-jugend', label: 'G-Jugend (U6/U7)', color: '#68D391' },
+  { key: 'g-jugend', label: 'G-Jugend (U7)', color: '#68D391' },
   { key: 'f-jugend', label: 'F-Jugend (U8/U9)', color: '#38B2AC' },
   { key: 'e-jugend', label: 'E-Jugend (U10)',    color: '#F687B3' },
   { key: 'd-jugend', label: 'D-Jugend (U12)',    color: '#63B3ED' },
@@ -48,6 +48,7 @@ const schedule: DaySchedule[] = [
       { team: 'U8', trainer: 'Daniel Eichmüller', from: '17:30', to: '18:30', category: 'f-jugend', link: teamLink('U8') },
       { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
       { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
       { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: teamLink('Alte Herren') },
     ],
   },
@@ -60,7 +61,6 @@ const schedule: DaySchedule[] = [
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
       { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
-      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
     ],
   },
   {
@@ -68,6 +68,7 @@ const schedule: DaySchedule[] = [
     sessions: [
       { team: 'U5', trainer: 'Miguel Krämer', from: '17:00', to: '18:00', category: 'bambini', link: teamLink('U5') },
       { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
+      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
     ],
   },
   {
@@ -79,6 +80,12 @@ const schedule: DaySchedule[] = [
       { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
       { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
+      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: teamLink('Alte Herren') },
+    ],
+  },
+  {
+    day: 'Freitag',
+    sessions: [
       { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
     ],
   },
