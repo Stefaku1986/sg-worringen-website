@@ -5,10 +5,10 @@ category: Herren
 navLabel: 1. Mannschaft
 categoryColor: "#F56565"
 trainer: Sebastian Tange
-trainingDays: Montag, Mittwoch und Freitag
+trainingDays: Dienstag und Donnerstag
 trainingTime: 19:30–21:00
 trainingTimes:
-  - days: Montag, Mittwoch und Freitag
+  - days: Dienstag und Donnerstag
     from: "19:30"
     to: "21:00"
 fussballDe:
