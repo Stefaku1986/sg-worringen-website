@@ -23,6 +23,7 @@ staff:
     role: Trainer
     position: TR
     since: "2026"
+    email: giuliano.weiss@sg-fussball.online
     # image: 1_Mannschaft/Trainer/Giuliano_Weiss.jpeg
   - name: Dean Marx
     role: Co-Trainer
