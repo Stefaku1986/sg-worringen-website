@@ -33,6 +33,8 @@ interface TrainingSession {
   from: string;
   to: string;
   category: string;
+  /** Trainingsort dieser Einheit, z. B. "Worringen" oder "Chorweiler BSA". */
+  location: string;
   link?: string;
 }
 
@@ -45,42 +47,47 @@ const schedule: DaySchedule[] = [
   {
     day: 'Montag',
     sessions: [
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '17:30', to: '18:30', category: 'f-jugend', link: teamLink('U8') },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
-      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: teamLink('Alte Herren') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '17:30', to: '18:30', category: 'f-jugend', location: 'Worringen', link: teamLink('U8') },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', location: 'Worringen', link: teamLink('U14') },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', location: 'Worringen', link: teamLink('U16') },
+      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', location: 'Worringen', link: teamLink('Alte Herren') },
     ],
   },
   {
     day: 'Dienstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U7') },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U8') },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U9') },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
-      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
-      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', location: 'Worringen', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', location: 'Worringen', link: teamLink('U10') },
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', location: 'Worringen', link: teamLink('U12') },
+      { team: '1. Mannschaft', trainer: 'Giuliano Weiß', from: '19:30', to: '21:00', category: 'herren', location: 'Worringen', link: teamLink('1. Mannschaft') },
     ],
   },
   {
     day: 'Mittwoch',
     sessions: [
-      { team: 'U5', trainer: 'Miguel Krämer', from: '17:00', to: '18:00', category: 'bambini', link: teamLink('U5') },
-      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', link: teamLink('U14') },
+      { team: 'U5', trainer: 'Miguel Krämer', from: '17:00', to: '18:00', category: 'bambini', location: 'Worringen', link: teamLink('U5') },
+      { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', location: 'Worringen', link: teamLink('U14') },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', location: 'Chorweiler BSA', link: teamLink('U16') },
     ],
   },
   {
     day: 'Donnerstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', link: teamLink('U7') },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U8') },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', link: teamLink('U9') },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', link: teamLink('U10') },
-      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', link: teamLink('U12') },
-      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', link: teamLink('U16') },
-      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', link: teamLink('Alte Herren') },
-      { team: '1. Mannschaft', trainer: 'Sebastian Tange', from: '19:30', to: '21:00', category: 'herren', link: teamLink('1. Mannschaft') },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', location: 'Worringen', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', location: 'Worringen', link: teamLink('U10') },
+      { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', location: 'Worringen', link: teamLink('Alte Herren') },
+      { team: '1. Mannschaft', trainer: 'Giuliano Weiß', from: '19:30', to: '21:00', category: 'herren', location: 'Worringen', link: teamLink('1. Mannschaft') },
+    ],
+  },
+  {
+    day: 'Freitag',
+    sessions: [
+      { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', location: 'Chorweiler BSA', link: teamLink('U12') },
+      { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', location: 'Chorweiler BSA', link: teamLink('U16') },
     ],
   },
 ];
@@ -118,7 +125,8 @@ function getCategoryColor(key: string): string {
     <div class="container">
       <p class="intro-text">
         Alle Trainingszeiten unserer Mannschaften auf einen Blick.
-        Training findet auf unserer <a href={`${base}unser-verein/unsere-anlage/`}>Sportanlage am Erdweg</a> statt.
+        Die meisten Einheiten finden auf unserer <a href={`${base}unser-verein/unsere-anlage/`}>Sportanlage am Erdweg</a>
+        in Worringen statt, einzelne auf der Bezirkssportanlage Chorweiler. Der Ort steht bei jeder Einheit.
       </p>
 
       <div class="season-notice">
@@ -126,7 +134,7 @@ function getCategoryColor(key: string): string {
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <div>
-          <p><strong>Sommerfahrplan (01.07. – 30.09.):</strong> Die hier aufgeführten Trainingszeiten gelten für die Sommersaison. Alle Mannschaften trainieren auf dem Rasenplatz unserer Sportanlage am Erdweg.</p>
+          <p><strong>Sommerfahrplan (01.07. – 30.09.):</strong> Die hier aufgeführten Trainingszeiten gelten für die Sommersaison. Im Sommer trainieren alle Mannschaften auf dem Rasenplatz unserer Sportanlage am Erdweg.</p>
           <p><strong>Winterfahrplan (01.10. – 31.03.):</strong> In der Winterzeit gelten gesonderte Trainingszeiten und -orte. Die aktualisierte Übersicht wird rechtzeitig vor Saisonwechsel hier veröffentlicht – bitte dann die geänderten Zeiten beachten.</p>
         </div>
       </div>
@@ -207,13 +215,13 @@ function getCategoryColor(key: string): string {
                         <a href={session.link} class="session-block" style={style}>
                           <strong>{session.team}</strong>
                           <span class="session-trainer">{session.trainer}</span>
-                          <span class="session-time">{session.from}–{session.to}</span>
+                          <span class="session-time">{session.from}–{session.to} · {session.location}</span>
                         </a>
                       ) : (
                         <div class="session-block" style={style}>
                           <strong>{session.team}</strong>
                           <span class="session-trainer">{session.trainer}</span>
-                          <span class="session-time">{session.from}–{session.to}</span>
+                          <span class="session-time">{session.from}–{session.to} · {session.location}</span>
                         </div>
                       );
                     })}
@@ -248,7 +256,7 @@ function getCategoryColor(key: string): string {
                     <span class="card-session-dot" style={`background: ${color};`}></span>
                     <div class="card-session-info">
                       <strong>{session.team}</strong>
-                      <span class="card-session-meta">{session.trainer}</span>
+                      <span class="card-session-meta">{session.trainer} · {session.location}</span>
                     </div>
                     <span class="card-session-time">{session.from}–{session.to}</span>
                   </>
@@ -272,6 +280,7 @@ function getCategoryColor(key: string): string {
       <div class="info-box" style="margin-top: 3rem;">
         <h3>Hinweise</h3>
         <p><strong>Sportanlage:</strong> Erdweg, 50769 Köln-Worringen</p>
+        <p><strong>Bezirkssportanlage Chorweiler:</strong> Köln-Chorweiler – hier trainieren U16 und U12 einzelne Einheiten.</p>
         <p>Änderungen vorbehalten. Bei Fragen wende dich an deinen Trainer oder an <a href="mailto:Info@sg-fussball.online">Info@sg-fussball.online</a>.</p>
         <p><a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining anfragen &rarr;</a></p>
       </div>

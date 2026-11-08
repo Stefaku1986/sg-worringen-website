@@ -16,6 +16,9 @@ const trainingSlot = z.object({
   days: z.string(),
   from: z.string(),
   to: z.string(),
+  // Trainingsort dieser Einheit, z. B. "Worringen" oder "Chorweiler BSA".
+  // Leer lassen heisst: kein Ort angeben.
+  location: z.string().nullable().default(null),
 });
 
 const person = z.object({

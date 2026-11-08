@@ -1,6 +1,6 @@
 ---
 displayName: Alte Herren
-order: 2
+order: 3
 category: Senioren
 navLabel: Alte Herren
 categoryColor: "#A0AEC0"
@@ -11,6 +11,7 @@ trainingTimes:
   - days: Montag und Donnerstag
     from: "19:30"
     to: "21:00"
+    location: Worringen
 ---
 
 <!-- Hier kann freier Text ueber die Mannschaft stehen –

@@ -4,37 +4,32 @@ order: 1
 category: Herren
 navLabel: 1. Mannschaft
 categoryColor: "#F56565"
-trainer: Sebastian Tange
+trainer: Giuliano Weiß
 trainingDays: Dienstag und Donnerstag
 trainingTime: 19:30–21:00
 trainingTimes:
   - days: Dienstag und Donnerstag
     from: "19:30"
     to: "21:00"
+    location: Worringen
 fussballDe:
   league: Kreisliga D Staffel 1
   tableWidget: 44f4b097-dac4-4616-b252-d4cd8dbfc833
   teamMatchesWidget: 5ff594e8-4a90-4680-970e-75b55cc9ad1b
 staff:
-  - name: Sebastian Tange
+  - name: Giuliano Weiß
     role: Trainer
     position: TR
-    since: "2025"
-    email: sebastian.tange@sg-fussball.online
-    # image: 1_Mannschaft/Trainer/Sebastian_Tange.jpeg
-  - name: Guillano Weiß
+    since: "2026"
+    # image: 1_Mannschaft/Trainer/Giuliano_Weiss.jpeg
+  - name: Dean Marx
     role: Co-Trainer
     position: CO
     since: "2026"
-    # image: 1_Mannschaft/Trainer/Guillano_Weiss.jpeg
-  - name: Dean Marx
-    role: Torwart-Trainer
-    position: TR
-    since: "2026"
     # image: 1_Mannschaft/Trainer/Dean_Marx.jpeg
   - name: Karl-Heinz Laas
-    role: Mannschaftsverantwortlicher
-    position: BT
+    role: Sportlicher Leiter
+    position: SL
     since: "2026"
     # image: 1_Mannschaft/Trainer/Karl_Heinz_Laas.jpeg
 players:

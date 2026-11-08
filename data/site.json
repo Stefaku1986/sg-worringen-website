@@ -16,7 +16,8 @@
     "CO": "Co-Trainer",
     "TT": "Torwart-Trainer",
     "BT": "Betreuer",
-    "MV": "Mannschaftsverantwortlicher"
+    "MV": "Mannschaftsverantwortlicher",
+  "SL": "Sportlicher Leiter"
   },
   "fussballDe": {
     "widgetScriptUrl": "https://www.fussball.de/widgets.js",
