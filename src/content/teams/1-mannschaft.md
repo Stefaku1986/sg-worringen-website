@@ -34,6 +34,7 @@ staff:
     role: Sportlicher Leiter
     position: SL
     since: "2026"
+    email: karl-heinz.laas@sg-fussball.online
     # image: 1_Mannschaft/Trainer/Karl_Heinz_Laas.jpeg
 players:
   - name: Raphael London
