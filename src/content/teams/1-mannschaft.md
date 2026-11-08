@@ -33,50 +33,114 @@ staff:
     since: "2026"
     # image: 1_Mannschaft/Trainer/Karl_Heinz_Laas.jpeg
 players:
-  - name: Spieler 1
-    number: 1
-    position: TW
-    # image: 1_Mannschaft/Spieler/Spieler_1.jpeg
   - name: Raphael London
     number: 2
     position: IV
     image: 1_Mannschaft/Spieler/Raphael_London.jpeg
-  - name: Spieler 3
-    number: 3
-    position: IV
-    # image: 1_Mannschaft/Spieler/Spieler_3.jpeg
-  - name: Spieler 4
-    number: 4
-    position: LV
-    # image: 1_Mannschaft/Spieler/Spieler_4.jpeg
-  - name: Spieler 5
-    number: 5
-    position: RV
-    # image: 1_Mannschaft/Spieler/Spieler_5.jpeg
-  - name: Spieler 6
-    number: 6
-    position: ZM
-    # image: 1_Mannschaft/Spieler/Spieler_6.jpeg
-  - name: Spieler 7
-    number: 7
-    position: ZM
-    # image: 1_Mannschaft/Spieler/Spieler_7.jpeg
-  - name: Spieler 8
-    number: 8
-    position: ZM
-    # image: 1_Mannschaft/Spieler/Spieler_8.jpeg
-  - name: Spieler 9
-    number: 9
-    position: OM
-    # image: 1_Mannschaft/Spieler/Spieler_9.jpeg
-  - name: Spieler 10
-    number: 10
-    position: ST
-    # image: 1_Mannschaft/Spieler/Spieler_10.jpeg
-  - name: Spieler 11
-    number: 11
-    position: LA
-    # image: 1_Mannschaft/Spieler/Spieler_11.jpeg
+  - name: Justin Bern
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Justin_Bern.jpeg
+  - name: Salvatore Balsamo
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Salvatore_Balsamo.jpeg
+  - name: Raffaele Leon Salamone
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Raffaele_Leon_Salamone.jpeg
+  - name: Robert Dawidowsky
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Robert_Dawidowsky.jpeg
+  - name: Daniel Casali
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Daniel_Casali.jpeg
+  - name: Linus Frederik Thivessen
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Linus_Frederik_Thivessen.jpeg
+  - name: Laurenz Ritter
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Laurenz_Ritter.jpeg
+  - name: Leon Ackermann
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Leon_Ackermann.jpeg
+  - name: Georgino Weiß
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Georgino_Weiss.jpeg
+  - name: Stefano Pio Cammilleri
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Stefano_Pio_Cammilleri.jpeg
+  - name: Angelo Cinnirella
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Angelo_Cinnirella.jpeg
+  - name: Enes Karabacak
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Enes_Karabacak.jpeg
+  - name: Adriano Santamaria
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Adriano_Santamaria.jpeg
+  - name: Jerry Reinhardt
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Jerry_Reinhardt.jpeg
+  - name: Malte Klehr
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Malte_Klehr.jpeg
+  - name: Adriano Mignogna Barranco
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Adriano_Mignogna_Barranco.jpeg
+  - name: Sascha Simone Pio Scrivano
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Sascha_Simone_Pio_Scrivano.jpeg
+  - name: Calogero Salviccio
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Calogero_Salviccio.jpeg
+  - name: Marc Peter Theuerkauf
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Marc_Peter_Theuerkauf.jpeg
+  - name: Jason Jennen
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Jason_Jennen.jpeg
+  - name: Cristofer Vitale
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Cristofer_Vitale.jpeg
+  - name: Piet Adoon Pötzl
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Piet_Adoon_Poetzl.jpeg
+  - name: Henry Stephane Abou Bagou
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Henry_Stephane_Abou_Bagou.jpeg
+  - name: Sebastian Nilles
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Sebastian_Nilles.jpeg
+  - name: Maurice Münnich
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Maurice_Muennich.jpeg
+  - name: Robert Mrsic
+    # number:
+    # position:
+    # image: 1_Mannschaft/Spieler/Robert_Mrsic.jpeg
 ---
 
 <!-- Hier kann freier Text ueber die Mannschaft stehen –
