@@ -14,7 +14,9 @@ const teamLink = (name: string): string | undefined => {
   return t ? `${base}kaderuebersicht/${t.slug}/` : undefined;
 };
 
-// ── Training schedule data (from PDF, gültig ab 01.07.2026) ──
+// ── Training schedule data – WINTERFAHRPLAN (01.10.2026 – 31.03.2027) ──
+// Hallenzeiten laut Trainingszeiten_Halle_2026_2027.xlsx (große Halle, Erdweg 1a).
+// Sommerzeiten (ab 01.04.): U5 Mi 17:00–18:00, U7–U10 Di + Do 16:30–18:00, alle Worringen.
 const categories = [
   { key: 'bambini',  label: 'Bambini (U5)',      color: '#F6AD55' },
   { key: 'g-jugend', label: 'G-Jugend (U7)', color: '#68D391' },
@@ -56,10 +58,10 @@ const schedule: DaySchedule[] = [
   {
     day: 'Dienstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', location: 'Worringen', link: teamLink('U7') },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U8') },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U9') },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', location: 'Worringen', link: teamLink('U10') },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:00', to: '17:30', category: 'g-jugend', location: 'Halle Erdweg', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:00', to: '17:30', category: 'f-jugend', location: 'Halle Erdweg', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '17:30', to: '19:00', category: 'f-jugend', location: 'Halle Erdweg', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Atorf', from: '17:30', to: '19:00', category: 'e-jugend', location: 'Halle Erdweg', link: teamLink('U10') },
       { team: 'U12', trainer: 'Holger Pitzler', from: '18:00', to: '19:30', category: 'd-jugend', location: 'Worringen', link: teamLink('U12') },
       { team: '1. Mannschaft', trainer: 'Giuliano Weiß', from: '19:30', to: '21:00', category: 'herren', location: 'Worringen', link: teamLink('1. Mannschaft') },
     ],
@@ -67,7 +69,7 @@ const schedule: DaySchedule[] = [
   {
     day: 'Mittwoch',
     sessions: [
-      { team: 'U5', trainer: 'Miguel Krämer', from: '17:00', to: '18:00', category: 'bambini', location: 'Worringen', link: teamLink('U5') },
+      { team: 'U5', trainer: 'Miguel Krämer', from: '16:00', to: '17:00', category: 'bambini', location: 'Halle Erdweg', link: teamLink('U5') },
       { team: 'U14', trainer: 'Benedikt Ditscheid', from: '17:30', to: '19:00', category: 'c-jugend', location: 'Worringen', link: teamLink('U14') },
       { team: 'U16', trainer: 'Stefan Kühl', from: '18:00', to: '19:30', category: 'b-jugend', location: 'Chorweiler BSA', link: teamLink('U16') },
     ],
@@ -75,10 +77,10 @@ const schedule: DaySchedule[] = [
   {
     day: 'Donnerstag',
     sessions: [
-      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:30', to: '18:00', category: 'g-jugend', location: 'Worringen', link: teamLink('U7') },
-      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U8') },
-      { team: 'U9', trainer: 'Markus Trentz', from: '16:30', to: '18:00', category: 'f-jugend', location: 'Worringen', link: teamLink('U9') },
-      { team: 'U10', trainer: 'Michael Attorf', from: '16:30', to: '18:00', category: 'e-jugend', location: 'Worringen', link: teamLink('U10') },
+      { team: 'U7', trainer: 'Coskun Rüzgar', from: '16:00', to: '17:30', category: 'g-jugend', location: 'Halle Erdweg', link: teamLink('U7') },
+      { team: 'U8', trainer: 'Daniel Eichmüller', from: '16:00', to: '17:30', category: 'f-jugend', location: 'Halle Erdweg', link: teamLink('U8') },
+      { team: 'U9', trainer: 'Markus Trentz', from: '17:30', to: '19:00', category: 'f-jugend', location: 'Halle Erdweg', link: teamLink('U9') },
+      { team: 'U10', trainer: 'Michael Atorf', from: '17:30', to: '19:00', category: 'e-jugend', location: 'Halle Erdweg', link: teamLink('U10') },
       { team: 'Alte Herren', trainer: 'Joachim Haupt', from: '19:30', to: '21:00', category: 'senioren', location: 'Worringen', link: teamLink('Alte Herren') },
       { team: '1. Mannschaft', trainer: 'Giuliano Weiß', from: '19:30', to: '21:00', category: 'herren', location: 'Worringen', link: teamLink('1. Mannschaft') },
     ],
@@ -117,7 +119,7 @@ function getCategoryColor(key: string): string {
         <a href={`${base}kaderuebersicht/trainingsplan/`}>Trainingsplan</a>
       </nav>
       <h1>Trainingsplan</h1>
-      <p class="hero-sub">Saison 2026/2027 &middot; gültig ab 01.07.2026</p>
+      <p class="hero-sub">Saison 2026/2027 &middot; Winterfahrplan 01.10.2026 – 31.03.2027</p>
     </div>
   </div>
 
@@ -126,7 +128,8 @@ function getCategoryColor(key: string): string {
       <p class="intro-text">
         Alle Trainingszeiten unserer Mannschaften auf einen Blick.
         Die meisten Einheiten finden auf unserer <a href={`${base}unser-verein/unsere-anlage/`}>Sportanlage am Erdweg</a>
-        in Worringen statt, einzelne auf der Bezirkssportanlage Chorweiler. Der Ort steht bei jeder Einheit.
+        in Worringen statt – im Winter trainieren die jüngeren Mannschaften in der großen Halle am Erdweg –,
+        einzelne auf der Bezirkssportanlage Chorweiler. Der Ort steht bei jeder Einheit.
       </p>
 
       <div class="season-notice">
@@ -134,8 +137,8 @@ function getCategoryColor(key: string): string {
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
         <div>
-          <p><strong>Sommerfahrplan (01.07. – 30.09.):</strong> Die hier aufgeführten Trainingszeiten gelten für die Sommersaison. Im Sommer trainieren alle Mannschaften auf dem Rasenplatz unserer Sportanlage am Erdweg.</p>
-          <p><strong>Winterfahrplan (01.10. – 31.03.):</strong> In der Winterzeit gelten gesonderte Trainingszeiten und -orte. Die aktualisierte Übersicht wird rechtzeitig vor Saisonwechsel hier veröffentlicht – bitte dann die geänderten Zeiten beachten.</p>
+          <p><strong>Aktuell gilt der Winterfahrplan (01.10.2026 – 31.03.2027):</strong> U5, U7, U8, U9 und U10 trainieren in der großen Halle der SG Köln-Worringen (Erdweg 1a). Alle übrigen Zeiten und Orte stehen bei der jeweiligen Einheit.</p>
+          <p><strong>Sommerfahrplan (ab 01.04.):</strong> Dann trainieren wieder alle Mannschaften auf dem Rasenplatz am Erdweg. Die Sommerzeiten werden rechtzeitig vorher hier veröffentlicht.</p>
         </div>
       </div>
 
@@ -280,6 +283,7 @@ function getCategoryColor(key: string): string {
       <div class="info-box" style="margin-top: 3rem;">
         <h3>Hinweise</h3>
         <p><strong>Worringen:</strong> <a href="https://www.google.com/maps/dir/?api=1&destination=Erdweg+1a,+50769+Köln" target="_blank" rel="noopener noreferrer">Erdweg 1a, 50769 Köln-Worringen</a></p>
+        <p><strong>Halle Erdweg:</strong> große Halle der SG Köln-Worringen, <a href="https://www.google.com/maps/dir/?api=1&destination=Erdweg+1a,+50769+Köln" target="_blank" rel="noopener noreferrer">Erdweg 1a, 50769 Köln-Worringen</a></p>
         <p><strong>Chorweiler BSA:</strong> <a href="https://www.google.com/maps/dir/?api=1&destination=Bezirkssportanlage+Chorweiler,+50765+Köln" target="_blank" rel="noopener noreferrer">Bezirkssportanlage Chorweiler, 50765 Köln</a></p>
         <p>Änderungen vorbehalten. Bei Fragen wende dich an deinen Trainer oder an <a href="mailto:Info@sg-fussball.online">Info@sg-fussball.online</a>.</p>
         <p><a href={`${base}mitmachen/mitglied-werden/probetraining/`}>Probetraining anfragen &rarr;</a></p>
